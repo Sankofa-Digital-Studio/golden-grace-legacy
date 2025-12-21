@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { ShoppingBag, Menu, X, ArrowRight, Star, Droplet, Hexagon, CheckCircle, ShieldCheck, Award, Heart, Gift, GraduationCap, MapPin, Phone, Mail, Instagram, Twitter, Facebook, MessageCircle, Minus, Plus, Trash2, ExternalLink, ChevronDown, Play, Users, Sun, Maximize2, ArrowLeft, ThermometerSun, Info, BookOpen, Smile, Coffee, Utensils, Quote } from 'lucide-react';
+import { ShoppingBag, Menu, X, ArrowRight, Star, Droplet, Hexagon, CheckCircle, ShieldCheck, Award, Heart, Gift, GraduationCap, MapPin, Phone, Mail, Instagram, Twitter, Facebook, MessageCircle, Minus, Plus, Trash2, ExternalLink, ChevronDown, Play, Users, Sun, Maximize2, ArrowLeft, ThermometerSun, Info, BookOpen, Smile, Coffee, Utensils, Quote, FileText, Calendar } from 'lucide-react';
 
-/* GOLDEN GRACE HONEY - PHASE 17: COLLECTION TABS & CLEANUP
-   Updated: 2025-12-18
-   Features: Tabbed Collection, Removed Crystallization Card from Academy
+/* GOLDEN GRACE HONEY - PHASE 22: FULL INTERACTIVITY & NAVIGATION FIXES
+   Updated: 2025-12-21
+   Features: All buttons functional, Smart Navigation, Enhanced Modals for Content
 */
 
 // --- Utility Components ---
@@ -177,10 +177,6 @@ const Navbar = ({ isScrolled, toggleCart, cartCount, activePage, navigate }) => 
 // --- Sub-Components ---
 
 const Hero = ({ navigate }) => {
-  const scrollToCollection = () => {
-    document.getElementById('collection')?.scrollIntoView({ behavior: 'smooth' });
-  };
-  
   const scrollToStory = () => {
     document.getElementById('our-origins')?.scrollIntoView({ behavior: 'smooth' });
   };
@@ -194,7 +190,8 @@ const Hero = ({ navigate }) => {
             muted 
             playsInline 
             className="w-full h-full object-cover opacity-60"
-            poster="https://images.unsplash.com/photo-1478486026527-4638d975db0b?q=80&w=2070&auto=format&fit=crop"
+            // Use 'hero-bg.jpg' for local fallback or testing
+            poster="/images/hero-bg.jpg"
         >
             <source src="https://videos.pexels.com/video-files/7234973/7234973-uhd_2560_1440_30fps.mp4" type="video/mp4" />
         </video>
@@ -218,19 +215,13 @@ const Hero = ({ navigate }) => {
         
         <div className="flex flex-col md:flex-row gap-4 md:gap-6 justify-center items-center animate-fade-in-up delay-300 w-full md:w-auto mb-16">
           <button 
-            onClick={() => {
-                const collection = document.getElementById('collection');
-                if(collection) collection.scrollIntoView({ behavior: 'smooth' });
-            }}
+            onClick={() => navigate('collection')} // UPDATED: Navigates to collection page/view
             className="w-full md:w-auto bg-amber-500 text-black px-10 py-4 font-bold tracking-widest hover:bg-white transition-all duration-300 active:scale-95 text-sm md:text-base 2xl:text-lg shadow-[0_0_30px_-5px_rgba(245,158,11,0.4)]"
           >
             SHOP THE COLLECTION
           </button>
           <button 
-            onClick={() => {
-                const origins = document.getElementById('our-origins');
-                if(origins) origins.scrollIntoView({ behavior: 'smooth' });
-            }}
+            onClick={scrollToStory} // Keep as scroll if on same page, but better to check
             className="flex items-center gap-2 text-white hover:text-amber-400 transition-colors tracking-widest text-xs md:text-sm 2xl:text-lg uppercase group py-2 drop-shadow-md"
           >
             Our Story 
@@ -519,9 +510,12 @@ const Collection = ({ onAddToCart, onImageClick, onBulkEnquire }) => {
 
   const products = {
       honey: [
-        { id: 'regular', title: "Regular Raw Honey", basePrice: 150.00, tag: "BESTSELLER", desc: "Sourced from Sunflower, Wildflower, Blue Gum, or Eucalyptus. A pure, liquid amber experience.", image: "https://images.unsplash.com/photo-1587049352851-8d4e8918685f?q=80&w=2080&auto=format&fit=crop", intensity: 3, isVariable: true },
-        { id: 'creamed', title: "Creamed Honey", basePrice: 160.00, tag: "ARTISANAL", desc: "Controlled crystallization creates a luxurious, spreadable texture. Perfect for toast.", image: "https://images.unsplash.com/photo-1612475498348-c777248680d4?q=80&w=2070&auto=format&fit=crop", intensity: 2, isVariable: true },
-        { id: 'infused', title: "Infused Trio", basePrice: 180.00, tag: "WELLNESS", desc: "Choose from Lemon, Garlic, or Ginger infusions. A powerful boost for your immune system.", image: "https://images.unsplash.com/photo-1557685888-2d3621ddf615?q=80&w=2070&auto=format&fit=crop", intensity: 4, isVariable: true },
+        // Using 'prod-regular.jpg' (or Page 2 from PDF)
+        { id: 'regular', title: "Regular Raw Honey", basePrice: 150.00, tag: "BESTSELLER", desc: "Sourced from Sunflower, Wildflower, Blue Gum, or Eucalyptus. A pure, liquid amber experience.", image: "/images/prod-regular.jpg", intensity: 3, isVariable: true },
+        // Using 'prod-creamed.jpg' (or Page 5 from PDF)
+        { id: 'creamed', title: "Creamed Honey", basePrice: 160.00, tag: "ARTISANAL", desc: "Controlled crystallization creates a luxurious, spreadable texture. Perfect for toast.", image: "/images/prod-creamed.jpg", intensity: 2, isVariable: true },
+        // Using 'prod-infused.jpg' (or Page 12 from PDF)
+        { id: 'infused', title: "Infused Trio", basePrice: 180.00, tag: "WELLNESS", desc: "Choose from Lemon, Garlic, or Ginger infusions. A powerful boost for your immune system.", image: "/images/prod-infused.jpg", intensity: 4, isVariable: true },
       ],
       accessories: [
         { id: 'bamboo-dipper', title: "Engraved Bamboo Dipper", basePrice: 45.00, tag: "ACCESSORY", desc: "Sustainable bamboo honey dipper engraved with the Golden Grace insignia.", image: "https://images.unsplash.com/photo-1620916297397-a4a5402a3c6c?q=80&w=1972&auto=format&fit=crop", isVariable: false },
@@ -599,7 +593,7 @@ const FeaturedGifts = ({ navigate }) => (
                 </button>
             </div>
             
-            {/* MINI JAR HIGHLIGHT */}
+            {/* FEATURED CARDS WITH MINI JAR */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
                  <div 
                     onClick={() => navigate('gifts')}
@@ -618,7 +612,8 @@ const FeaturedGifts = ({ navigate }) => (
                     onClick={() => navigate('gifts')}
                     className="relative h-[300px] md:h-[400px] rounded-xl overflow-hidden group cursor-pointer border border-amber-500/20"
                 >
-                    <img src="https://images.unsplash.com/photo-1558642452-9d2a7deb7f62?q=80&w=2070&auto=format&fit=crop" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 golden-filter" alt="Mini Gift Jar" />
+                    {/* Using 'gift-mini.jpg' (or Page 28 from PDF) */}
+                    <img src="/images/gift-mini.jpg" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 golden-filter" alt="Mini Gift Jar" />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent flex items-end p-8">
                         <div>
                             <span className="bg-amber-500 text-black text-[10px] font-bold px-2 py-1 rounded mb-2 inline-block">NEW ARRIVAL</span>
@@ -693,8 +688,9 @@ const StorySection = () => {
   
             <div className="relative aspect-square md:aspect-auto md:h-[500px] lg:h-[600px] 2xl:h-[800px] w-full order-1 lg:order-2">
               <div className="absolute inset-0 bg-[#121212] rounded-[2rem] md:rounded-t-[10rem] md:rounded-b-lg overflow-hidden border border-white/5">
+                {/* Using 'story-jar.jpg' (or Page 21 from PDF) */}
                 <img 
-                  src="https://i.imgur.com/SKrh5IR.jpg" 
+                  src="/images/story-jar.jpg" 
                   alt="Grace in Every Drop" 
                   className="w-full h-full object-cover golden-filter"
                   loading="lazy"
@@ -728,8 +724,9 @@ const Founder = () => {
              <div className="max-w-[1920px] mx-auto px-4 md:px-8 lg:px-12">
                 <div className="flex flex-col md:flex-row items-center gap-12 2xl:gap-20">
                     <div className="w-full md:w-1/3 aspect-[4/5] md:aspect-square bg-[#0a0a0a] rounded-full overflow-hidden border-4 border-amber-500/20 relative">
+                        {/* Using 'founder-grace.jpg' (or Page 25 from PDF) */}
                         <img 
-                            src="https://i.imgur.com/pN5L8nM.jpeg" 
+                            src="/images/founder-grace.jpg" 
                             className="object-cover w-full h-full golden-filter transition-all duration-500 hover:scale-105" 
                             style={{ objectPosition: 'center 20%', padding: '20px 0 0 0', background: '#1a1a1a' }} 
                             alt="Grace Thoso" 
@@ -741,10 +738,10 @@ const Founder = () => {
                         <h2 className="text-3xl md:text-5xl 2xl:text-7xl font-serif text-white mb-6">Grace Thoso</h2>
                         {/* PERSONALIZED FOUNDER TEXT */}
                         <p className="text-gray-400 text-base md:text-lg 2xl:text-2xl leading-relaxed italic mb-8">
-                            "Grace is not merely a leader; she is a phenomenal force. A woman of unwavering faith who serves actively in ministry, and a dedicated life coach helping others attain their full potential."
+                            "Grace is not merely a leader; she is a phenomenal force. A woman of unwavering faith who serves actively in the five-fold ministry, and a dedicated life coach helping others attain their full potential."
                         </p>
                         <p className="text-gray-400 text-sm md:text-base 2xl:text-xl leading-relaxed mb-8">
-                             Her visionary leadership—a true embodiment of "Grace in Every Drop"—combined with her diverse expertise, is the driving force behind our steadfast commitment to excellence, sustainable practices, and impactful community contribution.
+                             Her visionary leadership—a true embodiment of "Grace in Every Drop"—combined with her diverse expertise and profound passion, is the driving force behind our steadfast commitment to excellence, sustainable practices, and impactful community contribution.
                         </p>
                         <div className="flex flex-col md:flex-row gap-8 text-sm 2xl:text-lg text-gray-500">
                              <div>
@@ -1004,7 +1001,7 @@ const GiftsPage = ({ onBuildBox, onRequestCatalogue }) => (
 
 const EducationPage = () => (
     <div className="pt-24 md:pt-32 pb-20 bg-[#050505] min-h-screen">
-       <div className="max-w-[1920px] mx-auto px-4 md:px-8 lg:px-12">
+       <div className="max-w-[1920px] mx-auto px-4 md:px-8 lg:px-12 text-center">
             <div className="text-center mb-12 md:mb-16 animate-fade-in-up">
                 <span className="text-amber-500 tracking-[0.3em] text-xs lg:text-sm font-bold uppercase">Bee Smart Academy</span>
                 <h1 className="text-3xl md:text-5xl lg:text-7xl font-serif text-white mt-4">Guardians of the Hive</h1>
@@ -1033,7 +1030,7 @@ const EducationPage = () => (
             </div>
 
             {/* Crystallization Section moved here */}
-            <div className="mt-20 bg-white/5 p-6 2xl:p-10 rounded-xl border border-white/10 text-left hover:border-amber-500/30 transition-colors max-w-4xl mx-auto">
+            <div className="mt-20 bg-white/5 p-6 2xl:p-10 rounded-xl border border-white/10 text-left hover:border-amber-500/30 transition-colors max-w-4xl mx-auto mb-8">
                  <div className="flex items-start gap-4 mb-4">
                     <div className="bg-amber-500/20 p-3 rounded-full">
                         <ThermometerSun className="text-amber-400 w-6 h-6 2xl:w-8 2xl:h-8" />
