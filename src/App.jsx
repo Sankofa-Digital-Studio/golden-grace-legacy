@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { ShoppingBag, Menu, X, ArrowRight, Star, Droplet, Hexagon, CheckCircle, ShieldCheck, Award, Heart, Gift, GraduationCap, MapPin, Phone, Mail, Instagram, Twitter, Facebook, MessageCircle, Minus, Plus, Trash2, ExternalLink, ChevronDown, Play, Users, Sun, Maximize2, ArrowLeft, ThermometerSun, Info, BookOpen, Smile, Coffee, Utensils, Quote, FileText, Calendar } from 'lucide-react';
+import { ShoppingBag, Menu, X, ArrowRight, Star, Droplet, Hexagon, CheckCircle, ShieldCheck, Award, Heart, Gift, GraduationCap, MapPin, Phone, Mail, Instagram, Twitter, Facebook, MessageCircle, Minus, Plus, Trash2, ExternalLink, ChevronDown, Play, Users, Sun, Maximize2, ArrowLeft, ThermometerSun, Info, BookOpen, Smile, Coffee, Utensils, Quote, Search, Beaker } from 'lucide-react';
 
-/* GOLDEN GRACE HONEY - PHASE 22: FULL INTERACTIVITY & NAVIGATION FIXES
+/* GOLDEN GRACE HONEY - PHASE 23: REFINED CONTENT & TABS
    Updated: 2025-12-21
-   Features: All buttons functional, Smart Navigation, Enhanced Modals for Content
+   Features: Collection Tabs, Authenticity Facts, Bulk Logic Update, Education Restructure
 */
 
 // --- Utility Components ---
@@ -177,6 +177,10 @@ const Navbar = ({ isScrolled, toggleCart, cartCount, activePage, navigate }) => 
 // --- Sub-Components ---
 
 const Hero = ({ navigate }) => {
+  const scrollToCollection = () => {
+    document.getElementById('collection')?.scrollIntoView({ behavior: 'smooth' });
+  };
+  
   const scrollToStory = () => {
     document.getElementById('our-origins')?.scrollIntoView({ behavior: 'smooth' });
   };
@@ -309,32 +313,43 @@ const ContentBreak = () => (
         <div className="max-w-4xl 2xl:max-w-6xl mx-auto px-6 text-center grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center">
             <div>
                 <h3 className="text-amber-500 tracking-widest text-xs 2xl:text-sm font-bold uppercase mb-4">Did You Know?</h3>
-                <p className="text-xl md:text-3xl 2xl:text-5xl font-serif text-white leading-relaxed">
+                <p className="text-xl md:text-3xl 2xl:text-5xl font-serif text-white leading-relaxed mb-6">
                     "Real honey never spoils. Archaeologists have found pots of honey in ancient Egyptian tombs that are over 3,000 years old and still perfectly edible."
                 </p>
                 <div className="h-1 w-20 bg-amber-500 mx-auto mt-8"></div>
             </div>
 
-            {/* CRYSTALLIZATION CARD */}
+            {/* AUTHENTICITY / FACT CARD */}
             <div className="bg-white/5 p-6 2xl:p-10 rounded-xl border border-white/10 text-left hover:border-amber-500/30 transition-colors">
                  <div className="flex items-start gap-4 mb-4">
                     <div className="bg-amber-500/20 p-3 rounded-full">
-                        <ThermometerSun className="text-amber-400 w-6 h-6 2xl:w-8 2xl:h-8" />
+                        <Search className="text-amber-400 w-6 h-6 2xl:w-8 2xl:h-8" />
                     </div>
                     <div>
-                        <h4 className="text-white font-serif text-lg 2xl:text-2xl mb-1">Crystallization is Natural</h4>
-                        <p className="text-xs 2xl:text-sm text-gray-400">It's a sign of purity, not spoilage.</p>
+                        <h4 className="text-white font-serif text-lg 2xl:text-2xl mb-1">Authenticity Check</h4>
+                        <p className="text-xs 2xl:text-sm text-gray-400">3 Ways to Spot Real Honey</p>
                     </div>
                  </div>
-                 <p className="text-gray-300 text-sm 2xl:text-lg leading-relaxed mb-4">
-                    Raw honey naturally solidifies over time, especially in winter. This preserves the flavor and quality.
-                 </p>
+                 <ul className="text-gray-300 text-sm 2xl:text-lg leading-relaxed mb-4 space-y-3">
+                    <li className="flex items-start gap-2">
+                        <span className="text-amber-500 font-bold">1.</span>
+                        <span>The Thumb Test: Put a drop on your thumb. If it spreads, it's not pure. Real honey stays intact.</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                        <span className="text-amber-500 font-bold">2.</span>
+                        <span>The Water Test: Pure honey settles at the bottom of a glass of water; fake honey dissolves immediately.</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                        <span className="text-amber-500 font-bold">3.</span>
+                        <span>The Heat Test: Pure honey caramelizes when heated; fake honey creates bubbles and doesn't caramelize.</span>
+                    </li>
+                 </ul>
                  <div className="bg-black/40 p-4 rounded-lg">
                     <p className="text-amber-500 text-xs 2xl:text-sm font-bold uppercase mb-1 flex items-center gap-2">
-                        <Info size={14} /> Quick Fix
+                        <BookOpen size={14} /> Dictionary
                     </p>
                     <p className="text-gray-400 text-xs 2xl:text-base">
-                        Simply place your jar in a bowl of warm water (not boiling) to return it to liquid gold.
+                        <strong className="text-white">Raw:</strong> Unpasteurized, unheated, and unprocessed. Retains all natural enzymes and pollen.
                     </p>
                  </div>
             </div>
@@ -510,11 +525,8 @@ const Collection = ({ onAddToCart, onImageClick, onBulkEnquire }) => {
 
   const products = {
       honey: [
-        // Using 'prod-regular.jpg' (or Page 2 from PDF)
         { id: 'regular', title: "Regular Raw Honey", basePrice: 150.00, tag: "BESTSELLER", desc: "Sourced from Sunflower, Wildflower, Blue Gum, or Eucalyptus. A pure, liquid amber experience.", image: "/images/prod-regular.jpg", intensity: 3, isVariable: true },
-        // Using 'prod-creamed.jpg' (or Page 5 from PDF)
         { id: 'creamed', title: "Creamed Honey", basePrice: 160.00, tag: "ARTISANAL", desc: "Controlled crystallization creates a luxurious, spreadable texture. Perfect for toast.", image: "/images/prod-creamed.jpg", intensity: 2, isVariable: true },
-        // Using 'prod-infused.jpg' (or Page 12 from PDF)
         { id: 'infused', title: "Infused Trio", basePrice: 180.00, tag: "WELLNESS", desc: "Choose from Lemon, Garlic, or Ginger infusions. A powerful boost for your immune system.", image: "/images/prod-infused.jpg", intensity: 4, isVariable: true },
       ],
       accessories: [
@@ -567,7 +579,7 @@ const Collection = ({ onAddToCart, onImageClick, onBulkEnquire }) => {
 
         <div className="mt-16 text-center bg-[#121212] p-8 rounded-lg border border-amber-500/20 max-w-3xl mx-auto">
             <h3 className="text-xl md:text-2xl font-serif text-white mb-2">Need More?</h3>
-            <p className="text-gray-400 mb-6 text-sm md:text-base">We cater for bulk sales. Get a case of 24 jars for your business or event.</p>
+            <p className="text-gray-400 mb-6 text-sm md:text-base">We cater for bulk sales. Get cases of 24, 5L buckets, or 20L drums for your business or event.</p>
             <button 
                 onClick={onBulkEnquire}
                 className="bg-transparent border border-amber-500 text-amber-500 px-8 py-3 uppercase tracking-widest text-xs font-bold hover:bg-amber-500 hover:text-black transition-colors"
@@ -637,6 +649,31 @@ const FeaturedEducation = ({ navigate }) => (
              <span className="text-amber-500 tracking-[0.3em] text-xs font-bold uppercase">Academy</span>
              <h3 className="text-2xl md:text-4xl font-serif text-white mt-2 mb-6">Become a Guardian</h3>
              <p className="text-gray-400 max-w-2xl mx-auto mb-8">Join our beekeeping workshops and learn how to sustain the hive for future generations.</p>
+             
+             {/* Crystallization Section moved here */}
+             <div className="mt-8 bg-white/5 p-6 2xl:p-10 rounded-xl border border-white/10 text-left hover:border-amber-500/30 transition-colors max-w-4xl mx-auto mb-8">
+                 <div className="flex items-start gap-4 mb-4">
+                    <div className="bg-amber-500/20 p-3 rounded-full">
+                        <ThermometerSun className="text-amber-400 w-6 h-6 2xl:w-8 2xl:h-8" />
+                    </div>
+                    <div>
+                        <h4 className="text-white font-serif text-lg 2xl:text-2xl mb-1">Crystallization is Natural</h4>
+                        <p className="text-xs 2xl:text-sm text-gray-400">It's a sign of purity, not spoilage.</p>
+                    </div>
+                 </div>
+                 <p className="text-gray-300 text-sm 2xl:text-lg leading-relaxed mb-4">
+                    Raw honey naturally solidifies over time, especially in winter. This preserves the flavor and quality of the nectar.
+                 </p>
+                 <div className="bg-black/40 p-4 rounded-lg">
+                    <p className="text-amber-500 text-xs 2xl:text-sm font-bold uppercase mb-1 flex items-center gap-2">
+                        <Info size={14} /> Quick Fix
+                    </p>
+                    <p className="text-gray-400 text-xs 2xl:text-base">
+                        Simply place your jar in a bowl of warm water (not boiling) to return it to liquid gold.
+                    </p>
+                 </div>
+            </div>
+
              <button 
                 onClick={() => navigate('education')}
                 className="border border-white/20 text-white px-8 py-3 uppercase tracking-widest text-xs font-bold hover:bg-white hover:text-black transition-colors"
@@ -1000,7 +1037,7 @@ const GiftsPage = ({ onBuildBox, onRequestCatalogue }) => (
 );
 
 const EducationPage = () => (
-    <div className="pt-24 md:pt-32 pb-20 bg-[#050505] min-h-screen">
+    <div className="pt-24 md:pt-32 pb-20 bg-[#0a0a0a] min-h-screen">
        <div className="max-w-[1920px] mx-auto px-4 md:px-8 lg:px-12 text-center">
             <div className="text-center mb-12 md:mb-16 animate-fade-in-up">
                 <span className="text-amber-500 tracking-[0.3em] text-xs lg:text-sm font-bold uppercase">Bee Smart Academy</span>
