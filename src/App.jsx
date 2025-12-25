@@ -8,6 +8,7 @@ import Toast from './components/common/toast';
 import Modal from './components/common/modal';
 import ImageModal from './components/common/image-modal';
 import WhatsAppWidget from './components/common/whatsapp-widget';
+import Breadcrumbs from './components/common/breadcrumbs';
 
 // Layout
 import Navbar from './components/layout/navbar';
@@ -24,7 +25,6 @@ import ReviewsPage from './pages/recipes-page';
 import Collection from './sections/collection';
 
 const App = () => {
-  // --- Global State ---
   const [isScrolled, setIsScrolled] = useState(false);
   const [showCart, setShowCart] = useState(false);
   const [cart, setCart] = useState([]); 
@@ -33,16 +33,14 @@ const App = () => {
   const [activeModal, setActiveModal] = useState(null);
   const [selectedImage, setSelectedImage] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [isPageTransitioning, setIsPageTransitioning] = useState(false); // NEW
 
-  // --- Effects ---
-  
-  // Fake Loading Simulation for Bee Loader (Remove in real production if not needed)
+  // Initial Load
   useEffect(() => {
       const timer = setTimeout(() => setIsLoading(false), 2000);
       return () => clearTimeout(timer);
   }, []);
 
-  // Scroll listener for Navbar style
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
@@ -52,7 +50,6 @@ const App = () => {
   }, []);
 
   // --- Cart Logic ---
-
   const addToCart = (product) => {
     setCart(prev => {
         const existing = prev.find(item => item.id === product.id);
@@ -61,7 +58,6 @@ const App = () => {
         }
         return [...prev, { ...product, qty: 1 }];
     });
-    // Only show toast if reserve is closed or it's the first item
     if (!showCart) {
         setToast({ message: `Added ${product.title} to your reserve.`, type: 'cart' });
     }
@@ -90,15 +86,25 @@ const App = () => {
       setToast({ message: "Proceeding to secure checkout...", type: 'success' });
   }
 
-  // --- Navigation Logic ---
-
+  // --- Navigation & UX ---
   const handleNavigate = (pageId) => {
-      setActivePage(pageId);
-      window.scrollTo(0, 0);
+      if (pageId === activePage) return;
+      
+      // Trigger Transition Loader
+      setIsPageTransitioning(true);
+      
+      setTimeout(() => {
+          setActivePage(pageId);
+          window.scrollTo(0, 0);
+          setIsPageTransitioning(false);
+      }, 800); // 800ms transition time
   };
 
-  // --- Content Data (Modals) ---
-  
+  const handleReadRecipe = (title) => {
+      setToast({ message: `Loading recipe details for ${title}...`, type: 'success' });
+  };
+
+  // --- Modal Content ---
   const legalContent = {
       privacy: ( <> <p>Privacy Policy Content: We respect your data...</p> </> ),
       terms: ( <> <p>Terms Content: By using this site...</p> </> ),
@@ -160,14 +166,13 @@ const App = () => {
     )
   };
 
-  // --- Router Logic ---
   const renderPage = () => {
       switch(activePage) {
           case 'home': return <HomePage navigate={handleNavigate} onAddToCart={addToCart} onImageClick={(image, title) => setSelectedImage({image, title})} onBulkEnquire={() => setActiveModal('bulk')} onScheduleClick={() => setActiveModal('schedule')} />;
           case 'collection': return <div className="pt-20"><Collection onAddToCart={addToCart} onImageClick={(image, title) => setSelectedImage({image, title})} onBulkEnquire={() => setActiveModal('bulk')} /></div>; 
           case 'gifts': return <GiftsPage onBuildBox={() => setActiveModal('buildBox')} onRequestCatalogue={() => setActiveModal('catalogue')} />;
           case 'education': return <EducationPage onScheduleClick={() => setActiveModal('schedule')} />;
-          case 'recipes': return <RecipesPage />;
+          case 'recipes': return <RecipesPage onReadRecipe={handleReadRecipe} />;
           case 'reviews': return <ReviewsPage />;
           default: return <HomePage navigate={handleNavigate} onAddToCart={addToCart} />;
       }
@@ -175,19 +180,22 @@ const App = () => {
 
   if (isLoading) return <Loader />;
 
-  return (
+    return (
     <ErrorBoundary>
         <div className="bg-[#050505] min-h-screen text-white font-sans selection:bg-amber-500 selection:text-black overflow-x-hidden">
-            {/* Global Overlays */}
+            {/* Transition Loader Overlay */}
+            {isPageTransitioning && <div className="fixed inset-0 z-[100] bg-black/90 backdrop-blur-md flex items-center justify-center transition-opacity duration-300"><Loader /></div>}
+            
             {toast && <Toast message={toast.message} type={toast.type} onClose={() => setToast(null)} onNavigate={() => { setShowCart(true); setToast(null); }} />}
-            {activeModal && <Modal title={activeModal === 'privacy' ? 'Privacy Policy' : activeModal === 'terms' ? 'Terms of Service' : activeModal === 'bulk' ? 'Bulk Orders' : activeModal === 'buildBox' ? 'Build Your Box' : activeModal === 'catalogue' ? 'Request Catalogue' : 'Course Schedule'} content={legalContent[activeModal]} onClose={() => setActiveModal(null)} />}
+            {activeModal && <Modal title="Information" content={legalContent[activeModal]} onClose={() => setActiveModal(null)} />}
             {selectedImage && <ImageModal image={selectedImage.image} alt={selectedImage.title} onClose={() => setSelectedImage(null)} />}
             
             <WhatsAppWidget />
             
-            {/* Main Layout */}
             <Navbar isScrolled={isScrolled} toggleCart={() => setShowCart(true)} cartCount={cart.reduce((acc, item) => acc + item.qty, 0)} activePage={activePage} navigate={handleNavigate} />
             
+            <Breadcrumbs currentPage={activePage} onNavigate={handleNavigate} />
+
             <main>
                 {renderPage()}
             </main>
@@ -219,7 +227,7 @@ const App = () => {
                     ) : (
                         <div className="space-y-6">
                             {cart.map((item) => (
-                                <div key={item.id} className="flex gap-4 animate-fade-in-up bg-white/5 p-3 rounded-lg">
+                                <div key={item.id} className="flex gap-4 animate-fade-in-up bg-white/5 p-3 rounded-lg border border-white/5">
                                     <div className="w-16 h-16 bg-[#0a0a0a] rounded border border-white/5 flex-shrink-0 overflow-hidden">
                                         <img src={item.image} alt={item.title} className="w-full h-full object-cover" />
                                     </div>
@@ -227,19 +235,26 @@ const App = () => {
                                         <h4 className="font-serif text-white text-sm">{item.title}</h4>
                                         <p className="text-amber-400 text-xs mt-1">R {item.price.toFixed(2)}</p>
                                         
+                                        {/* FIXED CONTRAST BUTTONS */}
                                         <div className="flex items-center gap-3 mt-3">
-                                            <button onClick={() => decreaseQty(item.id)} className="w-6 h-6 flex items-center justify-center bg-white/10 rounded-full hover:bg-white/20 transition-colors">
-                                                <Minus size={12} />
+                                            <button 
+                                                onClick={() => decreaseQty(item.id)} 
+                                                className="w-8 h-8 flex items-center justify-center bg-amber-500 text-black rounded-full hover:bg-white transition-colors"
+                                            >
+                                                <Minus size={14} />
                                             </button>
                                             <span className="text-sm font-bold w-4 text-center">{item.qty}</span>
-                                            <button onClick={() => addToCart(item)} className="w-6 h-6 flex items-center justify-center bg-white/10 rounded-full hover:bg-white/20 transition-colors">
-                                                <Plus size={12} />
+                                            <button 
+                                                onClick={() => addToCart(item)} 
+                                                className="w-8 h-8 flex items-center justify-center bg-amber-500 text-black rounded-full hover:bg-white transition-colors"
+                                            >
+                                                <Plus size={14} />
                                             </button>
                                         </div>
                                     </div>
                                     <button 
                                         onClick={() => removeFromCart(item.id)}
-                                        className="text-gray-600 hover:text-red-400 transition-colors self-start"
+                                        className="text-gray-400 hover:text-red-400 transition-colors self-start"
                                     >
                                         <Trash2 size={16} />
                                     </button>
@@ -268,7 +283,6 @@ const App = () => {
                 )}
              </div>
              
-             {/* Cart Overlay */}
              {showCart && <div className="fixed inset-0 bg-black/80 z-[55] backdrop-blur-sm" onClick={() => setShowCart(false)}></div>}
         </div>
     </ErrorBoundary>
