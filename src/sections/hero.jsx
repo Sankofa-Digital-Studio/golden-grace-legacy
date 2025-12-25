@@ -1,7 +1,9 @@
-import React from 'react';
-import { CheckCircle, Users, Sun, ArrowRight } from 'lucide-react';
+import React, { useState } from 'react';
+import { CheckCircle, Users, Sun, ArrowRight, Play, ChevronDown  } from 'lucide-react';
 
 const Hero = ({ navigate }) => {
+  const [playVideo, setPlayVideo] = useState(false);
+
   const scrollToCollection = () => {
     document.getElementById('collection')?.scrollIntoView({ behavior: 'smooth' });
   };
@@ -13,20 +15,47 @@ const Hero = ({ navigate }) => {
   return (
     <section className="relative min-h-[90vh] md:min-h-[100dvh] w-full overflow-hidden flex items-center justify-center pt-20 md:pt-0">
       <div className="absolute inset-0 z-0">
+        {/* Mobile: Static Image by default (Data Saver) */}
+        {/* Shows only on mobile (md:hidden) when video is NOT playing */}
+        <div className={`absolute inset-0 md:hidden ${playVideo ? 'hidden' : 'block'}`}>
+             <img 
+                src="/images/hero-bg.webp"
+                className="w-full h-full object-cover opacity-60"
+                alt="Golden Grace Honey"
+            />
+        </div>
+
+        {/* Desktop or Mobile-Requested: Video */}
+        {/* On Mobile: Hidden by default, becomes block when playVideo is true */}
+        {/* On Desktop (md:block): Always visible */}
         <video 
-            autoPlay 
+            autoPlay
             loop 
             muted 
             playsInline 
-            className="w-full h-full object-cover opacity-60"
+            className={`w-full h-full object-cover opacity-60 ${playVideo ? 'block' : 'hidden md:block'}`}
             poster="/images/hero-bg.webp"
         >
             <source src="https://videos.pexels.com/video-files/7234973/7234973-uhd_2560_1440_30fps.mp4" type="video/mp4" />
         </video>
+        
         <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/40 to-black/30"></div>
       </div>
       
       <div className="relative z-20 text-center px-4 md:px-6 max-w-screen-xl 2xl:max-w-screen-2xl w-full">
+        {/* Mobile Play Button Trigger */}
+        {/* Only visible on mobile (md:hidden) and when video is NOT yet playing */}
+        <div className="md:hidden mb-6 flex justify-center">
+            {!playVideo && (
+                <button 
+                    onClick={() => setPlayVideo(true)}
+                    className="flex items-center gap-2 bg-white/10 backdrop-blur-md px-4 py-2 rounded-full text-xs text-white border border-white/20 hover:bg-white/20 transition-colors animate-pulse"
+                >
+                    <Play size={12} fill="white" /> Watch Film
+                </button>
+            )}
+        </div>
+
         <div className="inline-flex items-center gap-2 border border-amber-500/30 bg-black/40 backdrop-blur-md px-3 py-1.5 md:px-4 md:py-2 rounded-full mb-6 md:mb-8 animate-fade-in-up">
             <CheckCircle className="text-amber-400 w-3 h-3 md:w-4 md:h-4 2xl:w-5 2xl:h-5" />
             <span className="text-amber-400 text-[10px] md:text-xs 2xl:text-sm tracking-widest uppercase font-bold">100% Raw & Authentic</span>
@@ -79,6 +108,10 @@ const Hero = ({ navigate }) => {
                 </div>
             </div>
         </div>
+      </div>
+      
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 animate-bounce hidden md:block">
+        <ChevronDown className="text-white/50 w-8 h-8 2xl:w-12 2xl:h-12" />
       </div>
     </section>
   );

@@ -10,11 +10,11 @@ const Navbar = ({ isScrolled, toggleCart, cartCount, activePage, navigate }) => 
 
   const navLinks = [
       { id: 'home', label: 'Home' },
-      { id: 'collection', label: 'Collection' },
-      { id: 'gifts', label: 'Gifts' },
+      { id: 'collection', label: 'The Reserve' },
+      { id: 'gifts', label: 'Gifting' },
       { id: 'education', label: 'Bee Smart' },
-      { id: 'recipes', label: 'Recipes' },
-      { id: 'reviews', label: 'Reviews' }
+      { id: 'recipes', label: 'Lifestyle' },
+      { id: 'reviews', label: 'Hive Mind' }
   ];
 
   const handleNav = (id) => {
@@ -24,8 +24,10 @@ const Navbar = ({ isScrolled, toggleCart, cartCount, activePage, navigate }) => 
 
   return (
     <>
-      <nav className={`fixed w-full z-50 transition-all duration-500 ${isScrolled || isOpen || activePage !== 'home' ? 'bg-[#050505]/95 backdrop-blur-xl py-3 md:py-4 border-b border-white/5' : 'bg-transparent py-4 md:py-6 lg:py-8'}`}>
+      <nav className={`fixed top-0 w-full z-50 transition-all duration-500 ${isScrolled || isOpen || activePage !== 'home' ? 'bg-[#050505]/95 backdrop-blur-xl py-3 md:py-4 border-b border-white/5' : 'bg-transparent py-4 md:py-6 lg:py-8'}`}>
         <div className="max-w-[1920px] mx-auto px-4 md:px-8 lg:px-12 flex justify-between items-center">
+          
+          {/* Logo */}
           <div 
             onClick={() => handleNav('home')}
             className="flex items-center gap-2 md:gap-3 cursor-pointer group z-50 relative"
@@ -37,6 +39,7 @@ const Navbar = ({ isScrolled, toggleCart, cartCount, activePage, navigate }) => 
             </div>
           </div>
 
+          {/* Desktop Menu */}
           <div className="hidden lg:flex items-center gap-8 xl:gap-12 2xl:gap-16">
             {navLinks.map((item) => (
               <button 
@@ -50,6 +53,7 @@ const Navbar = ({ isScrolled, toggleCart, cartCount, activePage, navigate }) => 
             ))}
           </div>
 
+          {/* Icons */}
           <div className="flex items-center gap-4 md:gap-6 z-50 relative">
             <button onClick={toggleCart} className="text-white hover:text-amber-400 transition-colors relative group drop-shadow-md">
               <ShoppingBag className="w-5 h-5 md:w-6 md:h-6 2xl:w-7 2xl:h-7" />
@@ -66,22 +70,27 @@ const Navbar = ({ isScrolled, toggleCart, cartCount, activePage, navigate }) => 
         </div>
       </nav>
 
-      <div className={`fixed inset-0 bg-[#050505] z-40 flex flex-col items-center justify-center gap-8 transition-all duration-700 ease-[cubic-bezier(0.77,0,0.175,1)] ${isOpen ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-full pointer-events-none'}`}>
-        <div className="absolute top-0 right-0 w-64 h-64 bg-amber-500/10 blur-[100px] rounded-full pointer-events-none"></div>
-        <button onClick={() => setIsOpen(false)} className="absolute top-6 right-6 text-white z-50">
-            <X size={32} />
-        </button>
-        <div className="flex flex-col items-center gap-6 z-10">
+      {/* Mobile Menu Overlay - UPDATED: Left Aligned with Honeycombs */}
+      <div className={`fixed inset-0 bg-[#080808] z-40 flex flex-col justify-center px-8 transition-all duration-500 ${isOpen ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-full pointer-events-none'}`}>
+        <div className="absolute top-0 right-0 w-64 h-64 bg-amber-500/5 blur-[100px] rounded-full pointer-events-none"></div>
+        
+        <div className="flex flex-col gap-6 z-10 w-full max-w-md">
+          <p className="text-gray-500 text-xs uppercase tracking-[0.2em] mb-4 border-b border-white/10 pb-2">Menu</p>
           {navLinks.map((item, i) => (
             <button 
               key={item.id} 
               onClick={() => handleNav(item.id)}
-              className={`text-2xl md:text-3xl font-serif text-white hover:text-amber-400 transition-all duration-500 transform ${isOpen ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}
+              className={`flex items-center gap-4 text-2xl md:text-3xl font-serif text-left transition-all duration-500 transform ${isOpen ? 'translate-x-0 opacity-100' : '-translate-x-10 opacity-0'} ${activePage === item.id ? 'text-amber-400' : 'text-white'}`}
               style={{ transitionDelay: `${100 + (i * 50)}ms` }}
             >
+              <Hexagon size={16} className={`flex-shrink-0 ${activePage === item.id ? 'text-amber-400 fill-amber-400' : 'text-white/20'}`} />
               {item.label}
             </button>
           ))}
+        </div>
+        
+        <div className="mt-12 pt-8 border-t border-white/10 text-gray-500 text-xs">
+            <p>&copy; 2025 Golden Grace Honey</p>
         </div>
       </div>
     </>
