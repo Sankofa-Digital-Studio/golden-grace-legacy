@@ -1,5 +1,60 @@
 import React, { useState } from 'react';
-import { Hexagon, MapPin, Phone, Mail, Instagram, Twitter, Facebook } from 'lucide-react';
+import { Hexagon, MapPin, Phone, Mail, Leaf } from 'lucide-react';
+const FacebookIcon = ({ size = 24, className, ...props }) => (
+    <svg 
+        xmlns="http://www.w3.org/2000/svg" 
+        width={size} 
+        height={size} 
+        viewBox="0 0 24 24" 
+        fill="none" 
+        stroke="currentColor" 
+        strokeWidth="2" 
+        strokeLinecap="round" 
+        strokeLinejoin="round" 
+        className={className} 
+        {...props}
+    >
+        <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+    </svg>
+);
+
+const InstagramIcon = ({ size = 24, className, ...props }) => (
+    <svg 
+        xmlns="http://www.w3.org/2000/svg" 
+        width={size} 
+        height={size} 
+        viewBox="0 0 24 24" 
+        fill="none" 
+        stroke="currentColor" 
+        strokeWidth="2" 
+        strokeLinecap="round" 
+        strokeLinejoin="round" 
+        className={className} 
+        {...props}
+    >
+        <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+        <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+    </svg>
+);
+
+const TwitterIcon = ({ size = 24, className, ...props }) => (
+    <svg 
+        xmlns="http://www.w3.org/2000/svg" 
+        width={size} 
+        height={size} 
+        viewBox="0 0 24 24" 
+        fill="none" 
+        stroke="currentColor" 
+        strokeWidth="2" 
+        strokeLinecap="round" 
+        strokeLinejoin="round" 
+        className={className} 
+        {...props}
+    >
+        <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-12.7 12.5 4 1.2 8.3-.3 9.3-1.5 1.5.5 3.8 1.6 3.8 1.6s-1.5-2.5-2-3.5c1.5 1 4 2.5 4 2.5z" />
+    </svg>
+);
 
 const Footer = ({ onSubscribe, onNav, onOpenModal }) => {
   const [email, setEmail] = useState('');
@@ -82,7 +137,7 @@ const Footer = ({ onSubscribe, onNav, onOpenModal }) => {
                 rel="noopener noreferrer"
                 className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:bg-amber-500 hover:text-black hover:border-amber-500 transition-all"
               >
-                <Instagram size={18} />
+                <InstagramIcon size={18} />
               </a>
               <a
                 href="https://twitter.com"
@@ -90,7 +145,7 @@ const Footer = ({ onSubscribe, onNav, onOpenModal }) => {
                 rel="noopener noreferrer"
                 className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:bg-amber-500 hover:text-black hover:border-amber-500 transition-all"
               >
-                <Twitter size={18} />
+                <TwitterIcon size={18} />
               </a>
               <a
                 href="https://facebook.com"
@@ -98,7 +153,7 @@ const Footer = ({ onSubscribe, onNav, onOpenModal }) => {
                 rel="noopener noreferrer"
                 className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:bg-amber-500 hover:text-black hover:border-amber-500 transition-all"
               >
-                <Facebook size={18} />
+                <FacebookIcon size={18} />
               </a>
             </div>
           </div>
@@ -166,6 +221,14 @@ const Footer = ({ onSubscribe, onNav, onOpenModal }) => {
               </div>
               {error && <p className="text-red-500 text-xs">{error}</p>}
             </form>
+            <div className="mt-8 pt-4 border-t border-white/10">
+                <button 
+                    onClick={() => onOpenModal('sustainability')} 
+                    className="flex items-center gap-2 text-xs text-green-500 hover:text-green-400 transition-colors uppercase tracking-widest"
+                >
+                    <Leaf size={14} /> Sustainability Tracker
+                </button>
+            </div>
           </div>
         </div>
 
