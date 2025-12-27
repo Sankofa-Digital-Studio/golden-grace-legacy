@@ -9,6 +9,7 @@ import Modal from './components/common/modal';
 import ImageModal from './components/common/image-modal';
 import WhatsAppWidget from './components/common/whatsapp-widget';
 import Breadcrumbs from './components/common/breadcrumbs';
+import ScrollToTop from './components/common/scroll-to-top';
 
 // Layout
 import Navbar from './components/layout/navbar';
@@ -19,7 +20,7 @@ import HomePage from './pages/home-page';
 import GiftsPage from './pages/gifts-page';
 import EducationPage from './pages/education-page';
 import RecipesPage from './pages/recipes-page';
-import ReviewsPage from './pages/recipes-page';
+import ReviewsPage from './pages/reviews-page';
 
 // Sections (Direct access needed for routing)
 import Collection from './sections/collection';
@@ -65,7 +66,7 @@ const App = () => {
           case 'gifts': return <GiftsPage onBuildBox={() => setActiveModal('buildBox')} onRequestCatalogue={() => setActiveModal('catalogue')} />;
           case 'education': return <EducationPage onScheduleClick={() => setActiveModal('schedule')} />;
           case 'recipes': return <RecipesPage onReadRecipe={handleReadRecipe} />;
-          case 'reviews': return <ReviewsPage />;
+          case 'reviews': return <ReviewsPage onWriteReview={() => setActiveModal('review')} />;
           default: return <HomePage navigate={handleNavigate} onAddToCart={addToCart} />;
       }
   };
@@ -77,10 +78,11 @@ const App = () => {
         <div className="bg-[#050505] min-h-screen text-white font-sans selection:bg-amber-500 selection:text-black overflow-x-hidden">
             {isPageTransitioning && <div className="fixed inset-0 z-[100] bg-black/90 backdrop-blur-md flex items-center justify-center transition-opacity duration-300"><Loader /></div>}
             {toast && <Toast message={toast.message} type={toast.type} onClose={() => setToast(null)} onNavigate={() => { setShowCart(true); setToast(null); }} />}
-            {activeModal && <Modal title="Information" content="Content loading..." onClose={() => setActiveModal(null)} />}
+            {activeModal && <Modal title={activeModal === 'review' ? "Share Your Experience" : "Information"} content={activeModal === 'review' ? "Form placeholder: Name, Rating, Comments..." : "Content loading..."} onClose={() => setActiveModal(null)} />}
             {selectedImage && <ImageModal image={selectedImage.image} alt={selectedImage.title} onClose={() => setSelectedImage(null)} />}
             
             <WhatsAppWidget />
+            <ScrollToTop />
             <Navbar isScrolled={isScrolled} toggleCart={() => setShowCart(true)} cartCount={cart.reduce((acc, item) => acc + item.qty, 0)} activePage={activePage} navigate={handleNavigate} />
             
             <Breadcrumbs currentPage={activePage} onNavigate={handleNavigate} />
@@ -119,4 +121,5 @@ const App = () => {
     </ErrorBoundary>
   );
 };
+
 export default App;
