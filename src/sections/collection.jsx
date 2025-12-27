@@ -2,22 +2,33 @@ import React, { useState } from 'react';
 import { Droplet, Smile, Utensils, ArrowRight } from 'lucide-react';
 import ProductCard from '../components/ui/product-card';
 
+
 const Collection = ({ onAddToCart, onImageClick, onBulkEnquire }) => {
   const [activeTab, setActiveTab] = useState('honey');
 
   const products = {
       honey: [
-        { id: 'regular', title: "Regular Raw Honey", basePrice: 150.00, tag: "BESTSELLER", desc: "Sourced from Sunflower, Wildflower, Blue Gum, or Eucalyptus. A pure, liquid amber experience.", image: "/images/prod-regular.webp", intensity: 3, isVariable: true },
-        { id: 'creamed', title: "Creamed Honey", basePrice: 160.00, tag: "ARTISANAL", desc: "Controlled crystallization creates a luxurious, spreadable texture. Perfect for toast.", image: "/images/prod-creamed.webp", intensity: 2, isVariable: true },
-        { id: 'infused', title: "Infused Trio", basePrice: 180.00, tag: "WELLNESS", desc: "Choose from Lemon, Garlic, or Ginger infusions. A powerful boost for your immune system.", image: "/images/prod-infused.webp", intensity: 4, isVariable: true },
+        { id: 'regular', title: "Regular Raw Honey", basePrice: 150.00, tag: "BESTSELLER", desc: "Sourced from Sunflower, Wildflower, Blue Gum, or Eucalyptus. A pure, liquid amber experience.", image: "/images/7.webp", intensity: 3, isVariable: true, variantType: 'honey' },
+        { id: 'creamed', title: "Creamed Honey", basePrice: 160.00, tag: "ARTISANAL", desc: "Controlled crystallization creates a luxurious, spreadable texture. Perfect for toast.", image: "/images/IMG_0092.JPG", intensity: 2, isVariable: true, variantType: 'honey' },
+        { id: 'infused', title: "Infused Trio", basePrice: 180.00, tag: "WELLNESS", desc: "Choose from Lemon, Garlic, or Ginger infusions. A powerful boost for your immune system.", image: "/images/17.webp", intensity: 4, isVariable: true, variantType: 'honey' },
       ],
       accessories: [
-        { id: 'bamboo-dipper', title: "Engraved Bamboo Dipper", basePrice: 45.00, tag: "ACCESSORY", desc: "Sustainable bamboo honey dipper engraved with the Golden Grace insignia.", image: "/images/dipper-bamboo.webp", isVariable: false },
-        { id: 'perspex-dipper', title: "Perspex Dipper", basePrice: 65.00, tag: "MODERN", desc: "Sleek, easy-to-clean perspex dipper for a modern aesthetic.", image: "/images/dipper-perspex.webp", isVariable: false },
+        { id: 'bamboo-dipper', title: "Engraved Bamboo Dipper", basePrice: 45.00, tag: "ACCESSORY", desc: "Sustainable bamboo honey dipper engraved with the Golden Grace insignia.", image: "/images/dipper-bamboo.webp", isVariable: true, variantType: 'size' },
+        { id: 'bamboo-ladle', title: "Engraved Bamboo Ladle", basePrice: 55.00, tag: "PREMIUM", desc: "Our signature dark honeycomb ladle. Hand-carved for the perfect pour.", image: "/images/ladle-bamboo.webp", isVariable: true, variantType: 'size' },
+        { id: 'perspex-dipper', title: "Perspex Dipper", basePrice: 65.00, tag: "MODERN", desc: "Sleek, easy-to-clean perspex dipper for a modern aesthetic.", image: "/images/dipper-perspex.webp", isVariable: true, variantType: 'size' },
       ],
       kitchen: [
         { id: 'coaster', title: "Honeycomb Coaster", basePrice: 30.00, tag: "HOME", desc: "Protect your table with our stylish honeycomb-patterned coasters.", image: "/images/coaster.webp", isVariable: false },
-        { id: 'board-s', title: "Artisan Chopping Board", basePrice: 250.00, tag: "KITCHEN", desc: "Handcrafted wooden board, perfect for serving cheese and honey.", image: "/images/board.webp", isVariable: false },
+        { 
+            id: 'board-s', 
+            title: "Artisan Chopping Board", 
+            basePrice: 250.00, 
+            tag: "KITCHEN", 
+            desc: "Handcrafted wooden board, perfect for serving cheese and honey.", 
+            image: "/images/board-isolated.webp", 
+            secondaryImage: "/images/board.webp", 
+            isVariable: false 
+        },
         { id: 'mug', title: "Sublimation Mug", basePrice: 95.00, tag: "MERCH", desc: "Premium mug with black interior and white exterior, branded with our logo.", image: "/images/mug.webp", isVariable: false }
       ]
   };

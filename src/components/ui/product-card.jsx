@@ -2,25 +2,37 @@ import React, { useState } from 'react';
 import { Maximize2 } from 'lucide-react';
 
 const ProductCard = ({ product, delay, onAdd, onImageClick }) => {
-  const { title, basePrice, tag, image, desc, isVariable } = product;
-  const [size, setSize] = useState('500g');
+  const { title, basePrice, tag, image, secondaryImage, desc, isVariable, variantType = 'honey' } = product;
+  
+  // Default states depend on the variant type
+  const [size, setSize] = useState(variantType === 'honey' ? '500g' : '8cm');
   const [material, setMaterial] = useState('Plastic');
 
   const getPrice = () => {
       let price = basePrice;
       if (isVariable) {
-        if (size === '750g') price += 50; 
-        if (material === 'Glass') price += 20; 
+        // Logic for Honey
+        if (variantType === 'honey') {
+            if (size === '750g') price += 50; 
+            if (material === 'Glass') price += 20; 
+        } 
+        // Logic for Accessories (Dippers/Ladles)
+        else if (variantType === 'size') {
+            if (size === '10cm') price += 15;  // Price increase for Medium
+            if (size === '15cm') price += 30;  // Price increase for Large
+        }
       }
       return price;
   };
 
   const handleAdd = (e) => {
       e.stopPropagation();
+      const variantLabel = variantType === 'honey' ? `${size}, ${material}` : size;
+      
       const finalProduct = {
           ...product,
-          id: isVariable ? `${product.id}-${size}-${material}` : product.id,
-          title: isVariable ? `${title} (${size}, ${material})` : title,
+          id: isVariable ? `${product.id}-${size.replace(/\s/g, '')}` : product.id,
+          title: isVariable ? `${title} (${variantLabel})` : title,
           price: getPrice()
       };
       onAdd(finalProduct);
@@ -37,12 +49,24 @@ const ProductCard = ({ product, delay, onAdd, onImageClick }) => {
         className="relative h-48 md:h-56 lg:h-64 2xl:h-80 w-full bg-[#0a0a0a] flex items-center justify-center overflow-hidden cursor-pointer"
         onClick={() => onImageClick(image, title)}
       >
+        {/* Primary Image */}
         <img 
             src={image} 
             alt={title} 
-            className="h-32 md:h-40 lg:h-48 2xl:h-64 w-auto object-contain golden-filter transition-transform duration-700 group-hover:scale-110" 
+            className={`h-32 md:h-40 lg:h-48 2xl:h-64 w-auto object-contain golden-filter transition-all duration-700 ${secondaryImage ? 'group-hover:opacity-0' : 'group-hover:scale-110'}`}
             loading="lazy"
         />
+        
+        {/* Secondary Image (Hover State) */}
+        {secondaryImage && (
+            <img 
+                src={secondaryImage} 
+                alt={`${title} view 2`} 
+                className="absolute inset-0 m-auto h-32 md:h-40 lg:h-48 2xl:h-64 w-auto object-contain golden-filter opacity-0 group-hover:opacity-100 transition-all duration-700 group-hover:scale-110"
+                loading="lazy"
+            />
+        )}
+
         <div className="absolute top-4 right-4 z-10 pointer-events-none">
             <span className="px-2 md:px-3 py-1 text-[8px] md:text-[10px] font-bold tracking-widest border border-amber-500/30 text-amber-400 rounded-full bg-black/60 backdrop-blur-md">
             {tag}
@@ -58,23 +82,38 @@ const ProductCard = ({ product, delay, onAdd, onImageClick }) => {
         <p className="text-gray-400 text-xs md:text-xs 2xl:text-sm mb-4 line-clamp-2 min-h-[2.5em]">{desc}</p>
         
         {isVariable && (
-            <div className="grid grid-cols-2 gap-2 mb-6">
-                <select 
-                    value={size} 
-                    onChange={(e) => setSize(e.target.value)}
-                    className="bg-white/5 text-gray-300 text-[10px] md:text-xs p-2 rounded border border-white/10 outline-none focus:border-amber-500"
-                >
-                    <option value="500g">500g</option>
-                    <option value="750g">750g</option>
-                </select>
-                <select 
-                    value={material} 
-                    onChange={(e) => setMaterial(e.target.value)}
-                    className="bg-white/5 text-gray-300 text-[10px] md:text-xs p-2 rounded border border-white/10 outline-none focus:border-amber-500"
-                >
-                    <option value="Plastic">Plastic</option>
-                    <option value="Glass">Glass (+R20)</option>
-                </select>
+            <div className="mb-6">
+                {variantType === 'honey' ? (
+                    <div className="grid grid-cols-2 gap-2">
+                        {/* FIX: Added bg-[#1a1a1a] text-white to force dark theme */}
+                        <select 
+                            value={size} 
+                            onChange={(e) => setSize(e.target.value)}
+                            className="bg-[#1a1a1a] text-white text-[10px] md:text-xs p-2 rounded border border-white/10 outline-none focus:border-amber-500 w-full appearance-none cursor-pointer hover:border-amber-500/50 transition-colors"
+                        >
+                            <option value="500g">500g</option>
+                            <option value="750g">750g</option>
+                        </select>
+                        <select 
+                            value={material} 
+                            onChange={(e) => setMaterial(e.target.value)}
+                            className="bg-[#1a1a1a] text-white text-[10px] md:text-xs p-2 rounded border border-white/10 outline-none focus:border-amber-500 w-full appearance-none cursor-pointer hover:border-amber-500/50 transition-colors"
+                        >
+                            <option value="Plastic">Plastic</option>
+                            <option value="Glass">Glass (+R20)</option>
+                        </select>
+                    </div>
+                ) : (
+                    <select 
+                        value={size} 
+                        onChange={(e) => setSize(e.target.value)}
+                        className="bg-[#1a1a1a] text-white text-[10px] md:text-xs p-2 rounded border border-white/10 outline-none focus:border-amber-500 w-full appearance-none cursor-pointer hover:border-amber-500/50 transition-colors"
+                    >
+                        <option value="8cm">Small (8cm)</option>
+                        <option value="10cm">Medium (10cm) +R15</option>
+                        <option value="15cm">Large (15cm) +R30</option>
+                    </select>
+                )}
             </div>
         )}
 
