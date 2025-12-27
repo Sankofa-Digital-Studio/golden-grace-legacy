@@ -10,7 +10,8 @@ const Hero = ({ navigate }) => {
     <section className="relative min-h-[100dvh] w-full overflow-hidden flex flex-col pt-32 md:pt-0 justify-start md:justify-center items-center">
       {/* Fix: pt-32 prevents overlap on mobile, justify-start keeps it at top */}
       <div className="absolute inset-0 z-0">
-        <div className={`absolute inset-0 md:hidden ${playVideo ? 'hidden' : 'block'}`}><img src="/images/hero-bg.webp" className="w-full h-full object-cover opacity-60" alt="Golden Grace Honey" /></div>
+        {/* ADDED: fetchPriority="high" to prevent mobile intervention placeholder */}
+        <div className={`absolute inset-0 md:hidden ${playVideo ? 'hidden' : 'block'}`}><img src="/images/hero-bg.webp" className="w-full h-full object-cover opacity-60" alt="Golden Grace Honey" fetchPriority="high" loading="eager" /></div>
         <video autoPlay={!playVideo} loop muted playsInline className={`w-full h-full object-cover opacity-60 ${playVideo ? 'block' : 'hidden md:block'}`} poster="/images/hero-bg.webp"><source src="https://videos.pexels.com/video-files/7234973/7234973-uhd_2560_1440_30fps.mp4" type="video/mp4" /></video>
         <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/40 to-black/30"></div>
       </div>
