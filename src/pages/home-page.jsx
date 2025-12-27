@@ -26,5 +26,4 @@ const HomePage = ({ navigate, onAddToCart, onImageClick, onBulkEnquire, onSchedu
         <Founder />
     </>
 );
-
 export default HomePage;
