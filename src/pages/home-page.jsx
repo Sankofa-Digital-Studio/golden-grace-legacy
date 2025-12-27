@@ -12,18 +12,22 @@ import FeaturedReviews from '../sections/featured-reviews';
 import Founder from '../sections/founder';
 
 const HomePage = ({ navigate, onAddToCart, onImageClick, onBulkEnquire, onScheduleClick }) => (
-    <>
-        <Hero navigate={navigate} />
-        <TrustBar />
-        <Sensory />
-        <ContentBreak />
-        <Story />
-        <Collection onAddToCart={onAddToCart} onImageClick={onImageClick} onBulkEnquire={onBulkEnquire} />
-        <FeaturedGifts navigate={navigate} />
-        <FeaturedEducation navigate={navigate} onScheduleClick={onScheduleClick} />
-        <FeaturedRecipes navigate={navigate} />
-        <FeaturedReviews navigate={navigate} />
-        <Founder />
-    </>
+  <>
+    <Hero navigate={navigate} />
+    <TrustBar />
+    <Sensory />
+    <ContentBreak />
+    <Story />
+    <Collection
+      onAddToCart={onAddToCart}
+      onImageClick={onImageClick}
+      onBulkEnquire={onBulkEnquire}
+    />
+    <FeaturedGifts navigate={navigate} />
+    <FeaturedEducation navigate={navigate} onScheduleClick={onScheduleClick} />
+    <FeaturedRecipes navigate={navigate} />
+    <FeaturedReviews navigate={navigate} />
+    <Founder />
+  </>
 );
 export default HomePage;
