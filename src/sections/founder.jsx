@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Founder = () => (
-     <section id="the-visionary" className="py-16 md:py-20 bg-gradient-to-br from-[#121212] to-[#050505] relative border-t border-white/5">
+       <section id="the-visionary" className="py-16 md:py-20 bg-gradient-to-br from-[#121212] to-[#050505] relative border-t border-white/5">
          <div className="max-w-[1920px] mx-auto px-4 md:px-8 lg:px-12">
             <div className="flex flex-col md:flex-row items-center gap-12 2xl:gap-20">
                 <div className="w-full md:w-1/3 aspect-[4/5] md:aspect-square bg-[#0a0a0a] rounded-full overflow-hidden border-4 border-amber-500/20 relative">

@@ -27,11 +27,11 @@ const EducationPage = ({ onScheduleClick }) => {
 
         {/* Content Block 1: The Bee */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-24">
-            <div className="relative h-[400px] rounded-xl overflow-hidden border border-white/10">
+            <div className="relative aspect-square md:aspect-video lg:h-[400px] w-full rounded-xl overflow-hidden border border-white/10">
                 <img src="/images/20.jpeg" alt="African Honey Bee" className="w-full h-full object-cover golden-filter" />
-                <div className="absolute bottom-4 left-4 bg-black/60 backdrop-blur-md px-4 py-2 rounded border border-white/10">
+                <div className="absolute bottom-4 left-4 right-4 md:right-auto bg-black/60 backdrop-blur-md px-4 py-2 rounded border border-white/10">
                     <p className="text-amber-500 text-xs font-bold uppercase">Species Focus</p>
-                    <p className="text-white text-sm">Apis mellifera scutellata</p>
+                    <p className="text-white text-sm italic">Apis mellifera scutellata</p>
                 </div>
             </div>
             <div className="space-y-6">
@@ -77,10 +77,10 @@ const EducationPage = ({ onScheduleClick }) => {
             
             <div className="flex justify-center gap-4">
                 <button onClick={() => alert("Incorrect! Crystallization is a natural process of raw honey.")} className="px-8 py-3 border border-white/20 text-white hover:bg-red-500/20 hover:border-red-500 transition-all rounded uppercase text-xs font-bold flex items-center gap-2">
-                    <XCircle size={16} /> False
+                    <XCircle size={16} /> True
                 </button>
                 <button onClick={() => alert("Correct! It's actually a sign of purity. Warm it up to liquefy.")} className="px-8 py-3 border border-white/20 text-white hover:bg-green-500/20 hover:border-green-500 transition-all rounded uppercase text-xs font-bold flex items-center gap-2">
-                    <Check size={16} /> True
+                    <Check size={16} /> False
                 </button>
             </div>
         </div>

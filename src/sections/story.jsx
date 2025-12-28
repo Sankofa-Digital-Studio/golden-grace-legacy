@@ -13,7 +13,7 @@ const Story = () => (
             <div className="flex gap-4 group p-4 border border-white/5 rounded-lg hover:border-amber-500/20 transition-colors"><div className="p-2 bg-amber-900/10 rounded-full h-fit group-hover:bg-amber-500/20 transition-colors"><Users className="text-amber-500 w-5 h-5 md:w-6 md:h-6" /></div><div><h5 className="text-white font-serif text-base md:text-lg 2xl:text-xl mb-1">Community First</h5><p className="text-gray-500 text-xs 2xl:text-sm leading-relaxed">Creating sustainable livelihoods in Welkom and beyond.</p></div></div>
           </div>
         </div>
-        <div className="relative aspect-square md:aspect-auto md:h-[500px] lg:h-[600px] 2xl:h-[800px] w-full order-1 lg:order-2">
+        <div className="relative aspect-square md:aspect-auto w-full order-1 lg:order-2">
           <div className="absolute inset-0 bg-[#121212] rounded-[2rem] md:rounded-t-[10rem] md:rounded-b-lg overflow-hidden border border-white/5">
             <img src="/images/story-jar.webp" alt="Grace in Every Drop" className="w-full h-full object-cover golden-filter" loading="lazy" />
             <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-transparent"></div>
