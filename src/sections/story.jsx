@@ -2,7 +2,7 @@ import React from 'react';
 import { Droplet, Users } from 'lucide-react';
 
 const Story = () => (
-  <section id="our-origins" className="py-16 md:py-32 bg-[#050505] relative overflow-hidden">
+   <section id="our-origins" className="py-16 md:py-32 bg-[#050505] relative overflow-hidden">
     <div className="max-w-[1920px] mx-auto px-4 md:px-8 lg:px-12 relative z-10">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 2xl:gap-32 items-center">
         <div className="space-y-8 md:space-y-12 order-2 lg:order-1">

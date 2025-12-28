@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { CheckCircle, Users, Sun, ArrowRight, Play, ChevronDown  } from 'lucide-react';
+import { CheckCircle, Users, Sun, ArrowRight, Play, ChevronDown } from 'lucide-react';
 
 const Hero = ({ navigate }) => {
   const [playVideo, setPlayVideo] = useState(false);
@@ -11,8 +11,8 @@ const Hero = ({ navigate }) => {
       {/* Fix: pt-32 prevents overlap on mobile, justify-start keeps it at top */}
       <div className="absolute inset-0 z-0">
         {/* ADDED: fetchPriority="high" to prevent mobile intervention placeholder */}
-        <div className={`absolute inset-0 md:hidden ${playVideo ? 'hidden' : 'block'}`}><img src="/images/hero-bg.webp" className="w-full h-full object-cover opacity-60" alt="Golden Grace Honey" fetchPriority="high" loading="eager" /></div>
-        <video autoPlay={!playVideo} loop muted playsInline className={`w-full h-full object-cover opacity-60 ${playVideo ? 'block' : 'hidden md:block'}`} poster="/images/hero-bg.webp"><source src="https://videos.pexels.com/video-files/7234973/7234973-uhd_2560_1440_30fps.mp4" type="video/mp4" /></video>
+        <div className={`absolute inset-0 md:hidden ${playVideo ? 'hidden' : 'block'}`}><img src="/images/12.jpeg" className="w-full h-full object-cover opacity-60" alt="Golden Grace Honey" fetchPriority="high" loading="eager" decoding="async" /></div>
+        <video autoPlay={!playVideo} loop muted playsInline className={`w-full h-full object-cover opacity-60 ${playVideo ? 'block' : 'hidden md:block'}`} poster="/images/12.jpeg"><source src="https://videos.pexels.com/video-files/7234973/7234973-uhd_2560_1440_30fps.mp4" type="video/mp4" /></video>
         <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/40 to-black/30"></div>
       </div>
       <div className="relative z-20 text-center px-4 md:px-6 max-w-screen-xl 2xl:max-w-screen-2xl w-full flex flex-col items-center">

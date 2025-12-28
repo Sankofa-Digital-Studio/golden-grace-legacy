@@ -1,11 +1,11 @@
 import React from 'react';
 
 const Founder = () => (
-    <section id="the-visionary" className="py-16 md:py-20 bg-gradient-to-br from-[#121212] to-[#050505] relative border-t border-white/5">
+     <section id="the-visionary" className="py-16 md:py-20 bg-gradient-to-br from-[#121212] to-[#050505] relative border-t border-white/5">
          <div className="max-w-[1920px] mx-auto px-4 md:px-8 lg:px-12">
             <div className="flex flex-col md:flex-row items-center gap-12 2xl:gap-20">
                 <div className="w-full md:w-1/3 aspect-[4/5] md:aspect-square bg-[#0a0a0a] rounded-full overflow-hidden border-4 border-amber-500/20 relative">
-                    <img src="/images/story.webp" className="object-cover w-full h-full golden-filter transition-all duration-500 hover:scale-105" style={{ objectPosition: 'center 20%', padding: '20px 0 0 0', background: '#1a1a1a' }} alt="Grace Thoso" loading="lazy" />
+                    <img src="/images/WhatsApp Image 2025-12-22 at 21.14.17.jpeg" className="object-cover w-full h-full golden-filter transition-all duration-500 hover:scale-105" style={{ objectPosition: 'center 20%', padding: '20px 0 0 0', background: '#1a1a1a' }} alt="Grace Thoso" loading="lazy" />
                 </div>
                 <div className="w-full md:w-2/3 text-center md:text-left">
                     <h4 className="text-amber-500 tracking-[0.2em] uppercase text-xs font-bold mb-4">The Managing Director</h4>
