@@ -1,23 +1,22 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+  ],
   theme: {
     extend: {
+      colors: {
+        // We use amber-500 from default palette, so no need to override unless specific branding needed
+      },
       fontFamily: {
-        sans: ['Montserrat', 'sans-serif'],
         serif: ['Playfair Display', 'serif'],
+        sans: ['Inter', 'sans-serif'],
       },
       animation: {
-        'spin-slow': 'spin 3s linear infinite',
-        'fade-in-up': 'fadeInUp 1s ease-out forwards',
-      },
-      keyframes: {
-        fadeInUp: {
-          '0%': { opacity: '0', transform: 'translateY(20px)' },
-          '100%': { opacity: '1', transform: 'translateY(0)' },
-        },
-      },
+        'spin-slow': 'spin 8s linear infinite',
+      }
     },
   },
   plugins: [],
-};
+}
