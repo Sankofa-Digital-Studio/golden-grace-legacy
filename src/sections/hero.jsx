@@ -1,93 +1,89 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { CheckCircle, Users, Sun, ArrowRight, Play, ChevronDown } from 'lucide-react';
+import VideoModal from '../components/ui/video-modal';
+import ImageCarousel from '../components/ui/image-carousel';
 
 const Hero = ({ navigate }) => {
- const [playVideo, setPlayVideo] = useState(false);
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const heroImages = [
-      "/images/hero-bg-slide-1.webp",
-      "/images/hero-bg-slide-2.webp",
-      "/images/hero-bg-slide-3.webp",
-      "/images/hero-bg-slide-4.webp"
-  ];
+  const [playVideo, setPlayVideo] = useState(false);
 
-  // Carousel Effect
-  useEffect(() => {
-      if (playVideo) return; // Don't cycle if video is playing
-      const interval = setInterval(() => {
-          setCurrentSlide((prev) => (prev + 1) % heroImages.length);
-      }, 5000);
-      return () => clearInterval(interval);
-  }, [playVideo, heroImages.length]);
-  const scrollToCollection = () => { document.getElementById('collection')?.scrollIntoView({ behavior: 'smooth' }); };
+  // Data Configuration
+  const heroImages = [
+    "/images/hero-bg-slide-1.webp",
+    "/images/hero-bg-slide-2.webp",
+    "/images/hero-bg-slide-3.webp",
+    "/images/hero-bg-slide-4.webp"
+  ];
+  const videoSource = "https://videos.pexels.com/video-files/7234973/7234973-uhd_2560_1440_30fps.mp4";
+
+  // Navigation Helpers
   const scrollToStory = () => { document.getElementById('our-origins')?.scrollIntoView({ behavior: 'smooth' }); };
 
- return (
+  return (
     <section className="relative min-h-[100dvh] w-full overflow-hidden flex flex-col pt-32 md:pt-0 justify-start md:justify-center items-center">
-      {/* Background Layer */}
+      
+      {/* --- 1. MODAL LAYER (Conditional) --- */}
+      {playVideo && (
+        <VideoModal 
+          videoSrc={videoSource} 
+          onClose={() => setPlayVideo(false)} 
+        />
+      )}
+
+      {/* --- 2. BACKGROUND LAYER --- */}
       <div className="absolute inset-0 z-0">
         
-        {/* Mobile Carousel Layer (Hidden on desktop if video plays, but good to have) */}
-        <div className={`absolute inset-0 md:hidden ${playVideo ? 'hidden' : 'block'}`}>
-             {heroImages.map((img, index) => (
-                 <div 
-                    key={index}
-                    className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${index === currentSlide ? 'opacity-100' : 'opacity-0'}`}
-                 >
-                     <img 
-                        src={img}
-                        className="w-full h-full object-cover opacity-60"
-                        alt={`Golden Grace Ambient ${index + 1}`}
-                        fetchPriority={index === 0 ? "high" : "auto"} // Only high prio for first image
-                        loading={index === 0 ? "eager" : "lazy"}
-                        decoding="async"
-                     />
-                 </div>
-             ))}
+        {/* Mobile: Image Carousel (Hidden on Desktop) */}
+        <div className="block md:hidden absolute inset-0">
+            <ImageCarousel images={heroImages} />
         </div>
 
-        {/* Desktop Video Layer */}
+        {/* Desktop: Video Background (Hidden on Mobile) */}
         <video 
-            autoPlay={!playVideo} 
-            loop 
-            muted 
-            playsInline 
-            className={`w-full h-full object-cover opacity-60 ${playVideo ? 'block' : 'hidden md:block'}`}
-            poster="/images/12.jpeg"
+          autoPlay 
+          loop 
+          muted 
+          playsInline 
+          className="hidden md:block w-full h-full object-cover opacity-60"
+          poster="/images/12.jpeg"
         >
-            <source src="https://videos.pexels.com/video-files/7234973/7234973-uhd_2560_1440_30fps.mp4" type="video/mp4" />
+          <source src={videoSource} type="video/mp4" />
         </video>
         
-        {/* Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/40 to-black/30"></div>
+        {/* Global Gradient Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/40 to-black/30 pointer-events-none"></div>
       </div>
       
+      {/* --- 3. CONTENT LAYER --- */}
       <div className="relative z-20 text-center px-4 md:px-6 max-w-screen-xl 2xl:max-w-screen-2xl w-full flex flex-col items-center">
+        
+        {/* Mobile 'Watch Film' Button */}
         <div className="md:hidden mb-6 flex justify-center">
-            {!playVideo && (
-                <button 
-                    onClick={() => setPlayVideo(true)}
-                    className="flex items-center gap-2 bg-white/10 backdrop-blur-md px-4 py-2 rounded-full text-xs text-white border border-white/20 hover:bg-white/20 transition-colors animate-pulse"
-                >
-                    <Play size={12} fill="white" /> Watch Film
-                </button>
-            )}
+           <button 
+                onClick={() => setPlayVideo(true)}
+                className="flex items-center gap-2 bg-white/10 backdrop-blur-md px-4 py-2 rounded-full text-xs text-white border border-white/20 hover:bg-white/20 transition-colors animate-pulse"
+            >
+                <Play size={12} fill="white" /> Watch Film
+            </button>
         </div>
 
+        {/* Tagline */}
         <div className="inline-flex items-center gap-2 border border-amber-500/30 bg-black/40 backdrop-blur-md px-3 py-1.5 md:px-4 md:py-2 rounded-full mb-6 md:mb-8 animate-fade-in-up">
             <CheckCircle className="text-amber-400 w-3 h-3 md:w-4 md:h-4 2xl:w-5 2xl:h-5" />
             <span className="text-amber-400 text-[10px] md:text-xs 2xl:text-sm tracking-widest uppercase font-bold">100% Raw & Authentic</span>
         </div>
         
+        {/* Main Heading */}
         <h1 className="font-serif text-4xl md:text-6xl lg:text-8xl 2xl:text-9xl text-white mb-6 md:mb-8 leading-[1.1] animate-fade-in-up delay-100 drop-shadow-2xl">
           Grace In <span className="italic text-amber-400 font-light">Every</span> <br />
           Drop
         </h1>
         
+        {/* Subtitle */}
         <p className="text-gray-100 max-w-md md:max-w-2xl 2xl:max-w-4xl mx-auto mb-8 md:mb-12 font-light text-base md:text-lg 2xl:text-2xl leading-relaxed animate-fade-in-up delay-200 drop-shadow-lg text-shadow-sm px-4">
           Pure South African Goodness. Ethically sourced from the vibrant landscapes of the Free State. Non-pasteurized, and harvested with integrity.
         </p>
         
+        {/* CTAs */}
         <div className="flex flex-col md:flex-row gap-4 md:gap-6 justify-center items-center animate-fade-in-up delay-300 w-full md:w-auto mb-16 px-4">
           <button 
             onClick={() => navigate('collection')} 
@@ -106,6 +102,7 @@ const Hero = ({ navigate }) => {
           </button>
         </div>
 
+        {/* Feature Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-4xl 2xl:max-w-6xl mx-auto animate-fade-in-up delay-500 px-4 md:px-0 w-full">
             <div className="bg-black/30 backdrop-blur-md border border-white/10 p-4 2xl:p-6 rounded-lg flex items-center gap-4 hover:bg-white/5 transition-colors cursor-pointer group">
                 <div className="bg-amber-500/20 p-3 rounded-full group-hover:bg-amber-500 transition-colors flex-shrink-0">
@@ -128,10 +125,12 @@ const Hero = ({ navigate }) => {
         </div>
       </div>
       
+      {/* Scroll Indicator */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 animate-bounce hidden md:block">
         <ChevronDown className="text-white/50 w-8 h-8 2xl:w-12 2xl:h-12" />
       </div>
     </section>
   );
 };
+
 export default Hero;
