@@ -1,5 +1,15 @@
 import React, { useState } from 'react';
-import { CheckCircle, Users, Sun, ArrowRight, Play, ChevronDown } from 'lucide-react';
+import { 
+  CheckCircle, 
+  Users, 
+  Sun, 
+  ArrowRight, 
+  Play, 
+  ChevronDown, 
+  ShieldCheck, 
+  Award, 
+  Heart 
+} from 'lucide-react'; // Added ShieldCheck, Award, Heart for the bottom row
 import VideoModal from '../components/ui/video-modal';
 import ImageCarousel from '../components/ui/image-carousel';
 
@@ -15,13 +25,12 @@ const Hero = ({ navigate }) => {
   ];
   const videoSource = "https://videos.pexels.com/video-files/7234973/7234973-uhd_2560_1440_30fps.mp4";
 
-  // Navigation Helpers
   const scrollToStory = () => { document.getElementById('our-origins')?.scrollIntoView({ behavior: 'smooth' }); };
 
   return (
     <section className="relative min-h-[100dvh] w-full overflow-hidden flex flex-col pt-32 md:pt-0 justify-start md:justify-center items-center">
       
-      {/* --- 1. MODAL LAYER (Conditional) --- */}
+      {/* --- 1. MODAL LAYER --- */}
       {playVideo && (
         <VideoModal 
           videoSrc={videoSource} 
@@ -31,13 +40,9 @@ const Hero = ({ navigate }) => {
 
       {/* --- 2. BACKGROUND LAYER --- */}
       <div className="absolute inset-0 z-0">
-        
-        {/* Mobile: Image Carousel (Hidden on Desktop) */}
         <div className="block md:hidden absolute inset-0">
             <ImageCarousel images={heroImages} />
         </div>
-
-        {/* Desktop: Video Background (Hidden on Mobile) */}
         <video 
           autoPlay 
           loop 
@@ -48,8 +53,6 @@ const Hero = ({ navigate }) => {
         >
           <source src={videoSource} type="video/mp4" />
         </video>
-        
-        {/* Global Gradient Overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/40 to-black/30 pointer-events-none"></div>
       </div>
       
@@ -84,7 +87,8 @@ const Hero = ({ navigate }) => {
         </p>
         
         {/* CTAs */}
-        <div className="flex flex-col md:flex-row gap-4 md:gap-6 justify-center items-center animate-fade-in-up delay-300 w-full md:w-auto mb-16 px-4">
+        {/* SPACING FIX 1: Ensure this margin matches the grid's margin below */}
+        <div className="flex flex-col md:flex-row gap-4 md:gap-6 justify-center items-center animate-fade-in-up delay-300 w-full md:w-auto mb-12 px-4">
           <button 
             onClick={() => navigate('collection')} 
             className="w-full md:w-auto bg-amber-500 text-black px-10 py-4 font-bold tracking-widest hover:bg-white transition-all duration-300 active:scale-95 text-sm md:text-base 2xl:text-lg shadow-[0_0_30px_-5px_rgba(245,158,11,0.4)]"
@@ -103,7 +107,8 @@ const Hero = ({ navigate }) => {
         </div>
 
         {/* Feature Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-4xl 2xl:max-w-6xl mx-auto animate-fade-in-up delay-500 px-4 md:px-0 w-full">
+        {/* SPACING FIX 2: Added mb-12 here so there is space before the Dept Agriculture row */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-4xl 2xl:max-w-6xl mx-auto animate-fade-in-up delay-500 px-4 md:px-0 w-full mb-12">
             <div className="bg-black/30 backdrop-blur-md border border-white/10 p-4 2xl:p-6 rounded-lg flex items-center gap-4 hover:bg-white/5 transition-colors cursor-pointer group">
                 <div className="bg-amber-500/20 p-3 rounded-full group-hover:bg-amber-500 transition-colors flex-shrink-0">
                     <Users className="text-amber-400 group-hover:text-black w-5 h-5 md:w-6 md:h-6 2xl:w-8 2xl:h-8" />
@@ -123,9 +128,13 @@ const Hero = ({ navigate }) => {
                 </div>
             </div>
         </div>
+
+        {/* --- 4. CREDENTIALS ROW (New addition based on screenshot) --- */}
+      
+
       </div>
       
-      {/* Scroll Indicator */}
+      {/* Scroll Indicator (Desktop Only) */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 animate-bounce hidden md:block">
         <ChevronDown className="text-white/50 w-8 h-8 2xl:w-12 2xl:h-12" />
       </div>
