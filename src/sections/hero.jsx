@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import { CheckCircle, Users, Sun, ArrowRight, Play, ChevronDown } from 'lucide-react';
 import VideoModal from '../components/common/video-modal';
 import VIDEO_SOURCE from '../data/video-source';
+import { HERO_IMAGES } from '../data/hero-images';
+import ImageCarousel from '../components/ui/image-carousel';
 
 const Hero = ({ navigate }) => {
   const [playVideo, setPlayVideo] = useState(false);
@@ -18,15 +20,25 @@ const Hero = ({ navigate }) => {
 
       {/* --- 2. BACKGROUND LAYER --- */}
       <div className="absolute inset-0 z-0">
-        {/* Placeholder for ImageCarousel (we will upgrade this in Step 2) */}
-        <div className="absolute inset-0 bg-black">
-          <img
-            src="/images/hero-bg-slide-1.webp"
-            className="w-full h-full object-cover opacity-60"
-            alt="Hero Background"
-          />
+        
+        {/* Mobile: Image Carousel */}
+        {/* We use the imported HERO_IMAGES here */}
+        <div className="block md:hidden absolute inset-0">
+            <ImageCarousel images={HERO_IMAGES} />
         </div>
 
+        {/* Desktop: Video Background */}
+        <video 
+          autoPlay 
+          loop 
+          muted 
+          playsInline 
+          className="hidden md:block w-full h-full object-cover opacity-60"
+          poster="/images/hero-bg-slide-1.webp"
+        >
+          <source src={VIDEO_SOURCE} type="video/mp4" />
+        </video>
+        
         {/* Gradient Overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/40 to-black/30 pointer-events-none"></div>
       </div>
