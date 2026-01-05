@@ -14,21 +14,26 @@ import useAnalytics from '../hooks/useAnalytics';
 import useSEO from '../hooks/useSEO';
 
 const HomePage = ({ navigate, onAddToCart, onImageClick, onBulkEnquire, onScheduleClick }) => {
-    useSEO("Home", "Pure South African Honey, ethically sourced from the Free State.");
-    useAnalytics("Home Page");
-    return (
+  useSEO('Home', 'Pure South African Honey, ethically sourced from the Free State.');
+  useAnalytics('Home Page');
+  return (
     <>
-        <Hero navigate={navigate} />
-        <TrustBar />
-        <Sensory />
-        <ContentBreak />
-        <Story />
-        <Collection onAddToCart={onAddToCart} onImageClick={onImageClick} onBulkEnquire={onBulkEnquire} />
-        <FeaturedGifts navigate={navigate} />
-        <FeaturedEducation navigate={navigate} onScheduleClick={onScheduleClick} />
-        <FeaturedRecipes navigate={navigate} />
-        <FeaturedReviews navigate={navigate} />
-        <Founder />
+      <Hero navigate={navigate} />
+      <TrustBar />
+      <Sensory />
+      <ContentBreak />
+      <Story />
+      <Collection
+        onAddToCart={onAddToCart}
+        onImageClick={onImageClick}
+        onBulkEnquire={onBulkEnquire}
+      />
+      <FeaturedGifts navigate={navigate} />
+      <FeaturedEducation navigate={navigate} onScheduleClick={onScheduleClick} />
+      <FeaturedRecipes navigate={navigate} />
+      <FeaturedReviews navigate={navigate} />
+      <Founder />
     </>
-)};
+  );
+};
 export default HomePage;

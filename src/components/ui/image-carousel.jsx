@@ -8,12 +8,12 @@
 //   },
 //   {
 //     id: 2,
-//     src: "/images/hero-bg-slide-2.webp", 
+//     src: "/images/hero-bg-slide-2.webp",
 //     alt: "hero-slide-2: blue mug in flowers"
 //   },
 //   {
 //     id: 3,
-//     src: "/images/hero-bg-slide-3.webp", 
+//     src: "/images/hero-bg-slide-3.webp",
 //     alt: "hero-slide-3: extraction process of honey"
 //   },
 //   {
@@ -29,7 +29,7 @@
 //   useEffect(() => {
 //     // 1. Set up the timer to switch images every 6 seconds
 //     const intervalId = setInterval(() => {
-//       setCurrentIndex((prevIndex) => 
+//       setCurrentIndex((prevIndex) =>
 //         prevIndex === CAROUSEL_IMAGES.length - 1 ? 0 : prevIndex + 1
 //       );
 //     }, 6000);
@@ -47,7 +47,7 @@
 //             ${index === currentIndex ? 'opacity-100' : 'opacity-0'}
 //           `}
 //         >
-//           {/* The Image Itself 
+//           {/* The Image Itself
 //              - 'object-cover': Ensures it covers the whole screen on mobile & desktop.
 //              - 'animate-ken-burns': A custom animation for that slow, emotional zoom.
 //           */}
@@ -56,7 +56,7 @@
 //             alt={image.alt}
 //             className={`h-full w-full object-cover ${index === currentIndex ? 'scale-110 transition-transform duration-[10000ms] ease-linear' : 'scale-100'}`}
 //           />
-          
+
 //           {/* Dark Overlay for Text Readability (Optional but recommended) */}
 //           <div className="absolute inset-0 bg-black/40" />
 //         </div>
@@ -94,8 +94,8 @@ const ImageCarousel = ({ images }) => {
             className={`h-full w-full object-cover opacity-60 
                 ${index === currentIndex ? 'scale-110 transition-transform duration-[6000ms] ease-linear' : 'scale-100'}
             `}
-            fetchPriority={index === 0 ? "high" : "auto"}
-            loading={index === 0 ? "eager" : "lazy"}
+            fetchPriority={index === 0 ? 'high' : 'auto'}
+            loading={index === 0 ? 'eager' : 'lazy'}
           />
         </div>
       ))}
