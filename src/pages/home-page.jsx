@@ -1,6 +1,7 @@
 import React from 'react';
 import Hero from '../sections/hero';
 import TrustBar from '../sections/trust-bar';
+import Authenticity from '../sections/authenticity';
 import Sensory from '../sections/sensory';
 import ContentBreak from '../sections/content-break';
 import Story from '../sections/story';
@@ -19,9 +20,11 @@ const HomePage = ({ navigate, onAddToCart, onImageClick, onBulkEnquire, onSchedu
   return (
     <>
       <Hero navigate={navigate} />
+      
       <TrustBar />
       <Sensory />
-      <ContentBreak />
+      <Authenticity onNavigate={navigate}/> 
+      {/* <ContentBreak />  */}
       <Story />
       <Collection
         onAddToCart={onAddToCart}
