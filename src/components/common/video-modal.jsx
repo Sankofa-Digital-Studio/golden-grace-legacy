@@ -1,11 +1,10 @@
 import React from 'react';
-import { Square } from 'lucide-react'; // Changed from PauseCircle to Square (Stop)
+import { Square } from 'lucide-react';
 
 const VideoModal = ({ videoSrc, onClose }) => {
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 backdrop-blur-md animate-in fade-in duration-300">
       {/* Video Container */}
-      {/* We removed the top-right button entirely to avoid duplication */}
       <div className="relative w-full max-w-7xl px-4 flex flex-col items-center">
         <video
           controls
@@ -16,17 +15,12 @@ const VideoModal = ({ videoSrc, onClose }) => {
           Your browser does not support the video tag.
         </video>
 
-        {/* Unified 'Return to Site' Button 
-           - Position: Fixed at bottom for easy thumb reach on mobile
-           - Icon: Square (Stop) to indicate ending the session
-           - Visibility: Visible on BOTH mobile and desktop
-        */}
+        {/* 'Return to Site' Button */}
         <div className="fixed bottom-10 left-0 right-0 flex justify-center z-50">
           <button
             onClick={onClose}
             className="group flex items-center gap-3 bg-white/10 backdrop-blur-xl border border-white/20 px-6 py-3 rounded-full text-white hover:bg-red-600/20 hover:border-red-500/50 transition-all duration-300 hover:scale-105 active:scale-95 shadow-lg"
           >
-            {/* The Stop Icon (fill-current makes it solid) */}
             <Square
               size={16}
               className="fill-current text-white/80 group-hover:text-red-400 transition-colors"
