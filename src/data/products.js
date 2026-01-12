@@ -1,4 +1,4 @@
-export const PRODUCTS = [
+const PRODUCTS = [
   {
     id: 1,
     name: "Golden Dawn (Raw Honey)",
