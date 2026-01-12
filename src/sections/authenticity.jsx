@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { ArrowRight, AlertTriangle, Check , Lightbulb, BookOpen, ChevronUp, ChevronDown } from 'lucide-react';
-import { HONEY_TESTS } from '../data/honey-tests'; 
-import { DICTIONARY_TERMS } from '../data/honey-dictionary';
+import { HONEY_TESTS } from '../data/constants'; 
+import { DICTIONARY_TERMS } from '../data/constants';
 
 const Authenticity = ({ onNavigate }) => {
   const [openTerm, setOpenTerm] = useState(null);

@@ -1,203 +1,88 @@
-// import React, { useState } from 'react';
-// import { Maximize2 } from 'lucide-react';
-
-// const ProductCard = ({ product, delay, onAdd, onImageClick }) => {
-//   const {
-//     title,
-//     basePrice,
-//     tag,
-//     image,
-//     secondaryImage,
-//     desc,
-//     isVariable,
-//     variantType = 'honey',
-//   } = product;
-//   const [size, setSize] = useState(variantType === 'honey' ? '500g' : '8cm');
-//   const [material, setMaterial] = useState('Plastic');
-
-//   const getPrice = () => {
-//     let price = basePrice;
-//     if (isVariable) {
-//       if (variantType === 'honey') {
-//         if (size === '750g') price += 50;
-//         if (material === 'Glass') price += 20;
-//       } else if (variantType === 'size') {
-//         if (size === '10cm') price += 15;
-//         if (size === '15cm') price += 30;
-//       }
-//     }
-//     return price;
-//   };
-
-//   const handleAdd = (e) => {
-//     e.stopPropagation();
-//     const variantLabel = variantType === 'honey' ? `${size}, ${material}` : size;
-//     const finalProduct = {
-//       ...product,
-//       id: isVariable ? `${product.id}-${size.replace(/\s/g, '')}` : product.id,
-//       title: isVariable ? `${title} (${variantLabel})` : title,
-//       price: getPrice(),
-//     };
-//     onAdd(finalProduct);
-//   };
-
-//   return (
-//     <div
-//       className={`group relative w-full bg-[#121212] border border-white/5 md:hover:border-amber-500/30 transition-all duration-500 overflow-hidden flex flex-col rounded-lg snap-center flex-shrink-0 min-w-[280px] md:min-w-0`}
-//       style={{ animationDelay: `${delay}ms` }}
-//     >
-//       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-40 h-40 bg-amber-500/5 blur-[80px] group-hover:bg-amber-500/20 transition-all duration-700"></div>
-//       <div
-//         className="relative h-48 md:h-56 lg:h-64 2xl:h-80 w-full bg-[#0a0a0a] flex items-center justify-center overflow-hidden cursor-pointer"
-//         onClick={() => onImageClick(image, title)}
-//       >
-//         <img
-//           src={image}
-//           alt={title}
-//           className={`h-32 md:h-40 lg:h-48 2xl:h-64 w-auto object-contain golden-filter transition-all duration-700 ${secondaryImage ? 'group-hover:opacity-0' : 'group-hover:scale-110'}`}
-//           loading="lazy"
-//           decoding="async"
-//         />
-//         {secondaryImage && (
-//           <img
-//             src={secondaryImage}
-//             alt={`${title} view 2`}
-//             className="absolute inset-0 m-auto h-32 md:h-40 lg:h-48 2xl:h-64 w-auto object-contain golden-filter opacity-0 group-hover:opacity-100 transition-all duration-700 group-hover:scale-110"
-//             loading="lazy"
-//             decoding="async"
-//           />
-//         )}
-//         <div className="absolute top-4 right-4 z-10 pointer-events-none">
-//           <span className="px-2 md:px-3 py-1 text-[8px] md:text-[10px] font-bold tracking-widest border border-amber-500/30 text-amber-400 rounded-full bg-black/60 backdrop-blur-md">
-//             {tag}
-//           </span>
-//         </div>
-//         <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity z-10">
-//           <Maximize2 size={16} className="text-white/70" />
-//         </div>
-//       </div>
-//       <div className="p-4 md:p-6 flex-1 flex flex-col">
-//         <h3 className="text-lg md:text-xl 2xl:text-2xl font-serif text-white mb-2">{title}</h3>
-//         <p className="text-gray-400 text-xs md:text-xs 2xl:text-sm mb-4 line-clamp-2 min-h-[2.5em]">
-//           {desc}
-//         </p>
-//         {isVariable && (
-//           <div className="mb-6">
-//             {variantType === 'honey' ? (
-//               <div className="grid grid-cols-2 gap-2">
-//                 {/* FIX: Forced bg-[#1a1a1a] for device dark mode compliance */}
-//                 <select
-//                   value={size}
-//                   onChange={(e) => setSize(e.target.value)}
-//                   className="bg-[#1a1a1a] text-white text-[10px] md:text-xs p-2 rounded border border-white/10 outline-none focus:border-amber-500 w-full appearance-none"
-//                 >
-//                   <option value="500g">500g</option>
-//                   <option value="750g">750g</option>
-//                 </select>
-//                 <select
-//                   value={material}
-//                   onChange={(e) => setMaterial(e.target.value)}
-//                   className="bg-[#1a1a1a] text-white text-[10px] md:text-xs p-2 rounded border border-white/10 outline-none focus:border-amber-500 w-full appearance-none"
-//                 >
-//                   <option value="Plastic">Plastic</option>
-//                   <option value="Glass">Glass (+R20)</option>
-//                 </select>
-//               </div>
-//             ) : (
-//               <select
-//                 value={size}
-//                 onChange={(e) => setSize(e.target.value)}
-//                 className="bg-[#1a1a1a] text-white text-[10px] md:text-xs p-2 rounded border border-white/10 outline-none focus:border-amber-500 w-full appearance-none"
-//               >
-//                 <option value="8cm">Small (8cm)</option>
-//                 <option value="10cm">Medium (10cm) +R15</option>
-//                 <option value="15cm">Large (15cm) +R30</option>
-//               </select>
-//             )}
-//           </div>
-//         )}
-//         <div className="mt-auto pt-4 border-t border-white/10 flex flex-col gap-4">
-//           <div className="flex justify-between items-center">
-//             <p className="text-amber-400 text-base md:text-lg 2xl:text-xl font-light">
-//               R {getPrice().toFixed(2)}
-//             </p>
-//           </div>
-//           <button
-//             onClick={handleAdd}
-//             className={`w-full relative overflow-hidden bg-white text-black uppercase tracking-widest text-[10px] md:text-xs font-bold py-3 transition-colors flex items-center justify-center gap-2 group/btn hover:bg-amber-500`}
-//           >
-//             <span className="relative z-10">Add to Cart</span>
-//           </button>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default ProductCard;
-
 import React, { useState } from 'react';
-import { Heart, Maximize2 } from 'lucide-react';
-import PRODUCTS from '../data/products';
-
+import { Heart } from 'lucide-react';
+import { PRODUCTS } from '../../data/constants';
 const ProductCard = ({ product, isSankofa, onAddToCart, isFavorite, onToggleFavorite }) => {
   const [activeImage, setActiveImage] = useState(0);
 
+  // Safety check to prevent the 'map of undefined' error
+  if (!product || !product.images) {
+    return (
+      <div className="p-4 border border-dashed border-white/10 text-gray-500 text-xs rounded-xl">
+        Product data missing...
+      </div>
+    );
+  }
+
   return (
-    <div className={`group relative rounded-xl overflow-hidden transition-all duration-500 flex flex-col h-full
-      ${isSankofa 
-        ? 'bg-white/5 backdrop-blur-md border border-white/10 hover:border-amber-500/30 hover:shadow-2xl' 
-        : 'bg-white/5 border border-white/10'}
-    `}>
+    <div
+      className={`group relative rounded-xl overflow-hidden transition-all duration-500 flex flex-col h-full
+      ${
+        isSankofa
+          ? 'bg-white/5 backdrop-blur-md border border-white/10 hover:border-amber-500/30 hover:shadow-2xl'
+          : 'bg-white/5 border border-white/10'
+      }
+    `}
+    >
       {/* Image Gallery */}
       <div className="relative aspect-[4/5] overflow-hidden bg-black/20">
-        {/* We map through images to allow transitions between them */}
-        <PRODUCTS product={PRODUCTS} />
         {product.images.map((img, idx) => (
-          <img 
+          <img
             key={idx}
-            src={img} 
-            alt={`${product.name} view ${idx+1}`}
-            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500
+            src={img}
+            alt={`${product.name} perspective ${idx + 1}`}
+            title={`${product.name} - View ${idx + 1}`}
+            className={`absolute inset-0 w-full h-full object-cover transition-all duration-700
                ${activeImage === idx ? 'opacity-100 scale-105' : 'opacity-0 scale-100'}
             `}
+            loading="lazy"
           />
         ))}
-        
+
         {/* Gallery Controls (Dots) */}
         {product.images.length > 1 && (
-            <div className="absolute bottom-3 left-0 right-0 flex justify-center gap-1.5 z-10">
+          <div className="absolute bottom-3 left-0 right-0 flex justify-center gap-1.5 z-10">
             {product.images.map((_, idx) => (
-                <button 
+              <button
                 key={idx}
-                onClick={(e) => { e.stopPropagation(); setActiveImage(idx); }}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setActiveImage(idx);
+                }}
                 className={`w-1.5 h-1.5 rounded-full transition-all ${activeImage === idx ? 'bg-amber-500 w-4' : 'bg-white/50'}`}
-                />
+                title={`View image ${idx + 1}`}
+              />
             ))}
-            </div>
+          </div>
         )}
 
         {/* Favorite Button */}
-        <button 
+        <button
           onClick={() => onToggleFavorite(product.id)}
           className="absolute top-3 right-3 p-2 rounded-full bg-black/20 backdrop-blur-sm text-white hover:bg-red-500/20 transition-colors z-20 group/heart"
+          title={isFavorite ? 'Remove from favorites' : 'Add to favorites'}
         >
-          <Heart size={18} className={`transition-colors ${isFavorite ? 'fill-red-500 text-red-500' : 'text-white group-hover/heart:text-red-400'}`} />
+          <Heart
+            size={18}
+            className={`transition-colors ${isFavorite ? 'fill-red-500 text-red-500' : 'text-white group-hover/heart:text-red-400'}`}
+          />
         </button>
       </div>
 
       {/* Product Info */}
       <div className="p-5 flex-1 flex flex-col">
         <h3 className="text-xl font-serif text-white mb-1">{product.name}</h3>
-        <p className="text-sm text-gray-400 mb-4">{product.container} • {product.size}</p>
-        
+        <p className="text-sm text-gray-400 mb-4">
+          {product.container} • {product.size}
+        </p>
+
         <div className="mt-auto flex items-center justify-between">
           <span className="text-lg font-bold text-amber-500">M{product.price}</span>
-          <button 
+          <button
             onClick={() => onAddToCart(product)}
             className={`px-4 py-2 rounded-full text-xs font-bold uppercase tracking-widest transition-all
                ${isSankofa ? 'bg-white/10 hover:bg-amber-500 hover:text-black active:scale-90' : 'bg-amber-500 text-black hover:bg-white'}
             `}
+            title={`Add ${product.name} to your reserve`}
           >
             Add to Reserve
           </button>
@@ -206,5 +91,4 @@ const ProductCard = ({ product, isSankofa, onAddToCart, isFavorite, onToggleFavo
     </div>
   );
 };
-
 export default ProductCard;
