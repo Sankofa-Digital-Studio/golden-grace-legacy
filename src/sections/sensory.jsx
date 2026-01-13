@@ -14,7 +14,7 @@ const Sensory = () => (
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 2xl:gap-16">
         <div className="relative group aspect-[3/4] overflow-hidden rounded-lg border border-white/5">
           <img
-            src="/images/liquid-honey-texture.webp"
+            src="/images/sensory/liquid-gold.webp"
             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 golden-filter"
             alt="Liquid Honey Texture"
             loading="lazy"
@@ -32,7 +32,7 @@ const Sensory = () => (
         </div>
         <div className="relative group aspect-[3/4] overflow-hidden rounded-lg border border-white/5">
           <img
-            src="/images/7.jpeg"
+            src="/images/sensory/creamed-goodness.webp"
             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 golden-filter"
             alt="Creamed Honey Texture"
             loading="lazy"
@@ -49,7 +49,7 @@ const Sensory = () => (
         </div>
         <div className="relative group aspect-[3/4] overflow-hidden rounded-lg border border-white/5">
           <img
-            src="/images/17.jpeg"
+            src="/images/sensory/infused-botanicals.webp"
             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 golden-filter"
             alt="Infused Honey"
             loading="lazy"
