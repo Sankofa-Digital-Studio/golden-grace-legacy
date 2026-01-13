@@ -1,81 +1,95 @@
+/* GOLDEN GRACE INDUSTRIAL STYLESHEET
+  Designed by Sankofa Digital Standards
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* CRITICAL FIXES FOR LAYOUT */
 @layer base {
-  html,
-  body {
-    /* Prevents horizontal scrolling caused by animations or wide elements */
+  html, body {
     overflow-x: hidden;
     width: 100%;
     margin: 0;
     padding: 0;
-    background-color: #050505; /* Matches our theme */
+    background-color: #050505;
+    color: #ffffff;
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
   }
 
-  /* Ensures images never overflow their container */
-  img,
-  video {
+  h1, h2, h3, .font-serif {
+    font-family: 'Playfair Display', serif;
+  }
+
+  /* Ensures images and videos never overflow their containers */
+  img, video {
     max-width: 100%;
     height: auto;
     display: block;
   }
 }
 
-/* Custom Scrollbar for the dark theme */
-::-webkit-scrollbar {
-  width: 8px;
-}
-::-webkit-scrollbar-track {
-  background: #1a1a1a;
-}
-::-webkit-scrollbar-thumb {
-  background: #444;
-  border-radius: 4px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #f59e0b; /* Amber 500 */
+@layer components {
+  /* --- SUBTLE HONEYCOMB PATTERN --- */
+  .bg-honeycomb {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='100' viewBox='0 0 56 100'%3E%3Cpath d='M28 66L0 50L0 16L28 0L56 16L56 50L28 66L28 100' fill='none' stroke='%23f59e0b' stroke-opacity='0.15' stroke-width='1'/%3E%3C/svg%3E");
+    background-attachment: fixed;
+  }
+
+  /* --- AMBIENT GLOW UTILITIES (Warms the Void) --- */
+  .glow-amber {
+    position: relative;
+  }
+  .glow-amber::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center, rgba(245, 158, 11, 0.08) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  /* --- SANKOFA FILTERS --- */
+  .golden-filter { 
+    filter: brightness(0.9) contrast(1.1) saturate(1.1); 
+  }
 }
 
-/* Hide scrollbar for carousel but keep functionality */
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
-}
-.no-scrollbar {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
+/* --- CUSTOM SCROLLBAR --- */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #050505; }
+::-webkit-scrollbar-thumb { background: #222; border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: #f59e0b; }
 
-/* Animation Utilities */
-.golden-filter {
-  filter: brightness(0.9) contrast(1.1) saturate(1.1);
-}
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
+/* --- CORE ANIMATIONS --- */
 @keyframes fade-in-up {
-  0% {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
 }
 
-.animate-fade-in-up {
-  animation: fade-in-up 0.8s ease-out forwards;
+@keyframes spring-pop {
+  0% { transform: scale(0.95); }
+  70% { transform: scale(1.02); }
+  100% { transform: scale(1); }
 }
 
-@keyframes spin-slow {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+@keyframes bee-fly-away {
+  0% { transform: translate(0, 0) rotate(0deg); opacity: 1; }
+  100% { transform: translate(100px, -100px) rotate(45deg); opacity: 0; }
 }
 
-.animate-spin-slow {
-  animation: spin-slow 8s linear infinite;
+.animate-fade-in-up { animation: fade-in-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+.animate-spring { animation: spring-pop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+.animate-bee-fly-away { animation: bee-fly-away 0.8s ease-in forwards; }
+
+/* --- SELECTION COLOR --- */
+::selection {
+  background-color: #f59e0b;
+  color: #000000;
 }
