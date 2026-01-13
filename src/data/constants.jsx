@@ -23,10 +23,10 @@ export const HONEY_TESTS = [
 ];
 
 export const HERO_IMAGES = [
-  '/images/hero-bg-slide-1.webp',
-  '/images/hero-bg-slide-2.webp',
-  '/images/hero-bg-slide-3.webp',
-  '/images/hero-bg-slide-4.webp',
+  '/images/hero/hero-bg-slide-1.webp',
+  '/images/hero/hero-bg-slide-2.webp',
+  '/images/hero/hero-bg-slide-3.webp',
+  '/images/hero/hero-bg-slide-4.webp',
 ];
 export const DICTIONARY_TERMS = [
   {
@@ -229,3 +229,46 @@ export const JOURNEY_TECHNICAL_DATA = {
     stats: "Filtering: 200-micron macro-mesh (Pollen preserved)."
   }
 };
+
+export const INTERESTING_FACTS = [
+  {
+    page: "p. 5",
+    category: "Beekeeping History of SA",
+    title: "The First Keepers",
+    content: "First established by the San Bushmen who used the bees and honey in their rock art. It was easier to find their nesting grounds through the shimmer of their wings with the cast light of the setting sun.",
+    icon: <History className="text-amber-500" />,
+    img: "/images/harvest/harvest-25.webp"
+  },
+  {
+    page: "p. 9",
+    category: "Bees & Environment",
+    title: "Africa's Hidden Diversity",
+    content: "As people we only know of one bee species which is the common honeybee. However, in Africa there is an estimation of at least 3,000 bee species and 200,000 worldwide.",
+    icon: <Globe className="text-amber-500" />,
+    img: "/images/harvest/harvest-15.webp"
+  },
+  {
+    page: "p. 17",
+    category: "The Honeybee Nest",
+    title: "Migration & Decoys",
+    content: "Nesting sites for bees are scarce in certain regions hence they migrate in swarms to resource-rich areas. Beekeepers attract swarms with decoy hives to help increase their stocks.",
+    icon: <HomeIcon className="text-amber-500" />,
+    img: "/images/harvest/harvest-2.webp"
+  },
+  {
+    page: "p. 27",
+    category: "Behaviors",
+    title: "The Grooming Dance",
+    content: "Bees have an agitated urge to stomp their little legs and rhythmically swing their bodies. This is a cry for help; signaling to the bee next to it that it needs help getting clean with mandibles and antennae.",
+    icon: <Sparkles className="text-amber-500" />,
+    img: "/images/harvest/harvest-3.webp"
+  },
+  {
+    page: "p. 30",
+    category: "Protection",
+    title: "The Bump of Warning",
+    content: "Guards get alerted by movements, odour, and appearance. They do not attack immediately; instead, they bump into the intruder to notify them they are in the wrong place. If ignored, they guard (attack).",
+    icon: <ShieldCheck className="text-amber-500" />,
+    img: "/images/harvest/harvest-12.webp"
+  }
+]
