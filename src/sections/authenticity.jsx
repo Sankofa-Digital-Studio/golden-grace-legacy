@@ -1,132 +1,151 @@
-import React, { useState } from 'react';
-import { ArrowRight, AlertTriangle, Check , Lightbulb, BookOpen, ChevronUp, ChevronDown } from 'lucide-react';
-import { HONEY_TESTS } from '../data/constants'; 
-import { DICTIONARY_TERMS } from '../data/constants';
 
-const Authenticity = ({ onNavigate }) => {
-  const [openTerm, setOpenTerm] = useState(null);
+import React, { useState, useRef } from 'react';
+import { ArrowRight, Home as HomeIcon } from 'lucide-react';
+import GlassCard from '../components/ui/glass-card';
+import { LEXICON_GROUPS, INTERESTING_FACTS } from '../data/constants';
 
-  const toggleTerm = (index) => {
-    setOpenTerm(openTerm === index ? null : index);
-  };
+const Authenticity = () => {
+  const scrollRef = useRef(null);
+  const [activeGroup, setActiveGroup] = useState(0);
 
   return (
-    <section id="authenticity" className="py-24 px-6 bg-transparent relative z-10">
-      
-      {/* Background Ambience */}
-     <div className="absolute inset-0 bg-honeycomb opacity-[0.22] pointer-events-none -z-10" />
-
-      <div className="max-w-6xl mx-auto relative z-10">
-        
-        {/* PART 1: DID YOU KNOW? */}
-        <div className="mb-20">
-          <div className="rounded-2xl p-8 md:p-12 text-center relative overflow-hidden border bg-amber-900/10 border-amber-500/20">
-             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-transparent via-amber-500 to-transparent" />
-             <Lightbulb className="mx-auto text-amber-400 mb-6 w-10 h-10" />
-             <h3 className="font-serif text-2xl md:text-3xl text-white mb-4">Did You Know?</h3>
-             <p className="text-lg md:text-xl font-light italic leading-relaxed max-w-3xl mx-auto text-amber-100/80">
-               "Real honey never spoils. Archaeologists have found pots of honey in ancient Egyptian tombs that are over 3,000 years old and still perfectly edible."
-             </p>
-          </div>
+    <section id="authenticity" className="py-32 px-6 bg-transparent relative z-10">
+      <div className="absolute inset-0 bg-honeycomb opacity-[0.22] pointer-events-none -z-10" />
+      <div className="max-w-7xl mx-auto space-y-32">
+        {/* TRUTH IN SCIENCE */}
+        <div className="text-center space-y-4">
+          <h2 className="text-4xl md:text-8xl font-serif text-white leading-none tracking-tight">
+            Truth in <span className="italic text-amber-500">Science.</span>
+          </h2>
+          <p className="text-gray-500 uppercase tracking-[0.5em] text-[10px]">
+            Unfiltered Evidence of Integrity
+          </p>
         </div>
 
-        {/* PART 2: AUTHENTICITY CHECK */}
-        <div className="mb-24">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-5xl font-serif text-white mb-4">Authenticity Check</h2>
-            <p className="text-gray-400">Don't take our word for it. Test it yourself.</p>
+        {/* SWIPEABLE FIELD GUIDE */}
+        <div className="space-y-12">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 px-2">
+            <div className="space-y-2">
+              <span className="text-amber-500 font-bold uppercase tracking-[0.4em] text-[10px] block">
+                Field Guide
+              </span>
+              <h3 className="text-3xl md:text-5xl font-serif text-white italic">Did you know?</h3>
+            </div>
+            <div className="flex items-center gap-4">
+              <div className="flex gap-1.5 h-1">
+                {INTERESTING_FACTS.map((_, i) => (
+                  <div key={i} className="w-6 h-full bg-white/10 rounded-full overflow-hidden">
+                    <div className="h-full bg-amber-500 transition-all duration-300 w-0" />
+                  </div>
+                ))}
+              </div>
+              <div className="hidden md:flex gap-2">
+                <button
+                  title="Previous Fact"
+                  onClick={() => scrollRef.current?.scrollBy({ left: -400, behavior: 'smooth' })}
+                  className="p-3 rounded-full border border-white/10 hover:bg-amber-500 hover:text-black transition-all active:scale-90"
+                >
+                  <ArrowRight size={20} className="rotate-180" />
+                </button>
+                <button
+                  title="Next Fact"
+                  onClick={() => scrollRef.current?.scrollBy({ left: 400, behavior: 'smooth' })}
+                  className="p-3 rounded-full border border-white/10 hover:bg-amber-500 hover:text-black transition-all active:scale-90"
+                >
+                  <ArrowRight size={20} />
+                </button>
+              </div>
+            </div>
           </div>
 
-          <div className="flex md:grid md:grid-cols-3 gap-6 overflow-x-auto snap-x snap-mandatory pb-8 -mx-4 px-4 md:pb-0 md:mx-0 md:px-0 scrollbar-hide">
-            {HONEY_TESTS.map((test, index) => (
-              <div key={index} className="min-w-[85vw] md:min-w-0 snap-center p-8 rounded-xl transition-all duration-300 group flex flex-col h-full border bg-white/5 border-white/10 hover:bg-white/10">
-                <div className="bg-black/40 w-16 h-16 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                  {test.icon}
-                </div>
-                <h4 className="text-xl font-serif text-white mb-3">{test.title}</h4>
-                <p className="text-amber-400 text-sm font-bold uppercase tracking-wider mb-2">Step 1</p>
-                <p className="text-gray-300 text-sm mb-4 min-h-[40px]">{test.instruction}</p>
-                <div className="border-t border-white/10 pt-4 mt-auto">
-                    <p className="text-amber-400 text-sm font-bold uppercase tracking-wider mb-2">The Truth</p>
-                    <p className="text-gray-400 text-sm leading-relaxed">{test.result}</p>
-                </div>
+          {/* Swipe Container with Snap */}
+          <div
+            ref={scrollRef}
+            className="flex gap-6 overflow-x-auto pb-12 snap-x snap-mandatory no-scrollbar cursor-grab active:cursor-grabbing"
+          >
+            {INTERESTING_FACTS.map((fact, i) => (
+              <div key={i} className="min-w-[90%] md:min-w-[450px] snap-center">
+                <GlassCard className="h-full flex flex-col overflow-hidden group hover:border-amber-500/40 transition-all duration-700">
+                  <div className="h-56 relative overflow-hidden bg-black/60">
+                    <img
+                      src={fact.img}
+                      alt={fact.title}
+                      className="w-full h-full object-cover grayscale opacity-30 group-hover:grayscale-0 group-hover:scale-105 group-hover:opacity-60 transition-all duration-1000"
+                    />
+                    <div className="absolute top-6 left-6 bg-amber-500 text-black px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-widest shadow-xl">
+                      {fact.page}
+                    </div>
+                  </div>
+                  <div className="p-10 space-y-6 flex-1 flex flex-col bg-gradient-to-b from-transparent to-black/20">
+                    <div className="flex items-center gap-3">
+                      <div className="p-2.5 bg-amber-500/10 rounded-xl border border-amber-500/20">
+                        {fact.icon}
+                      </div>
+                      <span className="text-amber-500 font-bold uppercase tracking-[0.3em] text-[10px]">
+                        {fact.category}
+                      </span>
+                    </div>
+                    <h4 className="text-3xl font-serif text-white">{fact.title}</h4>
+                    <p className="text-gray-400 text-base leading-relaxed font-light italic">
+                      "{fact.content}"
+                    </p>
+                  </div>
+                </GlassCard>
               </div>
             ))}
           </div>
-          
-          <div className="flex justify-center gap-1 mt-2 md:hidden">
-              <div className="w-1 h-1 rounded-full bg-white/50"></div>
-              <div className="w-1 h-1 rounded-full bg-white/20"></div>
-              <div className="w-1 h-1 rounded-full bg-white/20"></div>
-          </div>
         </div>
 
-        {/* PART 3: THE DICTIONARY */}
-        <div id="authenticity-dictionary" className="max-w-4xl mx-auto">
-          <div className="flex items-center gap-3 mb-8 justify-center">
-            <BookOpen className="text-amber-500" />
-            <h3 className="text-2xl font-serif text-white">The Dictionary</h3>
+        {/* THE HIVE LEXICON (Renamed & Grouped) */}
+        <div className="max-w-5xl mx-auto space-y-12">
+          <div className="text-center space-y-3">
+            <span className="text-amber-500 font-bold uppercase tracking-[0.4em] text-[10px] block">
+              Linguistic Integrity
+            </span>
+            <h3 className="text-3xl md:text-5xl font-serif text-white">
+              The Hive <span className="italic text-amber-500">Lexicon.</span>
+            </h3>
           </div>
 
-          <div className="space-y-4 mb-12">
-            {DICTIONARY_TERMS.map((item, index) => {
-              const isOpen = openTerm === index;
-              return (
-                <div 
-                  key={index}
-                  onClick={() => toggleTerm(index)}
-                  className={`border rounded-lg overflow-hidden cursor-pointer transition-all duration-300 
-                    ${isOpen ? 'bg-white/5 border-amber-500/50' : 'bg-transparent border-white/10 hover:border-white/30'}`}
-                >
-                  <div className="p-5 flex items-center justify-between">
-                    <div className="flex items-center gap-4">
-                        <span className={`text-lg font-serif ${isOpen ? 'text-amber-400' : 'text-white'}`}>{item.term}</span>
-                        <span className="hidden md:inline-block text-[10px] text-gray-500 font-mono bg-white/5 px-2 py-0.5 rounded">{item.phonetic}</span>
-                    </div>
-                    {isOpen ? <ChevronUp size={18} className="text-amber-500" /> : <ChevronDown size={18} className="text-gray-500" />}
-                  </div>
-                  
-                  {isOpen && (
-                    <div className="px-5 pb-6 animate-in slide-in-from-top-2 duration-200">
-                      <p className="text-white font-medium mb-6 text-lg">"{item.definition}"</p>
-                      
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                          <div className="bg-red-500/10 border border-red-500/20 p-4 rounded-lg">
-                              <div className="flex items-center gap-2 text-red-400 mb-2 font-bold text-xs uppercase tracking-widest">
-                                  <AlertTriangle size={14} /> The Industry Standard
-                              </div>
-                              <p className="text-sm text-gray-400 leading-relaxed">{item.truth}</p>
-                          </div>
-                          
-                          <div className="bg-green-500/10 border border-green-500/20 p-4 rounded-lg">
-                              <div className="flex items-center gap-2 text-green-400 mb-2 font-bold text-xs uppercase tracking-widest">
-                                  <Check size={14} /> The Golden Grace Standard
-                              </div>
-                              <p className="text-sm text-gray-300 leading-relaxed font-medium">{item.ourStandard}</p>
-                          </div>
-                      </div>
-                    </div>
-                  )}
+          {/* Logical Grouping Tabs */}
+          <div className="flex flex-wrap justify-center gap-4 mb-12">
+            {LEXICON_GROUPS.map((group, idx) => (
+              <button
+                key={idx}
+                onClick={() => setActiveGroup(idx)}
+                title={`View ${group.name}`}
+                className={`flex items-center gap-2 px-6 py-3 rounded-full text-[10px] font-black uppercase tracking-widest transition-all
+                    ${activeGroup === idx ? 'bg-amber-500 text-black' : 'bg-white/5 text-gray-500 hover:bg-white/10 hover:text-white'}`}
+              >
+                {group.icon} {group.name}
+              </button>
+            ))}
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
+            {LEXICON_GROUPS[activeGroup].terms.map((item, i) => (
+              <GlassCard
+                key={i}
+                className="p-8 space-y-4 hover:border-amber-500/30 transition-all group"
+              >
+                <h4 className="text-xl font-serif text-white group-hover:text-amber-500 transition-colors">
+                  {item.term}
+                </h4>
+                <p className="text-gray-400 text-sm leading-relaxed font-light">
+                  {item.definition}
+                </p>
+                <div className="pt-4 border-t border-white/5">
+                  <p className="text-amber-500 text-[9px] font-bold uppercase tracking-widest mb-1">
+                    Our Standard
+                  </p>
+                  <p className="text-white text-xs italic opacity-80">{item.ourStandard}</p>
                 </div>
-              );
-            })}
+              </GlassCard>
+            ))}
           </div>
-
-          {/* CTA Button */}
-          <div className="text-center">
-            <button 
-                onClick={() => onNavigate('education')} 
-                className="inline-flex items-center gap-2 bg-amber-500 text-black px-8 py-3 rounded-full font-bold uppercase tracking-widest text-sm hover:bg-white transition-colors"
-            >
-                Discover the Why <ArrowRight size={16} />
-            </button>
-          </div>
-
         </div>
-
       </div>
     </section>
   );
 };
-
 export default Authenticity;
