@@ -13,6 +13,8 @@ import FeaturedReviews from '../sections/featured-reviews';
 import Founder from '../sections/founder';
 import useAnalytics from '../hooks/useAnalytics';
 import useSEO from '../hooks/useSEO';
+import JourneySection from '../sections/journey';
+import Archive from '../sections/archive';
 
 const HomePage = ({ navigate, onAddToCart, onImageClick, onBulkEnquire, onScheduleClick }) => {
   useSEO('Home', 'Pure South African Honey, ethically sourced from the Free State.');
@@ -20,12 +22,16 @@ const HomePage = ({ navigate, onAddToCart, onImageClick, onBulkEnquire, onSchedu
   return (
     <>
       <Hero navigate={navigate} />
-      
+
       <TrustBar />
+      <JourneySection />
       <Sensory />
-      <Authenticity onNavigate={navigate}/> 
-      {/* <ContentBreak />  */}
+      <Authenticity onNavigate={navigate} />
+      
+      <Archive />
+      <ContentBreak /> 
       <Story />
+
       <Collection
         onAddToCart={onAddToCart}
         onImageClick={onImageClick}
