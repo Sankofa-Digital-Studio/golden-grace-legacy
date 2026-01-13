@@ -11,10 +11,10 @@ const Authenticity = ({ onNavigate }) => {
   };
 
   return (
-    <section id="authenticity" className="w-full py-24 px-4 md:px-8 relative overflow-hidden text-white bg-[#050505]">
+    <section id="authenticity" className="py-24 px-6 bg-transparent relative z-10">
       
       {/* Background Ambience */}
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-amber-500/5 rounded-full blur-[100px] pointer-events-none" />
+     <div className="absolute inset-0 bg-honeycomb opacity-[0.22] pointer-events-none -z-10" />
 
       <div className="max-w-6xl mx-auto relative z-10">
         
