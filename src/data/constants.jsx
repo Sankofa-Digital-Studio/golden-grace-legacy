@@ -189,7 +189,7 @@ export const JOURNEY_STEPS = [
   {
     id: "forage",
     title: "The Forage",
-    subtitle: "Welkom Wildflowers",
+    subtitle: "Free State Wildflowers",
     description: "Our bees roam the indigenous landscapes of the Free State, gathering nectar from Aloe and Cosmos. This is where the unique flavor profile of Golden Grace begins.",
     img: HARVEST_IMAGES[12].path, // Path to 'Wildflower Forage'
     icon: <Sun className="text-amber-500" />
