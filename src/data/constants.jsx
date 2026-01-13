@@ -211,3 +211,21 @@ export const JOURNEY_STEPS = [
     icon: <Users className="text-amber-600" />
   }
 ];
+
+export const JOURNEY_TECHNICAL_DATA = {
+  forage: {
+    labData: "Nectar Concentration: 82% | Pollen Diversity Index: High",
+    lore: "Sector: Welkom North. Primary Flora: Indigenous Aloe Ferox and Seasonal Cosmos.",
+    stats: "Bees traveled approx. 4,200km per harvest cycle."
+  },
+  architecture: {
+    labData: "Cell Precision: 120-degree Hexagonal Symmetry | Moisture Content: 17.2%",
+    lore: "Naturally sealed with Propolis (Bee Glue) to ensure a sterile environment.",
+    stats: "Density: 0.2g Beeswax per cubic centimeter."
+  },
+  extraction: {
+    labData: "Thermal Guard: Constant 32°C (Never heated) | Enzyme Count: Bio-active",
+    lore: "Manual centrifugal extraction preserves the molecular structure of the gold.",
+    stats: "Filtering: 200-micron macro-mesh (Pollen preserved)."
+  }
+};
