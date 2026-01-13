@@ -1,4 +1,4 @@
-import { Droplet, Beaker, Flame } from 'lucide-react';
+import { Droplet, Beaker, Flame, Sun, Wind, Users } from 'lucide-react';
 import React from 'react';
 
 export const HONEY_TESTS = [
@@ -90,7 +90,7 @@ export const LESOTHO_SELLERS = [
   { name: 'Leribe Hub', location: 'Hlotse Market' },
   { name: 'Mafeteng Depo', location: 'Main rank' },
 ];
-export default LESOTHO_SELLERS
+export default LESOTHO_SELLERS;
 
 export const PRODUCTS = [
   {
@@ -131,5 +131,83 @@ export const PRODUCTS = [
   },
 ];
 
-export const VIDEO_SOURCE =
-  'https://videos.pexels.com/video-files/7234973/7234973-uhd_2560_1440_30fps.mp4';
+export const VIDEO_SOURCE = 'https://videos.pexels.com/video-files/7234973/7234973-uhd_2560_1440_30fps.mp4';
+
+export const seasons = [
+  {
+    season: 'Spring (Aug-Oct)',
+    activity: 'Swarming Season',
+    desc: 'Colonies expand rapidly with the blooming of Aloes and fruit trees.',
+  },
+  {
+    season: 'Summer (Nov-Feb)',
+    activity: 'Honey Flow',
+    desc: 'Peak nectar collection from Sunflowers and Cosmos. The main harvest begins.',
+  },
+  {
+    season: 'Autumn (Mar-May)',
+    activity: 'Preparation',
+    desc: 'Bees store reserves for winter. We ensure hives are insulated and safe.',
+  },
+  {
+    season: 'Winter (Jun-Jul)',
+    activity: 'Dormancy',
+    desc: 'The colony clusters for warmth. Minimal activity to conserve energy.',
+  },
+];
+
+export const HARVEST_IMAGES = Array.from({ length: 25 }).map((_, i) => ({
+  id: i + 1,
+  path: `/images/harvest/harvest-${i + 1}.webp`,
+  alt: `Golden Grace Raw Harvest Frame ${i + 1} - Welkom, Free State`,
+  title: [
+    "The Golden Dawn", "Hive Architecture", "Worker Bee Focus", "Macro Capping", 
+    "The Extraction", "Pollen Rich Frames", "Beekeeper Hands", "Nature's Geometry",
+    "Liquid Gold Flow", "Sunlight Through Honey", "The Smoker", "Protective Gear",
+    "Wildflower Forage", "Aloe Nectar", "Cosmos Field", "The Hive Stand",
+    "Macro Comb", "Propolis Seal", "The Queen's Chamber", "Strained Purity",
+    "Jarring the Grace", "Quality Seal", "Farm Morning", "Welkom Landscape", "The Legacy"
+  ][i] || "Harvest Detail",
+  category: i < 5 ? "Forage" : i < 15 ? "Extraction" : "Final Product"
+}));
+
+
+export const GLOSSARY_TERMS = [
+  {
+    term: "Non-Irradiated",
+    definition: "Most commercial honey is radiated to kill bacteria but kills the life inside. Ours is active, alive, and full of natural goodness.",
+    img: HARVEST_IMAGES[19].path // Strained Purity
+  },
+  {
+    term: "Cold Strained",
+    definition: "We use macro-filtration to remove wax wings but leave the healthy pollen intact, ensuring maximum health benefits.",
+    img: HARVEST_IMAGES[8].path // Flow detail
+  }
+];
+
+export const JOURNEY_STEPS = [
+  {
+    id: "forage",
+    title: "The Forage",
+    subtitle: "Welkom Wildflowers",
+    description: "Our bees roam the indigenous landscapes of the Free State, gathering nectar from Aloe and Cosmos. This is where the unique flavor profile of Golden Grace begins.",
+    img: HARVEST_IMAGES[12].path, // Path to 'Wildflower Forage'
+    icon: <Sun className="text-amber-500" />
+  },
+  {
+    id: "architecture",
+    title: "The Architecture",
+    subtitle: "Hexagonal Perfection",
+    description: "Inside the hive, bees build perfect geometry. We respect their work, ensuring we only harvest the surplus while maintaining the hive's structural integrity.",
+    img: HARVEST_IMAGES[1].path, // Path to 'Hive Architecture'
+    icon: <Wind className="text-amber-400" />
+  },
+  {
+    id: "extraction",
+    title: "The Extraction",
+    subtitle: "Hands of Heritage",
+    description: "Cold-strained and hand-pulled. We never heat our honey above hive temperature, preserving the live enzymes and probiotics that define raw honey.",
+    img: HARVEST_IMAGES[6].path, // Path to 'Beekeeper Hands'
+    icon: <Users className="text-amber-600" />
+  }
+];
