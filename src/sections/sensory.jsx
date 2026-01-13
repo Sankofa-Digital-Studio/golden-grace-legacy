@@ -1,16 +1,14 @@
 import React from 'react';
-
+import SectionHeading from '../components/ui/section-heading';
 const Sensory = () => (
   <section id="sensory" className="py-16 md:py-20 2xl:py-32 bg-[#080808] relative">
     <div className="max-w-[1920px] mx-auto px-4 md:px-8 lg:px-12">
-      <div className="text-center mb-12 md:mb-16">
-        <span className="text-amber-500 tracking-[0.3em] text-xs 2xl:text-sm font-bold uppercase">
-          The Experience
-        </span>
-        <h2 className="text-3xl md:text-5xl 2xl:text-7xl font-serif text-white mt-4">
-          A Symphony of Texture
-        </h2>
-      </div>
+      <SectionHeading
+        pre="Liquid Soul"
+        title="Sensory"
+        italic="whispers"
+        sub="Feel the texture, see the shimmer, and taste the unfiltered truth of raw honey."
+      />
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 2xl:gap-16">
         <div className="relative group aspect-[3/4] overflow-hidden rounded-lg border border-white/5">
           <img

@@ -3,24 +3,23 @@ import React, { useState, useRef } from 'react';
 import { ArrowRight, Home as HomeIcon } from 'lucide-react';
 import GlassCard from '../components/ui/glass-card';
 import { LEXICON_GROUPS, INTERESTING_FACTS } from '../data/constants';
+import SectionHeading from '../components/ui/section-heading';
 
 const Authenticity = () => {
   const scrollRef = useRef(null);
   const [activeGroup, setActiveGroup] = useState(0);
 
   return (
-    <section id="authenticity" className="py-32 px-6 bg-transparent relative z-10">
+    <section id="authenticity" className="py-16 px-6 bg-transparent relative z-10">
       <div className="absolute inset-0 bg-honeycomb opacity-[0.22] pointer-events-none -z-10" />
       <div className="max-w-7xl mx-auto space-y-32">
         {/* TRUTH IN SCIENCE */}
-        <div className="text-center space-y-4">
-          <h2 className="text-4xl md:text-8xl font-serif text-white leading-none tracking-tight">
-            Truth in <span className="italic text-amber-500">Science.</span>
-          </h2>
-          <p className="text-gray-500 uppercase tracking-[0.5em] text-[10px]">
-            Unfiltered Evidence of Integrity
-          </p>
-        </div>
+        <SectionHeading 
+          pre="Evidence of Integrity"
+          title="Truth in"
+          italic="science"
+          sub="Unfiltered evidence that the honey you hold is raw, active, and whole."
+        />
 
         {/* SWIPEABLE FIELD GUIDE */}
         <div className="space-y-12">
