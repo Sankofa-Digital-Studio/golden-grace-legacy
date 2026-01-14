@@ -400,3 +400,13 @@ export const LEXICON_DATA = [
     ],
   },
 ];
+
+export const FORAGER_MESSAGES = [
+  "Scouting the Free State flora...",
+  "Foraging for indigenous nectar...",
+  "Returning to the golden hive...",
+  "Capping the surplus perfection...",
+  "Preparing your harvest..."
+];
+
+
