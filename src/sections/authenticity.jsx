@@ -10,7 +10,7 @@ import {
   Landmark,
   AlertTriangle,
   Check,
-  Heart 
+  ChevronDown,
 } from 'lucide-react';
 import GlassCard from '../components/ui/glass-card';
 import { LEXICON_DATA, HONEY_TESTS } from '../data/constants';
@@ -22,6 +22,7 @@ const Authenticity = () => {
   const [activeLexiconGroup, setActiveLexiconGroup] = useState(0);
   const lexiconScrollRef = useRef(null);
   const [activeTermIndex, setActiveTermIndex] = useState(0);
+   const [openAccordion, setOpenAccordion] = useState(null);
 
   useEffect(() => {
     setActiveTermIndex(0);
@@ -42,7 +43,7 @@ const Authenticity = () => {
   };
   return (
     <section id="authenticity" className="py-16 px-6 bg-transparent relative z-10">
-      <div className="absolute inset-0 bg-honeycomb opacity-[0.22] pointer-events-none -z-10" />
+      <div className="absolute inset-0 bg-honeycomb opacity-[0.50] pointer-events-none -z-10" />
       <div className="max-w-7xl mx-auto space-y-12">
         {/* 1. SECTION HEADING */}
         <SectionHeading
@@ -176,7 +177,7 @@ const Authenticity = () => {
                   </div>
                   <div>
                     <h4 className="text-2xl font-serif text-white mb-2">{test.title}</h4>
-                    <p className="text-amber-500 text-[10px] font-black uppercase tracking-widest mb-4">
+                    <p className="text-amber-500 text-xs font-bold uppercase tracking-widest mb-4">
                       Method
                     </p>
                     <p className="text-gray-300 text-sm leading-relaxed mb-6 italic">
@@ -184,7 +185,7 @@ const Authenticity = () => {
                     </p>
                   </div>
                   <div className="mt-auto pt-6 border-t border-white/5">
-                    <p className="text-white text-xs font-bold uppercase tracking-widest mb-2">
+                    <p className="text-amber-500 text-xs font-bold uppercase tracking-widest mb-2">
                       The Truth
                     </p>
                     <p className="text-gray-400 text-sm leading-relaxed">{test.result}</p>
@@ -194,100 +195,117 @@ const Authenticity = () => {
             ))}
           </div>
         </div>
-
-        {/* 4. THE HIVE LEXICON (Renamed & Structured) */}
-      {/* <div className="flex flex-wrap gap-3 mb-8 px-2"> */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 px-2">
-            <div className="space-y-2">
-              <span className="text-amber-500 font-bold uppercase tracking-[0.4em] text-[10px] block">
-               Lingustic Integrity
-              </span>
-              <h3 className="text-3xl md:text-5xl font-serif text-white italic">
-                The Hive Lexicon
-              </h3>
+            <div className="space-y-12">
+          
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 px-2">
+            <div className="text-left space-y-2">
+              <span className="text-amber-500 font-bold uppercase tracking-[0.4em] text-[10px] block">Linguistic Integrity</span>
+              <h2 className="text-4xl md:text-5xl font-serif text-white italic tracking-tight">The Hive Lexicon</h2>
             </div>
-             {LEXICON_DATA.map((group, idx) => (
-                <button 
-                  key={idx}
-                  onClick={() => setActiveLexiconGroup(idx)}
-                  title={`View ${group.category} terms`}
-                  className={`flex items-center gap-2 px-6 py-3 rounded-full text-[10px] font-black uppercase tracking-widest transition-all
-                    ${activeLexiconGroup === idx ? 'bg-amber-500 text-black' : 'bg-white/5 text-gray-500 hover:bg-white/10 hover:text-white'}`}
-                >
-                  {group.icon} {group.category}
-                </button>
-             ))}
-          </div>
 
-          {/* Swipe Container for Lexicon Cards */}
-          <div 
-            ref={lexiconScrollRef}
-            onScroll={() => handleScrollTracker(lexiconScrollRef, setActiveTermIndex)}
-            className="flex gap-6 overflow-x-auto pb-12 snap-x snap-mandatory no-scrollbar cursor-grab active:cursor-grabbing"
-          >
-            {LEXICON_DATA[activeLexiconGroup].terms.map((item, i) => (
-              <div key={i} className="min-w-[90%] md:min-w-[500px] snap-center h-full">
-                <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl h-full p-10 space-y-8 flex flex-col group hover:border-amber-500/30 transition-all duration-500">
-                   <div className="space-y-2">
-                      <h4 className="text-3xl font-serif text-white group-hover:text-amber-500 transition-colors uppercase tracking-tighter">
-                        {item.term}
-                      </h4>
-                      <div className="flex items-center gap-3">
-                        <p className="text-[10px] text-gray-500 font-mono italic tracking-widest bg-white/5 w-fit px-3 py-1 rounded-full border border-white/5">
-                            {item.phonetic}
-                        </p>
-                        <span className="h-px w-8 bg-amber-500/20" />
-                        <span className="text-[10px] text-amber-500/50 font-bold uppercase tracking-widest">{LEXICON_DATA[activeLexiconGroup].category}</span>
-                      </div>
-                   </div>
-
-                   <p className="text-gray-300 text-lg leading-relaxed font-light">
-                    "{item.definition}"
-                   </p>
-                   
-                   <div className="space-y-6 pt-6 border-t border-white/5 mt-auto">
-                      <div className="space-y-2">
-                        <p className="text-red-500 text-[10px] font-black uppercase tracking-widest flex items-center gap-2">
-                            <AlertTriangle size={12}/> The Industry Truth
-                        </p>
-                        <p className="text-gray-500 text-xs leading-relaxed">{item.truth}</p>
-                      </div>
-                      <div className="space-y-2">
-                        <p className="text-green-500 text-[10px] font-black uppercase tracking-widest flex items-center gap-2">
-                            <Check size={12}/> Golden Grace Standard
-                        </p>
-                        <p className="text-white text-sm leading-relaxed font-medium italic opacity-90 underline decoration-amber-500/30 underline-offset-4">
-                            {item.ourStandard}
-                        </p>
-                      </div>
-                   </div>
+            {/* CATEGORY SWITCHER: Select for Mobile, Chips for Desktop */}
+            <div className="w-full md:w-auto">
+                {/* Mobile Dropdown */}
+                <div className="md:hidden relative">
+                    <select 
+                        title="Select Lexicon Category"
+                        value={activeLexiconGroup}
+                        onChange={(e) => setActiveLexiconGroup(parseInt(e.target.value))}
+                        className="w-full bg-[#111] border border-white/10 text-white rounded-xl px-4 py-4 text-sm font-bold uppercase tracking-widest outline-none focus:border-amber-500 appearance-none transition-all"
+                    >
+                        {LEXICON_DATA.map((group, idx) => (
+                            <option key={idx} value={idx}>{group.category}</option>
+                        ))}
+                    </select>
+                    <ChevronDown size={18} className="absolute right-4 top-1/2 -translate-y-1/2 text-amber-500 pointer-events-none" />
                 </div>
-              </div>
-            ))}
+
+                {/* Desktop Chips (Right Aligned) */}
+                <div className="hidden md:flex gap-3">
+                    {LEXICON_DATA.map((group, idx) => (
+                        <button 
+                            key={idx}
+                            onClick={() => setActiveLexiconGroup(idx)}
+                            title={`View ${group.category} terms`}
+                            className={`flex items-center gap-2 px-6 py-3 rounded-full text-[10px] font-black uppercase tracking-widest transition-all
+                                ${activeLexiconGroup === idx ? 'bg-amber-500 text-black shadow-lg shadow-amber-500/20' : 'bg-white/5 text-gray-500 hover:bg-white/10 hover:text-white'}`}
+                        >
+                            {group.icon} {group.category}
+                        </button>
+                    ))}
+                </div>
+            </div>
           </div>
 
-          {/* Center-Aligned Indicators */}
-          <div className="flex justify-center gap-3">
-              {LEXICON_DATA[activeLexiconGroup].terms.map((_, i) => (
-                <div 
-                  key={i} 
-                  className={`h-1.5 rounded-full transition-all duration-700 ${i === activeTermIndex ? 'w-12 bg-amber-500 shadow-[0_0_10px_rgba(245,158,11,0.5)]' : 'w-2 bg-white/10'}`}
-                  title={`Term ${i + 1}`}
-                />
-              ))}
+          {/* ACCORDION CONTENT */}
+          <div className="max-w-4xl mx-auto space-y-4 animate-in fade-in slide-in-from-bottom-4 duration-700">
+             {LEXICON_DATA[activeLexiconGroup].terms.map((item, i) => {
+                const isOpen = openAccordion === i;
+                return (
+                    <div 
+                        key={i} 
+                        className={`group rounded-2xl border transition-all duration-500 overflow-hidden
+                            ${isOpen ? 'bg-white/5 border-amber-500/30 shadow-2xl' : 'bg-[#0a0a0a] border-white/5 hover:border-white/10'}`}
+                    >
+                        <button 
+                            title={`Expand ${item.term}`}
+                            onClick={() => setOpenAccordion(isOpen ? null : i)}
+                            className="w-full px-8 py-6 flex items-center justify-between text-left"
+                        >
+                            <div className="space-y-1">
+                                <h4 className={`text-xl md:text-2xl font-serif transition-colors ${isOpen ? 'text-amber-400' : 'text-white'}`}>
+                                    {item.term}
+                                </h4>
+                                <p className="text-[10px] text-gray-500 font-mono italic tracking-widest uppercase">
+                                    {item.phonetic}
+                                </p>
+                            </div>
+                            <div className={`p-2 rounded-full transition-all ${isOpen ? 'bg-amber-500 text-black rotate-180' : 'bg-white/5 text-gray-500 group-hover:bg-white/10'}`}>
+                                <ChevronDown size={20} />
+                            </div>
+                        </button>
+
+                        <div className={`transition-all duration-500 ease-in-out ${isOpen ? 'max-h-[800px] opacity-100 pb-8' : 'max-h-0 opacity-0 overflow-hidden'}`}>
+                            <div className="px-8 space-y-8">
+                                <p className="text-gray-300 text-lg leading-relaxed font-light italic">
+                                    "{item.definition}"
+                                </p>
+
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div className="bg-red-500/[0.03] border border-red-500/10 p-6 rounded-xl space-y-3">
+                                        <p className="text-red-500 text-[10px] font-black uppercase tracking-widest flex items-center gap-2">
+                                            <AlertTriangle size={14}/> The Industry Truth
+                                        </p>
+                                        <p className="text-gray-400 text-sm leading-relaxed">{item.truth}</p>
+                                    </div>
+                                    <div className="bg-green-500/[0.03] border border-green-500/10 p-6 rounded-xl space-y-3">
+                                        <p className="text-green-500 text-[10px] font-black uppercase tracking-widest flex items-center gap-2">
+                                            <Check size={14}/> Golden Grace Standard
+                                        </p>
+                                        <p className="text-white text-sm leading-relaxed font-medium italic">
+                                            {item.ourStandard}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                );
+             })}
           </div>
         </div>
+      </div>
 
-        {/* CTA Button */}
-        <div className="text-center">
-            <button 
-                onClick={() => onNavigate('education')} 
-                title="Explore Bee Smart full guide"
-                className="inline-flex items-center gap-2 bg-amber-500 text-black px-12 py-4 rounded-full font-black uppercase tracking-widest text-sm hover:bg-white active:scale-90 transition-all shadow-xl"
-            >
-                Explore Bee Smart <ArrowRight size={18} />
-            </button>
-        </div>
+      {/* CTA Button */}
+      {/* <div className="text-center">
+        <button
+          onClick={() => onNavigate('education')}
+          title="Explore Bee Smart full guide"
+          className="inline-flex items-center gap-2 bg-amber-500 text-black px-12 py-4 rounded-full font-black uppercase tracking-widest text-sm hover:bg-white active:scale-90 transition-all shadow-xl"
+        >
+          Explore Bee Smart <ArrowRight size={18} />
+        </button>
+      </div> */}
     </section>
   );
 };
