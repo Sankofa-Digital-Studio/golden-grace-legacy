@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Heart } from 'lucide-react';
 import { PRODUCTS } from '../../data/constants';
+import OptimizedImage from './optimized-image';
 const ProductCard = ({ product, isSankofa, onAddToCart, isFavorite, onToggleFavorite }) => {
   const [activeImage, setActiveImage] = useState(0);
 
@@ -26,7 +27,7 @@ const ProductCard = ({ product, isSankofa, onAddToCart, isFavorite, onToggleFavo
       {/* Image Gallery */}
       <div className="relative aspect-[4/5] overflow-hidden bg-black/20">
         {product.images.map((img, idx) => (
-          <img
+          <OptimizedImage 
             key={idx}
             src={img}
             alt={`${product.name} perspective ${idx + 1}`}

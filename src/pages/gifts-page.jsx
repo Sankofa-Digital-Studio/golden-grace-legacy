@@ -1,5 +1,6 @@
 import React from 'react';
 import { Award, Gift } from 'lucide-react';
+import OptimizedImage from '../components/ui/optimized-image';
 
 const GiftsPage = ({ onBuildBox, onRequestCatalogue }) => (
   <div className="pt-24 md:pt-32 pb-20 bg-[#0a0a0a] min-h-screen">
@@ -19,7 +20,7 @@ const GiftsPage = ({ onBuildBox, onRequestCatalogue }) => (
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 lg:gap-16">
         {/* Corporate Card */}
         <div className="relative group overflow-hidden rounded-xl h-[400px] md:h-[500px] lg:h-[600px]">
-          <img
+         <OptimizedImage 
             src="https://images.unsplash.com/photo-1549488352-843258fb82fd?q=80&w=2070&auto=format&fit=crop"
             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 golden-filter"
             alt="Corporate Gifts"
@@ -43,7 +44,7 @@ const GiftsPage = ({ onBuildBox, onRequestCatalogue }) => (
         </div>
         {/* Personal Card */}
         <div className="relative group overflow-hidden rounded-xl h-[400px] md:h-[500px] lg:h-[600px]">
-          <img
+         <OptimizedImage 
             src="https://images.unsplash.com/photo-1513201099705-a9746e1e201f?q=80&w=1974&auto=format&fit=crop"
             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 golden-filter"
             alt="Personal Gifts"

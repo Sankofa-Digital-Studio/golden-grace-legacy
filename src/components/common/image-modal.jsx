@@ -1,5 +1,6 @@
 import React from 'react';
 import { X } from 'lucide-react';
+import OptimizedImage from '../ui/optimized-image';
 
 const ImageModal = ({ image, alt, onClose }) => (
   <div
@@ -17,7 +18,7 @@ const ImageModal = ({ image, alt, onClose }) => (
       >
         <X size={32} />
       </button>
-      <img
+     <OptimizedImage 
         src={image}
         alt={alt}
         className="max-w-full max-h-[85vh] object-contain rounded-lg shadow-2xl border border-white/10"

@@ -2,6 +2,7 @@ import React from 'react';
 import { ArrowRight } from 'lucide-react';
 import useAnalytics from '../hooks/useAnalytics';
 import useSEO from '../hooks/useSEO';
+import OptimizedImage from '../components/ui/optimized-image';
 const RecipesPage = ({ onReadRecipe }) => {
   useSEO('Lifestyle & Recipes', 'Discover delicious honey recipes and natural skincare routines.');
   useAnalytics('Recipes Page');
@@ -19,7 +20,7 @@ const RecipesPage = ({ onReadRecipe }) => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 lg:gap-12">
           <div className="bg-[#121212] rounded-xl overflow-hidden group hover:border-amber-500/50 border border-transparent transition-all">
             <div className="relative aspect-[4/5] overflow-hidden">
-              <img
+               <OptimizedImage 
                 src="/images/WhatsApp Image 2025-12-22 at 21.14.21 (1).jpeg"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 golden-filter"
                 alt="Honey Toast"
@@ -48,7 +49,7 @@ const RecipesPage = ({ onReadRecipe }) => {
           {/* Additional recipes here using /images/7.webp and /images/17.webp */}
           <div className="bg-[#121212] rounded-xl overflow-hidden group hover:border-amber-500/50 border border-transparent transition-all">
             <div className="relative aspect-[4/5] overflow-hidden">
-              <img
+             <OptimizedImage 
                 src="/images/7.jpeg"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 golden-filter"
                 alt="Honey Mask"
@@ -76,7 +77,7 @@ const RecipesPage = ({ onReadRecipe }) => {
           </div>
           <div className="bg-[#121212] rounded-xl overflow-hidden group hover:border-amber-500/50 border border-transparent transition-all">
             <div className="relative aspect-[4/5] overflow-hidden">
-              <img
+              <OptimizedImage  
                 src="/images/WhatsApp Image 2025-12-22 at 21.14.21 (2).jpeg"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 golden-filter"
                 alt="Honey Tea"

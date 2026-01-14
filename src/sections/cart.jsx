@@ -1,5 +1,6 @@
 import React from 'react';
 import { ShoppingBag, Minus, Plus, Trash2, X } from 'lucide-react';
+import OptimizedImage from '../components/ui/optimized-image';
 
 // Optional: BeeCloseButton if you implemented it in Step 5 (otherwise use X)
 // import BeeCloseButton from '../components/ui/bee-close-button'; 
@@ -53,7 +54,8 @@ const Cart = ({ isOpen, onClose, cartItems, onUpdateQuantity, onRemoveItem, isSa
                  
                  {/* Product Image */}
                  <div className="w-20 h-20 bg-[#0a0a0a] rounded-lg border border-white/5 flex-shrink-0 overflow-hidden">
-                    <img src={item.image} alt={item.title} className="w-full h-full object-cover" />
+                    <OptimizedImage 
+                    src={item.image} alt={item.title} className="w-full h-full object-cover" />
                  </div>
 
                  {/* Details */}
