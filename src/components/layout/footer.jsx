@@ -33,19 +33,13 @@ const Footer = ({ onSubscribe, onNav, onOpenModal }) => {
 
             <div className="flex justify-center md:justify-start gap-4 pt-2">
                 <div className="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center hover:bg-amber-500 hover:text-black hover:border-amber-500 transition-all cursor-pointer"><InstagramIcon size={14} /></div>
-                <div className="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center hover:bg-amber-500 hover:text-black hover:border-amber-500 transition-all cursor-pointer"><TwitterIcon size={14} /></div>
+                {/** Change Icon to X */}
+                <div className="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center hover:bg-amber-500 hover:text-black hover:border-amber-500 transition-all cursor-pointer"><TwitterIcon size={14} /></div> 
                 <div className="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center hover:bg-amber-500 hover:text-black hover:border-amber-500 transition-all cursor-pointer"><FacebookIcon size={14} /></div>
-            </div>
-
-            {/* Sankofa Credit - Compacted here for Mobile */}
-            <div className="pt-4 md:hidden">
-                <div className="inline-flex items-center gap-2 text-amber-500/80 font-bold uppercase tracking-widest text-[10px] border border-amber-500/10 px-3 py-1 rounded-full bg-amber-500/5">
-                    <Zap size={10} /> Sankofa Digital
-                </div>
             </div>
           </div>
 
-          {/* Column 2: Explore Links (HIDDEN ON MOBILE - Reduced Clutter) */}
+          {/* Column 2: Explore Links (HIDDEN ON MOBILE - Reduced Clutter) - Consider Removing in totallity */}
           <div className="hidden md:block w-full">
                 <h4 className="text-amber-400 font-bold tracking-widest uppercase text-xs md:text-sm mb-6">Explore</h4>
                 <ul className="space-y-4 text-gray-400 font-light text-sm 2xl:text-base">
@@ -87,14 +81,6 @@ const Footer = ({ onSubscribe, onNav, onOpenModal }) => {
                 <button onClick={() => onOpenModal('sustainability')} className="inline-flex items-center gap-2 text-xs text-green-500 hover:text-green-400 transition-colors uppercase tracking-widest border border-green-500/20 px-4 py-2 rounded-full hover:bg-green-500/10">
                     <Leaf size={14} /> Sustainability Tracker
                 </button>
-                
-                {/* Desktop Dev Credit */}
-                <div className="pt-4 border-t border-white/10 hidden md:block mt-4">
-                    <p className="text-gray-600 text-[10px] mb-2">Created with soul by</p>
-                    <div className="inline-flex items-center gap-2 text-amber-500 font-bold uppercase tracking-widest text-xs border border-amber-500/20 px-3 py-1 rounded-full bg-amber-500/5">
-                        <Zap size={10} /> Sankofa Digital
-                    </div>
-                </div>
             </div>
           </div>
 

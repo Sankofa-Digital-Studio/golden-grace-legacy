@@ -1,5 +1,19 @@
-import { Droplet, Beaker, Flame, Sun, Wind, Users } from 'lucide-react';
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import {
+  Droplet,
+  Beaker,
+  Flame,
+  Sun,
+  Wind,
+  Users,
+  Microscope,
+  History,
+  Globe,
+  HomeIcon,
+  Sparkles,
+  ShieldCheck,
+  Layers,
+} from 'lucide-react';
 
 export const HONEY_TESTS = [
   {
@@ -131,7 +145,8 @@ export const PRODUCTS = [
   },
 ];
 
-export const VIDEO_SOURCE = 'https://videos.pexels.com/video-files/7234973/7234973-uhd_2560_1440_30fps.mp4';
+export const VIDEO_SOURCE =
+  'https://videos.pexels.com/video-files/7234973/7234973-uhd_2560_1440_30fps.mp4';
 
 export const seasons = [
   {
@@ -160,115 +175,202 @@ export const HARVEST_IMAGES = Array.from({ length: 25 }).map((_, i) => ({
   id: i + 1,
   path: `/images/harvest/harvest-${i + 1}.webp`,
   alt: `Golden Grace Raw Harvest Frame ${i + 1} - Welkom, Free State`,
-  title: [
-    "The Golden Dawn", "Hive Architecture", "Worker Bee Focus", "Macro Capping", 
-    "The Extraction", "Pollen Rich Frames", "Beekeeper Hands", "Nature's Geometry",
-    "Liquid Gold Flow", "Sunlight Through Honey", "The Smoker", "Protective Gear",
-    "Wildflower Forage", "Aloe Nectar", "Cosmos Field", "The Hive Stand",
-    "Macro Comb", "Propolis Seal", "The Queen's Chamber", "Strained Purity",
-    "Jarring the Grace", "Quality Seal", "Farm Morning", "Welkom Landscape", "The Legacy"
-  ][i] || "Harvest Detail",
-  category: i < 5 ? "Forage" : i < 15 ? "Extraction" : "Final Product"
+  title:
+    [
+      'The Golden Dawn',
+      'Hive Architecture',
+      'Worker Bee Focus',
+      'Macro Capping',
+      'The Extraction',
+      'Pollen Rich Frames',
+      'Beekeeper Hands',
+      "Nature's Geometry",
+      'Liquid Gold Flow',
+      'Sunlight Through Honey',
+      'The Smoker',
+      'Protective Gear',
+      'Wildflower Forage',
+      'Aloe Nectar',
+      'Cosmos Field',
+      'The Hive Stand',
+      'Macro Comb',
+      'Propolis Seal',
+      "The Queen's Chamber",
+      'Strained Purity',
+      'Jarring the Grace',
+      'Quality Seal',
+      'Farm Morning',
+      'Welkom Landscape',
+      'The Legacy',
+    ][i] || 'Harvest Detail',
+  category: i < 5 ? 'Forage' : i < 15 ? 'Extraction' : 'Final Product',
 }));
-
 
 export const GLOSSARY_TERMS = [
   {
-    term: "Non-Irradiated",
-    definition: "Most commercial honey is radiated to kill bacteria but kills the life inside. Ours is active, alive, and full of natural goodness.",
-    img: HARVEST_IMAGES[19].path // Strained Purity
+    term: 'Non-Irradiated',
+    definition:
+      'Most commercial honey is radiated to kill bacteria but kills the life inside. Ours is active, alive, and full of natural goodness.',
+    img: HARVEST_IMAGES[19].path, // Strained Purity
   },
   {
-    term: "Cold Strained",
-    definition: "We use macro-filtration to remove wax wings but leave the healthy pollen intact, ensuring maximum health benefits.",
-    img: HARVEST_IMAGES[8].path // Flow detail
-  }
+    term: 'Cold Strained',
+    definition:
+      'We use macro-filtration to remove wax wings but leave the healthy pollen intact, ensuring maximum health benefits.',
+    img: HARVEST_IMAGES[8].path, // Flow detail
+  },
 ];
 
 export const JOURNEY_STEPS = [
   {
-    id: "forage",
-    title: "The Forage",
-    subtitle: "Free State Wildflowers",
-    description: "Our bees roam the indigenous landscapes of the Free State, gathering nectar from Aloe and Cosmos. This is where the unique flavor profile of Golden Grace begins.",
+    id: 'forage',
+    title: 'The Forage',
+    subtitle: 'Free State Wildflowers',
+    description:
+      'Our bees roam the indigenous landscapes of the Free State, gathering nectar from Aloe and Cosmos. This is where the unique flavor profile of Golden Grace begins.',
     img: HARVEST_IMAGES[12].path, // Path to 'Wildflower Forage'
-    icon: <Sun className="text-amber-500" />
+    icon: <Sun className="text-amber-500" />,
   },
   {
-    id: "architecture",
-    title: "The Architecture",
-    subtitle: "Hexagonal Perfection",
-    description: "Inside the hive, bees build perfect geometry. We respect their work, ensuring we only harvest the surplus while maintaining the hive's structural integrity.",
+    id: 'architecture',
+    title: 'The Architecture',
+    subtitle: 'Hexagonal Perfection',
+    description:
+      "Inside the hive, bees build perfect geometry. We respect their work, ensuring we only harvest the surplus while maintaining the hive's structural integrity.",
     img: HARVEST_IMAGES[1].path, // Path to 'Hive Architecture'
-    icon: <Wind className="text-amber-400" />
+    icon: <Wind className="text-amber-400" />,
   },
   {
-    id: "extraction",
-    title: "The Extraction",
-    subtitle: "Hands of Heritage",
-    description: "Cold-strained and hand-pulled. We never heat our honey above hive temperature, preserving the live enzymes and probiotics that define raw honey.",
+    id: 'extraction',
+    title: 'The Extraction',
+    subtitle: 'Hands of Heritage',
+    description:
+      'Cold-strained and hand-pulled. We never heat our honey above hive temperature, preserving the live enzymes and probiotics that define raw honey.',
     img: HARVEST_IMAGES[6].path, // Path to 'Beekeeper Hands'
-    icon: <Users className="text-amber-600" />
-  }
+    icon: <Users className="text-amber-600" />,
+  },
 ];
 
 export const JOURNEY_TECHNICAL_DATA = {
   forage: {
-    labData: "Nectar Concentration: 82% | Pollen Diversity Index: High",
-    lore: "Sector: Welkom North. Primary Flora: Indigenous Aloe Ferox and Seasonal Cosmos.",
-    stats: "Bees traveled approx. 4,200km per harvest cycle."
+    labData: 'Nectar Concentration: 82% | Pollen Diversity Index: High',
+    lore: 'Sector: Welkom North. Primary Flora: Indigenous Aloe Ferox and Seasonal Cosmos.',
+    stats: 'Bees traveled approx. 4,200km per harvest cycle.',
   },
   architecture: {
-    labData: "Cell Precision: 120-degree Hexagonal Symmetry | Moisture Content: 17.2%",
-    lore: "Naturally sealed with Propolis (Bee Glue) to ensure a sterile environment.",
-    stats: "Density: 0.2g Beeswax per cubic centimeter."
+    labData: 'Cell Precision: 120-degree Hexagonal Symmetry | Moisture Content: 17.2%',
+    lore: 'Naturally sealed with Propolis (Bee Glue) to ensure a sterile environment.',
+    stats: 'Density: 0.2g Beeswax per cubic centimeter.',
   },
   extraction: {
-    labData: "Thermal Guard: Constant 32°C (Never heated) | Enzyme Count: Bio-active",
-    lore: "Manual centrifugal extraction preserves the molecular structure of the gold.",
-    stats: "Filtering: 200-micron macro-mesh (Pollen preserved)."
-  }
+    labData: 'Thermal Guard: Constant 32°C (Never heated) | Enzyme Count: Bio-active',
+    lore: 'Manual centrifugal extraction preserves the molecular structure of the gold.',
+    stats: 'Filtering: 200-micron macro-mesh (Pollen preserved).',
+  },
 };
 
 export const INTERESTING_FACTS = [
   {
-    page: "p. 5",
-    category: "Beekeeping History of SA",
-    title: "The First Keepers",
-    content: "First established by the San Bushmen who used the bees and honey in their rock art. It was easier to find their nesting grounds through the shimmer of their wings with the cast light of the setting sun.",
+    page: 'p. 5',
+    category: 'Beekeeping History of SA',
+    title: 'The First Keepers',
+    content:
+      'First established by the San Bushmen who used the bees and honey in their rock art. It was easier to find their nesting grounds through the shimmer of their wings with the cast light of the setting sun.',
     icon: <History className="text-amber-500" />,
-    img: "/images/harvest/harvest-25.webp"
+    img: '/images/harvest/harvest-25.webp',
   },
   {
-    page: "p. 9",
-    category: "Bees & Environment",
+    page: 'p. 9',
+    category: 'Bees & Environment',
     title: "Africa's Hidden Diversity",
-    content: "As people we only know of one bee species which is the common honeybee. However, in Africa there is an estimation of at least 3,000 bee species and 200,000 worldwide.",
+    content:
+      'As people we only know of one bee species which is the common honeybee. However, in Africa there is an estimation of at least 3,000 bee species and 200,000 worldwide.',
     icon: <Globe className="text-amber-500" />,
-    img: "/images/harvest/harvest-15.webp"
+    img: '/images/harvest/harvest-15.webp',
   },
   {
-    page: "p. 17",
-    category: "The Honeybee Nest",
-    title: "Migration & Decoys",
-    content: "Nesting sites for bees are scarce in certain regions hence they migrate in swarms to resource-rich areas. Beekeepers attract swarms with decoy hives to help increase their stocks.",
+    page: 'p. 17',
+    category: 'The Honeybee Nest',
+    title: 'Migration & Decoys',
+    content:
+      'Nesting sites for bees are scarce in certain regions hence they migrate in swarms to resource-rich areas. Beekeepers attract swarms with decoy hives to help increase their stocks.',
     icon: <HomeIcon className="text-amber-500" />,
-    img: "/images/harvest/harvest-2.webp"
+    img: '/images/harvest/harvest-2.webp',
   },
   {
-    page: "p. 27",
-    category: "Behaviors",
-    title: "The Grooming Dance",
-    content: "Bees have an agitated urge to stomp their little legs and rhythmically swing their bodies. This is a cry for help; signaling to the bee next to it that it needs help getting clean with mandibles and antennae.",
+    page: 'p. 27',
+    category: 'Behaviors',
+    title: 'The Grooming Dance',
+    content:
+      'Bees have an agitated urge to stomp their little legs and rhythmically swing their bodies. This is a cry for help; signaling to the bee next to it that it needs help getting clean with mandibles and antennae.',
     icon: <Sparkles className="text-amber-500" />,
-    img: "/images/harvest/harvest-3.webp"
+    img: '/images/harvest/harvest-3.webp',
   },
   {
-    page: "p. 30",
-    category: "Protection",
-    title: "The Bump of Warning",
-    content: "Guards get alerted by movements, odour, and appearance. They do not attack immediately; instead, they bump into the intruder to notify them they are in the wrong place. If ignored, they guard (attack).",
+    page: 'p. 30',
+    category: 'Protection',
+    title: 'The Bump of Warning',
+    content:
+      'Guards get alerted by movements, odour, and appearance. They do not attack immediately; instead, they bump into the intruder to notify them they are in the wrong place. If ignored, they guard (attack).',
     icon: <ShieldCheck className="text-amber-500" />,
-    img: "/images/harvest/harvest-12.webp"
-  }
-]
+    img: '/images/harvest/harvest-12.webp',
+  },
+];
+
+export const LEXICON_GROUPS = [
+  {
+    name: 'Integrity Standards',
+    icon: <ShieldCheck size={16} />,
+    terms: [
+      {
+        term: 'Non-Irradiated',
+        definition:
+          'Honey that has not been exposed to radiation. High-heat radiation kills live enzymes and probiotics to extend shelf life.',
+        ourStandard: 'Golden Grace is 100% Non-Irradiated. It is alive.',
+      },
+      {
+        term: 'Cold Strained',
+        definition:
+          'The process of removing wax through a mesh without heating the honey above hive temperature (35°C).',
+        ourStandard: 'We use macro-mesh straining to keep the pollen intact.',
+      },
+    ],
+  },
+  {
+    name: 'Biological Science',
+    icon: <Microscope size={16} />,
+    terms: [
+      {
+        term: 'Propolis',
+        definition:
+          "A resinous 'bee glue' used to seal hive gaps. It has potent anti-fungal and anti-bacterial properties.",
+        ourStandard: 'Present in our raw harvest as a natural immune booster.',
+      },
+      {
+        term: 'Nectar Concentration',
+        definition:
+          'The percentage of sugar versus water in foraged nectar. Bees dehydrate this to below 18% water to create honey.',
+        ourStandard: 'Our Welkom harvest averages 82% concentration.',
+      },
+      {
+        term: 'Bio-active Enzymes',
+        definition:
+          'Proteins produced by bees (like Glucose Oxidase) that give raw honey its healing properties.',
+        ourStandard: 'Preserved through zero-heat processing.',
+      },
+    ],
+  },
+  {
+    name: 'Physical States',
+    icon: <Layers size={16} />,
+    terms: [
+      {
+        term: 'Crystallization',
+        definition:
+          'A natural process where glucose separates from water, forming solid crystals. It is a sign of raw, unheated honey.',
+        ourStandard: 'We embrace it as proof of purity. Simply warm the jar to reliquefy.',
+      },
+    ],
+  },
+];
+export const LEXICON = LEXICON_GROUPS;
