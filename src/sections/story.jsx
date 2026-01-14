@@ -1,19 +1,20 @@
 import React from 'react';
 import { Droplet, Users } from 'lucide-react';
-
+import SectionHeading from '../components/ui/section-heading';
+import OptimizedImage from '../components/ui/optimized-image';
 const Story = () => (
-  <section id="our-origins" className="py-16 md:py-32 bg-[#050505] relative overflow-hidden">
-    <div className="max-w-[1920px] mx-auto px-4 md:px-8 lg:px-12 relative z-10">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 2xl:gap-32 items-center">
+  <section id="our-origins" className="py-16 px-6 bg-transparent relative z-10">
+    <div className="absolute inset-0 bg-honeycomb opacity-[0.50] pointer-events-none -z-10" />
+    <div className="max-w-7xl mx-auto space-y-12">
+      <div className="grid grid-cols-2 lg:grid-cols-2 gap-12 lg:gap-20 2xl:gap-32 items-center">
         <div className="space-y-8 md:space-y-12 order-2 lg:order-1">
           <div className="space-y-4 md:space-y-6">
-            <h4 className="text-amber-500 tracking-[0.3em] uppercase text-xs 2xl:text-sm font-bold">
-              Est. 2022 • Virginia, Free State
-            </h4>
-            <h2 className="text-3xl md:text-4xl lg:text-6xl 2xl:text-8xl font-serif text-white leading-tight">
-              Rooted in Community, <br />
-              Driven by <span className="text-amber-400">Grace</span>.
-            </h2>
+            <SectionHeading
+              pre=" Est. 2022 • Virginia, Free State"
+              title="Rooted in Community, Driven by"
+              italic="grace"
+              sub="xs."
+            />
           </div>
           <p className="text-gray-400 text-sm md:text-base lg:text-lg 2xl:text-xl leading-relaxed font-light">
             "It started with five hives and a prayer." Golden Grace is more than a brand; it is a
@@ -51,8 +52,8 @@ const Story = () => (
         </div>
         <div className="relative aspect-square md:aspect-auto w-full order-1 lg:order-2">
           <div className="absolute inset-0 bg-[#121212] rounded-[2rem] md:rounded-t-[10rem] md:rounded-b-lg overflow-hidden border border-white/5">
-            <img
-              src="/images/story-jar.webp"
+           <OptimizedImage 
+              src="/images/story/story-1.webp"
               alt="Grace in Every Drop"
               className="w-full h-full object-cover golden-filter"
               loading="lazy"
