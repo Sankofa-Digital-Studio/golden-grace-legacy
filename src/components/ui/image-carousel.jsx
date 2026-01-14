@@ -1,6 +1,6 @@
 // src/components/ui/image-carousel.jsx
 import React, { useState, useEffect } from 'react';
-
+import OptimizedImage from './optimized-image';
 const ImageCarousel = ({ images }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -26,7 +26,7 @@ const ImageCarousel = ({ images }) => {
             ${index === currentIndex ? 'opacity-100' : 'opacity-0'}
           `}
         >
-          <img
+         <OptimizedImage 
             src={img}
             alt={`Hero Slide ${index + 1}`}
             className="h-full w-full object-cover opacity-60"

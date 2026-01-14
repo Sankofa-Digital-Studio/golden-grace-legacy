@@ -1,5 +1,6 @@
 import React from 'react';
 import SectionHeading from '../components/ui/section-heading';
+import OptimizedImage from '../components/ui/optimized-image';
 const Sensory = () => (
   <section id="sensory" className="py-16 md:py-20 2xl:py-32  bg-[#050505] relative">
     <div className="max-w-[1920px] mx-auto px-4 md:px-8 lg:px-12">
@@ -11,7 +12,7 @@ const Sensory = () => (
       />
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 2xl:gap-16">
         <div className="relative group aspect-[3/4] overflow-hidden rounded-lg border border-white/5">
-          <img
+          <OptimizedImage 
             src="/images/sensory/liquid-gold.webp"
             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 golden-filter"
             alt="Liquid Honey Texture"
@@ -29,7 +30,7 @@ const Sensory = () => (
           </div>
         </div>
         <div className="relative group aspect-[3/4] overflow-hidden rounded-lg border border-white/5">
-          <img
+          <OptimizedImage 
             src="/images/sensory/creamed-goodness.webp"
             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 golden-filter"
             alt="Creamed Honey Texture"
@@ -46,7 +47,7 @@ const Sensory = () => (
           </div>
         </div>
         <div className="relative group aspect-[3/4] overflow-hidden rounded-lg border border-white/5">
-          <img
+          <OptimizedImage 
             src="/images/sensory/infused-botanicals.webp"
             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 golden-filter"
             alt="Infused Honey"

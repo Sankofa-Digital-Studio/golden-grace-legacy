@@ -3,7 +3,7 @@ import { ThermometerSun, TrendingUp, Calendar, HelpCircle, Check, XCircle } from
 import useSEO from '../hooks/useSEO';
 import useAnalytics from '../hooks/useAnalytics';
 import { seasons } from '../data/constants';
-
+import OptimizedImage from '../components/ui/optimized-image';
 const EducationPage = ({ onScheduleClick }) => {
   useSEO(
     'Bee Smart - Education',
@@ -32,7 +32,7 @@ const EducationPage = ({ onScheduleClick }) => {
         {/* Content Block 1: The Bee */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-24">
           <div className="relative aspect-square md:aspect-video lg:h-[400px] w-full rounded-xl overflow-hidden border border-white/10">
-            <img
+           <OptimizedImage 
               src="/images/20.jpeg"
               alt="African Honey Bee"
               className="w-full h-full object-cover golden-filter"
@@ -77,7 +77,7 @@ const EducationPage = ({ onScheduleClick }) => {
 
         {/* Feature Image */}
         <div className="rounded-3xl overflow-hidden border border-white/5 aspect-video shadow-2xl">
-           <img 
+          <OptimizedImage 
              src={HARVEST_IMAGES[3].path} // Macro Capping
              alt="Macro photograph of honeycomb capping" 
              className="w-full h-full object-cover" 
@@ -88,7 +88,7 @@ const EducationPage = ({ onScheduleClick }) => {
            {GLOSSARY_TERMS.map((item, idx) => (
              <div key={idx} className="bg-white/5 border border-white/10 rounded-3xl overflow-hidden group">
                 <div className="aspect-square overflow-hidden">
-                    <img 
+                  <OptimizedImage 
                       src={item.img} 
                       alt={`Visual example of ${item.term}`} 
                       className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" 

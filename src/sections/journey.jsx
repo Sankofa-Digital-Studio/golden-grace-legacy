@@ -3,7 +3,7 @@ import { MoveRight } from 'lucide-react';
 import { JOURNEY_STEPS } from '../data/constants';
 import DetailModal from '../components/ui/detail-modal';
 import SectionHeading from '../components/ui/section-heading';
-
+import OptimizedImage from '../components/ui/optimized-image';
 const JourneySection = () => {
   const [activeDetail, setActiveDetail] = useState(null);
 
@@ -28,7 +28,7 @@ const JourneySection = () => {
             >
               <div className="w-full md:w-1/2 relative group">
                 <div className="relative bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl overflow-hidden aspect-[4/5] shadow-2xl">
-                  <img
+                  <OptimizedImage 
                     src={step.img}
                     alt={step.title}
                     title={step.title}
