@@ -2,6 +2,7 @@ import React from 'react';
 import { ThermometerSun, TrendingUp, Calendar, HelpCircle, Check, XCircle } from 'lucide-react';
 import useSEO from '../hooks/useSEO';
 import useAnalytics from '../hooks/useAnalytics';
+import { seasons } from '../data/constants';
 
 const EducationPage = ({ onScheduleClick }) => {
   useSEO(
@@ -10,28 +11,6 @@ const EducationPage = ({ onScheduleClick }) => {
   );
   useAnalytics('Education Page');
 
-  const seasons = [
-    {
-      season: 'Spring (Aug-Oct)',
-      activity: 'Swarming Season',
-      desc: 'Colonies expand rapidly with the blooming of Aloes and fruit trees.',
-    },
-    {
-      season: 'Summer (Nov-Feb)',
-      activity: 'Honey Flow',
-      desc: 'Peak nectar collection from Sunflowers and Cosmos. The main harvest begins.',
-    },
-    {
-      season: 'Autumn (Mar-May)',
-      activity: 'Preparation',
-      desc: 'Bees store reserves for winter. We ensure hives are insulated and safe.',
-    },
-    {
-      season: 'Winter (Jun-Jul)',
-      activity: 'Dormancy',
-      desc: 'The colony clusters for warmth. Minimal activity to conserve energy.',
-    },
-  ];
 
   return (
     <div className="pt-32 pb-20 bg-[#050505] min-h-screen">
@@ -85,6 +64,45 @@ const EducationPage = ({ onScheduleClick }) => {
             </div>
           </div>
         </div>
+
+         <div className="bg-[#050505] min-h-screen pt-32 pb-24 px-6">
+      <div className="max-w-4xl mx-auto space-y-24">
+        <header className="text-center space-y-6">
+          <div className="inline-flex items-center gap-2 text-amber-500 text-[10px] font-bold uppercase tracking-[0.3em] border border-amber-500/20 px-4 py-2 rounded-full">
+             Knowledge is Purity
+          </div>
+          <h1 className="text-5xl md:text-8xl font-serif leading-none">Bee <span className="italic text-amber-500">Smart.</span></h1>
+          <p className="text-gray-400 text-xl font-light">De-coding the myths of the honey industry.</p>
+        </header>
+
+        {/* Feature Image */}
+        <div className="rounded-3xl overflow-hidden border border-white/5 aspect-video shadow-2xl">
+           <img 
+             src={HARVEST_IMAGES[3].path} // Macro Capping
+             alt="Macro photograph of honeycomb capping" 
+             className="w-full h-full object-cover" 
+           />
+        </div>
+
+        <section className="grid grid-cols-1 md:grid-cols-2 gap-12">
+           {GLOSSARY_TERMS.map((item, idx) => (
+             <div key={idx} className="bg-white/5 border border-white/10 rounded-3xl overflow-hidden group">
+                <div className="aspect-square overflow-hidden">
+                    <img 
+                      src={item.img} 
+                      alt={`Visual example of ${item.term}`} 
+                      className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" 
+                    />
+                </div>
+                <div className="p-8 space-y-4">
+                    <h3 className="text-2xl font-serif text-amber-500">{item.term}</h3>
+                    <p className="text-gray-400 text-sm leading-relaxed">{item.definition}</p>
+                </div>
+             </div>
+           ))}
+        </section>
+      </div>
+    </div>
 
         {/* Interactive Feature: Seasonal Timeline */}
         <div className="mb-24">

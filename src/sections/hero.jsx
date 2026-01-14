@@ -2,8 +2,8 @@
 import React, { useState } from 'react';
 import { CheckCircle, Users, Sun, ArrowRight, Play, ChevronDown } from 'lucide-react';
 import VideoModal from '../components/common/video-modal';
-import VIDEO_SOURCE from '../data/video-source';
-import { HERO_IMAGES } from '../data/hero-images';
+import VIDEO_SOURCE from '../data/constants';
+import { HERO_IMAGES } from '../data/constants';
 import ImageCarousel from '../components/ui/image-carousel';
 
 const Hero = ({ navigate }) => {

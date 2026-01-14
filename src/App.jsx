@@ -37,7 +37,14 @@ import ReviewsPage from './pages/reviews-page';
 import Collection from './sections/collection';
 import Cart from './sections/cart';
 
+import { SpeedInsights } from "@vercel/speed-insights/react"
+import { Analytics } from "@vercel/analytics/react" 
+
 const App = () => {
+   <>
+   <SpeedInsights />
+   <Analytics />
+   </>
   const [isScrolled, setIsScrolled] = useState(false);
   const [showCart, setShowCart] = useState(false);
   const [cart, setCart] = useState([]);
@@ -47,6 +54,12 @@ const App = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isPageTransitioning, setIsPageTransitioning] = useState(false);
+
+  const [favorites, setFavorites] = useState([]); // New State
+
+const handleToggleFavorite = (id) => {
+    setFavorites(prev => prev.includes(id) ? prev.filter(fid => fid !== id) : [...prev, id]);
+};
 
   // NEW: Sustainability Tracker State (persisted in localStorage)
   const [impactScore, setImpactScore] = useState(() => {
@@ -139,6 +152,8 @@ const App = () => {
             <Collection
               onAddToCart={addToCart}
               onImageClick={(image, title) => setSelectedImage({ image, title })}
+              favorites={favorites} // Pass down
+              onToggleFavorite={handleToggleFavorite} // Pass down
               onBulkEnquire={() => setActiveModal('bulk')}
             />
           </div>
@@ -205,6 +220,7 @@ const App = () => {
   if (isLoading) return <Loader />;
 
   return (
+    
     <ErrorBoundary>
       <div className="bg-[#050505] min-h-screen text-white font-sans selection:bg-amber-500 selection:text-black overflow-x-hidden">
         {isPageTransitioning && (

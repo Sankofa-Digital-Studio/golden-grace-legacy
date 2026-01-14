@@ -11,7 +11,7 @@ export default {
         sans: ['Inter', 'sans-serif'],
       },
       animation: {
-        'spin-slow': 'spin 8s linear infinite',
+        'fade-in': 'fadeIn 1s ease-out forwards',
       },
     },
   },
