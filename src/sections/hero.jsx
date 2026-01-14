@@ -69,8 +69,8 @@ const Hero = ({ navigate }) => {
         </h1>
 
         <p className="text-gray-100 max-w-md md:max-w-2xl 2xl:max-w-4xl mx-auto mb-8 md:mb-12 font-light text-base md:text-lg 2xl:text-2xl leading-relaxed animate-fade-in-up delay-200 drop-shadow-lg text-shadow-sm px-4">
-          Pure South African Goodness. Ethically sourced from the vibrant landscapes of the Free
-          State. Non-pasteurized, and harvested with integrity.
+          Pure African Goodness. Ethically sourced from the vibrant landscapes of the Free
+          State province of South Africa. Non-pasteurized, and harvested with integrity.
         </p>
 
         <div className="flex flex-col md:flex-row gap-4 md:gap-6 justify-center items-center animate-fade-in-up delay-300 w-full md:w-auto mb-16 px-4">

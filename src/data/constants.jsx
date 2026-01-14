@@ -6,13 +6,15 @@ import {
   Sun,
   Wind,
   Users,
-  Microscope,
+  Search,
   History,
   Globe,
   HomeIcon,
   Sparkles,
   ShieldCheck,
-  Layers,
+  Heart,
+  Hexagon,
+  Microscope,
 } from 'lucide-react';
 
 export const HONEY_TESTS = [
@@ -41,62 +43,6 @@ export const HERO_IMAGES = [
   '/images/hero/hero-bg-slide-2.webp',
   '/images/hero/hero-bg-slide-3.webp',
   '/images/hero/hero-bg-slide-4.webp',
-];
-export const DICTIONARY_TERMS = [
-  {
-    term: 'Irradiated',
-    phonetic: '/ɪˈreɪ.di.eɪ.tɪd/',
-    definition:
-      'A process where commercial honey is exposed to radiation to kill natural yeasts and bacteria.',
-    truth:
-      "Why do others do it? To prevent fermentation and stop the honey from crystallizing on the shelf. The Cost? It kills the live enzymes, probiotics, and 'life' inside the honey, turning a superfood into just sugar syrup.",
-    ourStandard: 'NON-IRRADIATED. Our honey is alive, active, and potent.',
-  },
-  {
-    term: 'Pasteurization',
-    phonetic: '/ˌpæs.tʃər.aɪˈzeɪ.ʃən/',
-    definition:
-      'Heating honey to high temperatures (usually above 70°C) to melt micro-crystals and filter it faster.',
-    truth:
-      'Why do others do it? It makes bottling faster and keeps honey liquid forever. The Cost? It destroys heat-sensitive antioxidants and delicate floral aromas, leaving a flat, generic sweetness.',
-    ourStandard: 'COLD EXTRACTED. We never heat our honey above hive temperature (35°C).',
-  },
-  {
-    term: 'Ultra-Filtration',
-    phonetic: '/ˈʌl.trə fɪlˈtreɪ.ʃən/',
-    definition: 'Forcing honey through high-pressure microscopic filters to remove all particles.',
-    truth:
-      'Why do others do it? To remove all pollen so the origin of the honey cannot be traced (often to hide cheap imports). The Cost? Pollen is the protein and allergy-fighting power of honey. Without it, you miss the health benefits.',
-    ourStandard: 'MACRO-FILTERED. We only strain out beeswax and wings. The pollen remains.',
-  },
-  {
-    term: 'Crystallization',
-    phonetic: '/ˌkrɪs.təl.aɪˈzeɪ.ʃən/',
-    definition:
-      'A natural process where raw honey turns from liquid to semi-solid (creamy or gritty) over time.',
-    truth:
-      "The Myth: Many think this means the honey has gone 'bad' or is mixed with sugar. The Truth: Only real, raw honey crystallizes! It is the ultimate proof of purity.",
-    ourStandard:
-      'EMBRACED. If your Golden Grace honey crystallizes, simply place the jar in warm water to liquefy it again.',
-  },
-  {
-    term: 'Forage',
-    phonetic: '/ˈfɒr.ɪdʒ/',
-    definition: 'The specific plants and flowers bees visit to collect nectar.',
-    truth:
-      'Commercial honey is often a blend of random sources. Single-origin honey tastes like the landscape it came from (The Terroir).',
-    ourStandard:
-      'FREE STATE WILDFLOWERS. Our bees forage on indigenous aloes, cosmos, and sunflowers, creating a distinct, complex flavor profile.',
-  },
-  {
-    term: 'Badger Friendly',
-    phonetic: '/ˈbædʒ.ər frend.li/',
-    definition:
-      'Beekeeping methods that protect hives without harming the Honey Badger (Mellivora capensis).',
-    truth:
-      'Badgers love honey. Some farmers trap or kill them to protect hives. We use raised stands and badger-proof protection that keeps both the bees and the badgers safe.',
-    ourStandard: "ETHICAL COEXISTENCE. We protect nature's balance.",
-  },
 ];
 
 export const LESOTHO_SELLERS = [
@@ -206,6 +152,14 @@ export const HARVEST_IMAGES = Array.from({ length: 25 }).map((_, i) => ({
   category: i < 5 ? 'Forage' : i < 15 ? 'Extraction' : 'Final Product',
 }));
 
+export const JOURNEY_IMAGES = Array.from({ length: 3 }).map((_, i) => ({
+  id: i + 1,
+  path: `/images/journey/journey-${i + 1}.webp`,
+  alt: `Golden Grace Raw Harvest Frame ${i + 1} - Welkom, Free State`,
+  title: ['The Golden Dawn', 'Hive Architecture', 'Worker Bee Focus'][i] || 'Harvest Detail',
+  category: i < 1 ? 'Forage' : i < 2 ? 'Extraction' : 'Final Product',
+}));
+
 export const GLOSSARY_TERMS = [
   {
     term: 'Non-Irradiated',
@@ -228,7 +182,7 @@ export const JOURNEY_STEPS = [
     subtitle: 'Free State Wildflowers',
     description:
       'Our bees roam the indigenous landscapes of the Free State, gathering nectar from Aloe and Cosmos. This is where the unique flavor profile of Golden Grace begins.',
-    img: HARVEST_IMAGES[12].path, // Path to 'Wildflower Forage'
+    img: JOURNEY_IMAGES[0].path, // Path to 'Wildflower Forage'
     icon: <Sun className="text-amber-500" />,
   },
   {
@@ -237,7 +191,7 @@ export const JOURNEY_STEPS = [
     subtitle: 'Hexagonal Perfection',
     description:
       "Inside the hive, bees build perfect geometry. We respect their work, ensuring we only harvest the surplus while maintaining the hive's structural integrity.",
-    img: HARVEST_IMAGES[1].path, // Path to 'Hive Architecture'
+    img: JOURNEY_IMAGES[1].path, // Path to 'Hive Architecture'
     icon: <Wind className="text-amber-400" />,
   },
   {
@@ -246,7 +200,7 @@ export const JOURNEY_STEPS = [
     subtitle: 'Hands of Heritage',
     description:
       'Cold-strained and hand-pulled. We never heat our honey above hive temperature, preserving the live enzymes and probiotics that define raw honey.',
-    img: HARVEST_IMAGES[6].path, // Path to 'Beekeeper Hands'
+    img: JOURNEY_IMAGES[2].path, // Path to 'Beekeeper Hands'
     icon: <Users className="text-amber-600" />,
   },
 ];
@@ -317,60 +271,132 @@ export const INTERESTING_FACTS = [
   },
 ];
 
-export const LEXICON_GROUPS = [
+export const LEXICON_DATA = [
   {
-    name: 'Integrity Standards',
-    icon: <ShieldCheck size={16} />,
+    category: 'Ethics',
+    icon: <Heart size={16} />,
     terms: [
       {
-        term: 'Non-Irradiated',
+        term: 'Badger Friendly',
+        phonetic: '/ˈbædʒ.ər ˈfrɛnd.li/',
         definition:
-          'Honey that has not been exposed to radiation. High-heat radiation kills live enzymes and probiotics to extend shelf life.',
-        ourStandard: 'Golden Grace is 100% Non-Irradiated. It is alive.',
+          'A standard ensuring apiaries are protected from honey badgers without harming the animals.',
+        truth:
+          'Industrial farms often use lethal traps or electric fences that injure local wildlife to protect their bottom line.',
+        ourStandard:
+          'NON-LETHAL PROTECTION. We use elevated stands and badger-proof fencing to coexist with nature’s predators.',
       },
+
       {
-        term: 'Cold Strained',
+        term: 'Cell Precision',
+        phonetic: '/sɛl prɪˈsɪʒ.ən/',
         definition:
-          'The process of removing wax through a mesh without heating the honey above hive temperature (35°C).',
-        ourStandard: 'We use macro-mesh straining to keep the pollen intact.',
+          'The biological phenomenon where bees construct hexagonal cells with perfect 120-degree angles.',
+        truth:
+          'Machine-made plastic foundations force bees to build faster, which can stress the colony and weaken the hive.',
+        ourStandard:
+          'NATURAL COMB. We respect the bees as master architects, allowing them to exhibit their biological genius.',
       },
     ],
   },
   {
-    name: 'Biological Science',
+    category: 'Biology',
     icon: <Microscope size={16} />,
     terms: [
       {
         term: 'Propolis',
+        phonetic: '/ˈproʊ.pə.lɪs/',
         definition:
-          "A resinous 'bee glue' used to seal hive gaps. It has potent anti-fungal and anti-bacterial properties.",
-        ourStandard: 'Present in our raw harvest as a natural immune booster.',
-      },
-      {
-        term: 'Nectar Concentration',
-        definition:
-          'The percentage of sugar versus water in foraged nectar. Bees dehydrate this to below 18% water to create honey.',
-        ourStandard: 'Our Welkom harvest averages 82% concentration.',
+          'A resinous "bee glue" used to seal hive gaps, possessing potent anti-bacterial properties.',
+        truth:
+          'Most brands filter this out to achieve "clarity." However, propolis is the source of many of honey\'s medicinal properties.',
+        ourStandard:
+          'WHOLE HARVEST. We keep the micro-bits of propolis and pollen for your health.',
       },
       {
         term: 'Bio-active Enzymes',
-        definition:
-          'Proteins produced by bees (like Glucose Oxidase) that give raw honey its healing properties.',
-        ourStandard: 'Preserved through zero-heat processing.',
+        phonetic: '/ˌbaɪ.oʊˈæk.tɪv ˈɛn.zaɪmz/',
+        definition: 'Proteins produced by bees that give raw honey its healing properties.',
+        truth:
+          'Boiling or irradiating honey destroys these delicate proteins, making the product nutritionally inert.',
+        ourStandard: 'FULLY ACTIVE. Verified through cold-processing to ensure maximum potency.',
+      },
+      {
+        term: 'Pollen Diversity Index',
+        phonetic: '/ˈpɒl.ən daɪˈvɜː.sə.ti ˈɪn.dɛks/',
+        definition: 'A measurement of the variety of pollen species present in a honey sample.',
+        truth:
+          'Mono-crop honey indicates a lack of nutritional diversity for the bees and the consumer.',
+        ourStandard:
+          'HIGH DIVERSITY. Our index reflects the rich floral tapestry of the Free State plains.',
       },
     ],
   },
   {
-    name: 'Physical States',
-    icon: <Layers size={16} />,
+    category: 'Purity',
+    icon: <ShieldCheck size={16} />,
     terms: [
       {
-        term: 'Crystallization',
+        term: 'Ultra-Filtration',
+        phonetic: '/ˈʌl.trə fɪlˈtreɪ.ʃən/',
+        definition: 'Processing honey through extremely fine filters under high pressure.',
+        truth:
+          'This is done to remove all pollen so the honey cannot be traced to its origin and stays liquid longer for retail convenience.',
+        ourStandard:
+          'MACRO-MESH ONLY. We leave the pollen exactly where nature intended—inside the jar.',
+      },
+      {
+        term: 'Pasteurization',
+        phonetic: '/ˌpæs.tʃər.aɪˈzeɪ.ʃən/',
         definition:
-          'A natural process where glucose separates from water, forming solid crystals. It is a sign of raw, unheated honey.',
-        ourStandard: 'We embrace it as proof of purity. Simply warm the jar to reliquefy.',
+          'Heating honey to high temperatures (usually 70°C+) to kill yeast and smooth the texture.',
+        truth:
+          "High heat 'kills' the honey, destroying every healthy enzyme and probiotic that makes it a superfood.",
+        ourStandard:
+          'ZERO HEAT. Our harvest never exceeds the natural temperature of the hive (35°C).',
+      },
+      {
+        term: 'Irradiated',
+        phonetic: '/ɪˈreɪ.di.eɪ.tɪd/',
+        definition:
+          'A process where commercial honey is exposed to radiation to kill bacteria and prevent fermentation.',
+        truth:
+          "While it stops crystallization, it strips the honey of its 'living' qualities, turning medicine into sugar syrup.",
+        ourStandard: 'NON-IRRADIATED. 100% Raw, active, and potent.',
+      },
+    ],
+  },
+  {
+    category: 'The Harvest',
+    icon: <Search size={16} />,
+    terms: [
+      {
+        term: 'Forage',
+        phonetic: '/ˈfɒr.ɪdʒ/',
+        definition: 'The specific plants and flowers bees visit to collect nectar.',
+        truth:
+          'Commercial honey is often a blend of random, unknown sources. Single-origin honey is the only way to taste the landscape.',
+        ourStandard:
+          'FREE STATE WILDFLOWERS. Our bees forage on indigenous aloes, cosmos, sunflowers, and various wildflowers.',
+      },
+      {
+        term: 'Nectar Concentration',
+        phonetic: '/ˈnɛk.tər ˌkɒn.sənˈtreɪ.ʃən/',
+        definition:
+          'The percentage of sugar versus water in foraged nectar, dehydrated by bees to below 18%.',
+        truth:
+          "Commercial producers often harvest 'wet' honey early and mechanically dehydrate it, which affects flavor and enzyme stability.",
+        ourStandard:
+          'NATURALLY RIPENED. We only harvest frames that the bees have sealed themselves.',
+      },
+      {
+        term: 'Cold-Strained',
+        phonetic: '/koʊld streɪnd/',
+        definition: 'Gravity-fed filtration that maintains hive temperatures.',
+        truth:
+          'Industry standards use pressure-heating to move honey faster, destroying the molecular bond of the nectar.',
+        ourStandard: 'COLD-PULLED. We never heat our harvest above 35°C.',
       },
     ],
   },
 ];
-export const LEXICON = LEXICON_GROUPS;

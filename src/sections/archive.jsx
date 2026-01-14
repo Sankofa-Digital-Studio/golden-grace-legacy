@@ -1,17 +1,21 @@
 import React, { useState } from 'react';
 import { X, Maximize2, ArrowLeft } from 'lucide-react';
 import { HARVEST_IMAGES } from '../data/constants';
-
+import SectionHeading from '../components/ui/section-heading';
 const ArchiveSection = ({ onBack }) => {
   const [selected, setSelected] = useState(null);
 
   return (
-    <section id="archive" className="min-h-screen bg-[#050505] pt-32 px-4 md:px-12 pb-24 text-white animate-in fade-in duration-700">
+    <section id="archive" className="min-h-screen bg-[#050505] pt-16 px-4 md:px-12 pb-24 text-white animate-in fade-in duration-700">
       <div className="max-w-7xl mx-auto space-y-12">
-        <div className="text-center space-y-4 mb-20">
-          <h1 className="text-5xl md:text-9xl font-serif leading-none">The Harvest <span className="italic text-amber-500 font-light">Archive</span></h1>
-          <p className="text-gray-500 text-xs uppercase tracking-[0.4em]">Frames of Unfiltered Grace</p>
-        </div>
+        
+         <SectionHeading
+                  pre="Frames of unfiltered Grace"
+                  title="The Harvest"
+                  italic="archive"
+                  sub="xs."
+                />
+
 
         <div className="columns-2 md:columns-4 gap-4 space-y-4">
           {HARVEST_IMAGES.map((img) => (

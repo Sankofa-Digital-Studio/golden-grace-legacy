@@ -1,7 +1,7 @@
 import React from 'react';
 import SectionHeading from '../components/ui/section-heading';
 const Sensory = () => (
-  <section id="sensory" className="py-16 md:py-20 2xl:py-32 bg-[#080808] relative">
+  <section id="sensory" className="py-16 md:py-20 2xl:py-32  bg-[#050505] relative">
     <div className="max-w-[1920px] mx-auto px-4 md:px-8 lg:px-12">
       <SectionHeading
         pre="Liquid Soul"

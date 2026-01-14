@@ -9,7 +9,7 @@ const JourneySection = () => {
 
   return (
     <section id="journey-section" className="py-16 px-6 bg-transparent relative z-10">
-      <div className="absolute inset-0 bg-honeycomb opacity-[0.22] pointer-events-none -z-10" />
+      <div className="absolute inset-0 bg-honeycomb opacity-[0.50] pointer-events-none -z-10" />
       {/* Triggering the Deep Dive Modal */}
       {activeDetail && <DetailModal step={activeDetail} onClose={() => setActiveDetail(null)} />}
 
