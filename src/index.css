@@ -146,6 +146,20 @@
   background-color: #f59e0b;
   color: #000000;
 }
+@keyframes vibration {
+  0%,
+  100% {
+    height: 15%;
+    opacity: 0.3;
+  }
+  50% {
+    height: 85%;
+    opacity: 0.8;
+  }
+}
+.animate-vibration {
+  animation: vibration 1.2s ease-in-out infinite;
+}
 
 @keyframes wave {
   0%,
@@ -183,4 +197,19 @@
 }
 .animate-compass-float {
   animation: compass-float 3s ease-in-out infinite;
+}
+@keyframes honey-jitter {
+  0%,
+  100% {
+    transform: translateX(0px) scaleX(var(--scale));
+  }
+  25% {
+    transform: translateX(calc(var(--jitter) * -1px)) scaleX(var(--scale));
+  }
+  75% {
+    transform: translateX(calc(var(--jitter) * 1px)) scaleX(var(--scale));
+  }
+}
+.animate-jitter {
+  animation: honey-jitter 0.15s linear infinite;
 }
