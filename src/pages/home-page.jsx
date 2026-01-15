@@ -13,7 +13,7 @@ import FeaturedReviews from '../sections/featured-reviews';
 import Founder from '../sections/founder';
 import useAnalytics from '../hooks/useAnalytics';
 import useSEO from '../hooks/useSEO';
-import JourneySection from '../sections/journey';
+import Journey from '../sections/journey';
 import Archive from '../sections/archive';
 
 const HomePage = ({ navigate, onAddToCart, onImageClick, onBulkEnquire, onScheduleClick }) => {
@@ -24,7 +24,7 @@ const HomePage = ({ navigate, onAddToCart, onImageClick, onBulkEnquire, onSchedu
       <Hero navigate={navigate} />
 
       <TrustBar />
-      <JourneySection />
+      <Journey />
       <Sensory />
       <Authenticity onNavigate={navigate} />
       
