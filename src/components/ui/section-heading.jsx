@@ -9,7 +9,7 @@ const SectionHeading = ({ pre, title, italic, sub }) => (
     <h2 className="text-4xl md:text-8xl font-serif leading-none tracking-tight text-white uppercase">
       {title} <span className="italic text-amber-400 font-light lowercase">{italic}</span>
     </h2>
-    <p className="text-gray-400 max-w-md mx-auto text-xs italic font-light tracking-wide leading-relaxed">
+    <p className="pt-2 text-gray-400 max-w-md mx-auto text-xs italic font-light tracking-wide leading-relaxed">
       "{sub}"
     </p>
   </div>
