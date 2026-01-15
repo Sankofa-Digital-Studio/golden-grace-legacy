@@ -409,4 +409,12 @@ export const FORAGER_MESSAGES = [
   "Preparing your harvest..."
 ];
 
+export  const flavorData = [
+    { label: "Sweet", value: 85 },
+    { label: "Floral", value: 70 },
+    { label: "Medicinal", value: 45 },
+    { label: "Citrus", value: 30 },
+    { label: "Earthy", value: 55 }
+  ];
+
 
