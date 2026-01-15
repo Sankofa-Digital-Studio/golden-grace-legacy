@@ -10,10 +10,11 @@ const Sensory  = () => {
   const scrollRef = useRef(null);
   const [activeIndex, setActiveIndex] = useState(0);
 
-  const handleScroll = () => {
+   const handleScroll = () => {
     if (!scrollRef.current) return;
     const { scrollLeft, clientWidth } = scrollRef.current;
-    setActiveIndex(Math.round(scrollLeft / clientWidth));
+    const newIndex = Math.round(scrollLeft / clientWidth);
+    if (newIndex !== activeIndex) setActiveIndex(newIndex);
   };
 
   return (

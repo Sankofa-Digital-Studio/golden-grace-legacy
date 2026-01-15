@@ -204,12 +204,12 @@
     transform: translateX(0px) scaleX(var(--scale));
   }
   25% {
-    transform: translateX(calc(var(--jitter) * -1px)) scaleX(var(--scale));
+    transform: translateX(calc(var(--jitter) * -1.5px)) scaleX(var(--scale));
   }
   75% {
-    transform: translateX(calc(var(--jitter) * 1px)) scaleX(var(--scale));
+    transform: translateX(calc(var(--jitter) * 1.5px)) scaleX(var(--scale));
   }
 }
 .animate-jitter {
-  animation: honey-jitter 0.15s linear infinite;
+  animation: honey-jitter 0.1s linear infinite;
 }
