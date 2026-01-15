@@ -57,7 +57,7 @@ const ForagerLoader = ({ onComplete }) => {
       {/* 2. TEXT LAYER: The Cycling Story */}
       <div className="space-y-6 text-center px-8">
         <p className="text-amber-500 font-bold uppercase tracking-[0.6em] text-[10px] animate-pulse">
-            Golden Grace Purity Standard v2.3.4
+            Golden Grace Honey. The Golden Standard. 
         </p>
         
         <div className="h-12 flex items-center justify-center">
