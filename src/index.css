@@ -9,7 +9,8 @@
 @tailwind utilities;
 
 @layer base {
-  html, body {
+  html,
+  body {
     overflow-x: hidden;
     width: 100%;
     margin: 0;
@@ -20,12 +21,16 @@
     -webkit-font-smoothing: antialiased;
   }
 
-  h1, h2, h3, .font-serif {
+  h1,
+  h2,
+  h3,
+  .font-serif {
     font-family: 'Playfair Display', serif;
   }
 
   /* Ensures images and videos never overflow their containers */
-  img, video {
+  img,
+  video {
     max-width: 100%;
     height: auto;
     display: block;
@@ -53,43 +58,119 @@
   }
 
   /* --- SANKOFA FILTERS --- */
-  .golden-filter { 
-    filter: brightness(0.9) contrast(1.1) saturate(1.1); 
+  .golden-filter {
+    filter: brightness(0.9) contrast(1.1) saturate(1.1);
   }
 }
 
 /* --- CUSTOM SCROLLBAR --- */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: #050505; }
-::-webkit-scrollbar-thumb { background: #222; border-radius: 10px; }
-::-webkit-scrollbar-thumb:hover { background: #f59e0b; }
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #050505;
+}
+::-webkit-scrollbar-thumb {
+  background: #222;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #f59e0b;
+}
 
-.no-scrollbar::-webkit-scrollbar { display: none; }
-.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
 
 /* --- CORE ANIMATIONS --- */
 @keyframes fade-in-up {
-  0% { opacity: 0; transform: translateY(20px); }
-  100% { opacity: 1; transform: translateY(0); }
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes spring-pop {
-  0% { transform: scale(0.95); }
-  70% { transform: scale(1.02); }
-  100% { transform: scale(1); }
+  0% {
+    transform: scale(0.95);
+  }
+  70% {
+    transform: scale(1.02);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 @keyframes bee-fly-away {
-  0% { transform: translate(0, 0) rotate(0deg); opacity: 1; }
-  100% { transform: translate(100px, -100px) rotate(45deg); opacity: 0; }
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(100px, -100px) rotate(45deg);
+    opacity: 0;
+  }
 }
 
-.animate-fade-in-up { animation: fade-in-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-.animate-spring { animation: spring-pop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-.animate-bee-fly-away { animation: bee-fly-away 0.8s ease-in forwards; }
+.animate-fade-in-up {
+  animation: fade-in-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+.animate-spring {
+  animation: spring-pop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.animate-bee-fly-away {
+  animation: bee-fly-away 0.8s ease-in forwards;
+}
 
 /* --- SELECTION COLOR --- */
 ::selection {
   background-color: #f59e0b;
   color: #000000;
+}
+
+@keyframes wave {
+  0%,
+  100% {
+    height: 10px;
+  }
+  50% {
+    height: 40px;
+  }
+}
+.animate-wave {
+  animation: wave 1s ease-in-out infinite;
+}
+
+@keyframes compass-float {
+  0%,
+  100% {
+    transform: translateY(-4px);
+  }
+  50% {
+    transform: translateY(4px);
+  }
+}
+.animate-compass-float {
+  animation: compass-float 3s ease-in-out infinite;
+}
+@keyframes compass-float {
+  0%,
+  100% {
+    transform: translateY(-4px);
+  }
+  50% {
+    transform: translateY(4px);
+  }
+}
+.animate-compass-float {
+  animation: compass-float 3s ease-in-out infinite;
 }
