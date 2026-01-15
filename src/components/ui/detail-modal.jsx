@@ -79,16 +79,7 @@ const DetailModal = ({ step, onClose }) => {
               </p>
             </div>
           </div>
-          <button
-            onClick={handleIntentionalExit}
-            title="Return to origin movement"
-            className="w-full bg-white text-black py-6 rounded-2xl font-black uppercase tracking-widest text-[10px] hover:bg-amber-500 transition-all shadow-xl active:scale-95 group/btn"
-          >
-            <span className="flex items-center justify-center gap-2">
-              Continue Movement{' '}
-              <MoveRight size={14} className="group-hover/btn:translate-x-2 transition-transform" />
-            </span>
-          </button>
+        
         </div>
       </div>
     </div>
