@@ -9,11 +9,16 @@ const Journey = () => {
   const [activeDetail, setActiveDetail] = useState(null);
 
   return (
+    /* STYLING PRESERVED: bg-transparent with relative layering */
     <section id="journey" className="py-16 px-6 bg-transparent relative z-10">
+      
+      {/* STYLING PRESERVED: High-visibility background pattern */}
       <div className="absolute inset-0 bg-honeycomb opacity-[0.50] pointer-events-none -z-10" />
+      
       {activeDetail && <DetailModal step={activeDetail} onClose={() => setActiveDetail(null)} />}
 
-      <div className="pt-16 pb-4">
+      {/* SPACING FIX: Changed pt-16 to pt-4 to bring title closer to the previous section */}
+      <div className="pt-4 pb-12">
         <SectionHeading
           pre="Evidence of Integrity"
           title="Hive to"
@@ -22,7 +27,11 @@ const Journey = () => {
         />
       </div>
 
-      <div className="max-w-5xl mx-auto px-6 pb-40 space-y-12 md:space-y-64 relative z-10">
+      {/* SPACING FIX: Changed pb-40 to pb-12 to tighten the hand-off to the Sensory Sanctuary */}
+      <div className="max-w-5xl mx-auto px-6 pb-12 md:pb-24 space-y-12 md:space-y-64 relative z-10">
+        {/* Visual vertical connector for desktop */}
+        <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-amber-500/0 via-amber-500/20 to-amber-500/0 -translate-x-1/2" />
+        
         {JOURNEY_STEPS.map((step, idx) => (
           <div
             key={step.id}
@@ -30,6 +39,8 @@ const Journey = () => {
           >
             <div className="w-full md:w-5/12 relative">
               <div className="absolute inset-0 bg-amber-500/0 blur-[100px] group-hover:bg-amber-500/10 transition-all duration-1000 rounded-full scale-50 group-hover:scale-100 -z-10" />
+              
+              {/* Image Container with high-contrast amber border as requested */}
               <div className="relative bg-white/5 backdrop-blur-xl border border-amber-500/10 rounded-3xl overflow-hidden aspect-[4/5] md:aspect-square shadow-[0_20px_50px_rgba(0,0,0,0.5)] transition-all duration-700 group-hover:border-amber-500/50 group-hover:shadow-amber-500/10">
                 <OptimizedImage
                   src={step.img}
@@ -39,10 +50,12 @@ const Journey = () => {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#050505]/90 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
               </div>
+              
               <div className="absolute -top-4 -left-4 bg-amber-500 text-black w-14 h-14 rounded-2xl flex items-center justify-center font-serif text-2xl shadow-xl z-20 group-hover:scale-110 group-hover:-rotate-3 transition-all duration-500">
                 {idx + 1}
               </div>
             </div>
+
             <div className="w-full md:w-7/12 space-y-6 text-center md:text-left z-10 px-2 md:px-0">
               <div className="flex items-center justify-center md:justify-start gap-4">
                 <div className="p-3 bg-amber-500/10 rounded-xl border border-amber-500/20 transition-all duration-500 flex items-center justify-center 
