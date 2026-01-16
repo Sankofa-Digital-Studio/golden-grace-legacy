@@ -1,7 +1,7 @@
 // src/components/ui/image-carousel.jsx
 import React, { useState, useEffect } from 'react';
 import OptimizedImage from './optimized-image';
-const ImageCarousel = ({ images }) => {
+export const ImageCarousel = ({ images }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
