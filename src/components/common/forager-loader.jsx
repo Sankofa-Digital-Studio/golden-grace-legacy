@@ -52,7 +52,7 @@ const ForagerLoader = ({ onComplete }) => {
       <div className="space-y-6 text-center px-8">
         <p className="text-amber-500 font-bold uppercase tracking-[0.6em] text-[10px] animate-pulse">
           Golden Grace Honey
-          <p>Raw. Authentic. Pure.</p>
+          <br/>Raw. Authentic. Pure
         </p>
 
         <div className="h-12 flex items-center justify-center">
