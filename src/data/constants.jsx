@@ -13,8 +13,8 @@ import {
   Sparkles,
   ShieldCheck,
   Heart,
-  Hexagon,
   Microscope,
+  Flower2, 
 } from 'lucide-react';
 
 export const HONEY_TESTS = [
@@ -425,4 +425,32 @@ export const flavorData = [
   { label: 'Medicinal', value: 45 },
   { label: 'Citrus', value: 30 },
   { label: 'Earthy', value: 55 },
+];
+
+export const FLORAL_PROFILES = [
+  {
+    id: 'aloe',
+    name: "Aloe Ferox",
+    location: "Welkom Central",
+    desc: "Robust and medicinal with a deep amber resonance.",
+    icon: <Sun size={14} />,
+    // Radar points: Sweet, Floral, Medicinal, Citrus, Earthy
+    points: "50,25 80,40 85,70 30,75 40,40" 
+  },
+  {
+    id: 'cosmos',
+    name: "Highland Cosmos",
+    location: "Free State Plains",
+    desc: "Light, airy, and delicately sweet with floral whispers.",
+    icon: <Wind size={14} />,
+    points: "85,20 90,30 40,60 50,70 30,30"
+  },
+  {
+    id: 'wildflower',
+    name: "Veld Wildflower",
+    location: "Northern Belt",
+    desc: "Complex, earthy, and unpredictable—the true taste of the wild.",
+    icon: <Flower2 size={14} />,
+    points: "60,30 70,50 50,55 75,80 85,60"
+  }
 ];
