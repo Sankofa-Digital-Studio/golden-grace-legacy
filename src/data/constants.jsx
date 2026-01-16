@@ -92,7 +92,14 @@ export const PRODUCTS = [
 ];
 
 export const VIDEO_SOURCE =
-  'https://videos.pexels.com/video-files/7234973/7234973-uhd_2560_1440_30fps.mp4';
+  "/videos/intro.mp4"
+
+export const VIDEO_CHAPTERS = [
+  { id: 'scouting', time: 0, title: 'The Search', desc: 'Locating the hive in the Free State brush.' },
+  { id: 'work', time: 15, title: 'The Labour', desc: 'Traditional methods of access.' },
+  { id: 'resonance', time: 45, title: 'The Presence', desc: 'The smoke and the hive frequency.' },
+  { id: 'discovery', time: 90, title: 'The Harvest', desc: 'Revealing the pure liquid gold.' }
+];
 
 export const seasons = [
   {
@@ -210,16 +217,19 @@ export const JOURNEY_TECHNICAL_DATA = {
     labData: 'Nectar Concentration: 82% | Pollen Diversity Index: High',
     lore: 'Sector: Welkom North. Primary Flora: Indigenous Aloe Ferox and Seasonal Cosmos.',
     stats: 'Bees traveled approx. 4,200km per harvest cycle.',
+    integrityMetric: "Pollen integrity verified via macro-mesh filtration."
   },
   architecture: {
     labData: 'Cell Precision: 120-degree Hexagonal Symmetry | Moisture Content: 17.2%',
     lore: 'Naturally sealed with Propolis (Bee Glue) to ensure a sterile environment.',
     stats: 'Density: 0.2g Beeswax per cubic centimeter.',
+    integrityMetric: "Geometric precision maintains enzyme stability."
   },
   extraction: {
     labData: 'Thermal Guard: Constant 32°C (Never heated) | Enzyme Count: Bio-active',
     lore: 'Manual centrifugal extraction preserves the molecular structure of the gold.',
     stats: 'Filtering: 200-micron macro-mesh (Pollen preserved).',
+     integrityMetric: "Non-irradiated certification: Active Live Enzymes."
   },
 };
 
@@ -402,19 +412,17 @@ export const LEXICON_DATA = [
 ];
 
 export const FORAGER_MESSAGES = [
-  "Scouting the Free State flora...",
-  "Foraging for indigenous nectar...",
-  "Returning to the golden hive...",
-  "Capping the surplus perfection...",
-  "Preparing your harvest..."
+  'Scouting the Free State flora...',
+  'Foraging for indigenous nectar...',
+  'Returning to the golden hive...',
+  'Capping the surplus perfection...',
+  'Preparing your harvest...',
 ];
 
-export  const flavorData = [
-    { label: "Sweet", value: 85 },
-    { label: "Floral", value: 70 },
-    { label: "Medicinal", value: 45 },
-    { label: "Citrus", value: 30 },
-    { label: "Earthy", value: 55 }
-  ];
-
-
+export const flavorData = [
+  { label: 'Sweet', value: 85 },
+  { label: 'Floral', value: 70 },
+  { label: 'Medicinal', value: 45 },
+  { label: 'Citrus', value: 30 },
+  { label: 'Earthy', value: 55 },
+];
