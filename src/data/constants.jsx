@@ -417,4 +417,16 @@ export  const flavorData = [
     { label: "Earthy", value: 55 }
   ];
 
+  /**
+ * --- NARRATIVE CHAPTERS ---
+ * We break the 1:48 (108s) video into meaningful movements.
+ */
+export const VIDEO_CHAPTERS = [
+  { id: 'scouting', time: 0, title: "The Search", desc: "Locating the hive in the Free State brush." },
+  { id: 'work', time: 15, title: "The Labour", desc: "Traditional methods of access." },
+  { id: 'resonance', time: 45, title: "The Presence", desc: "The smoke and the hive frequency." },
+  { id: 'discovery', time: 90, title: "The Harvest", desc: "Revealing the pure liquid gold." }
+];
+
+
 
