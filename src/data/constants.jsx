@@ -92,7 +92,14 @@ export const PRODUCTS = [
 ];
 
 export const VIDEO_SOURCE =
-  'https://videos.pexels.com/video-files/7234973/7234973-uhd_2560_1440_30fps.mp4';
+  "/videos/intro.mp4"
+
+export const VIDEO_CHAPTERS = [
+  { id: 'scouting', time: 0, title: 'The Search', desc: 'Locating the hive in the Free State brush.' },
+  { id: 'work', time: 15, title: 'The Labour', desc: 'Traditional methods of access.' },
+  { id: 'resonance', time: 45, title: 'The Presence', desc: 'The smoke and the hive frequency.' },
+  { id: 'discovery', time: 90, title: 'The Harvest', desc: 'Revealing the pure liquid gold.' }
+];
 
 export const seasons = [
   {
@@ -402,31 +409,17 @@ export const LEXICON_DATA = [
 ];
 
 export const FORAGER_MESSAGES = [
-  "Scouting the Free State flora...",
-  "Foraging for indigenous nectar...",
-  "Returning to the golden hive...",
-  "Capping the surplus perfection...",
-  "Preparing your harvest..."
+  'Scouting the Free State flora...',
+  'Foraging for indigenous nectar...',
+  'Returning to the golden hive...',
+  'Capping the surplus perfection...',
+  'Preparing your harvest...',
 ];
 
-export  const flavorData = [
-    { label: "Sweet", value: 85 },
-    { label: "Floral", value: 70 },
-    { label: "Medicinal", value: 45 },
-    { label: "Citrus", value: 30 },
-    { label: "Earthy", value: 55 }
-  ];
-
-  /**
- * --- NARRATIVE CHAPTERS ---
- * We break the 1:48 (108s) video into meaningful movements.
- */
-export const VIDEO_CHAPTERS = [
-  { id: 'scouting', time: 0, title: "The Search", desc: "Locating the hive in the Free State brush." },
-  { id: 'work', time: 15, title: "The Labour", desc: "Traditional methods of access." },
-  { id: 'resonance', time: 45, title: "The Presence", desc: "The smoke and the hive frequency." },
-  { id: 'discovery', time: 90, title: "The Harvest", desc: "Revealing the pure liquid gold." }
+export const flavorData = [
+  { label: 'Sweet', value: 85 },
+  { label: 'Floral', value: 70 },
+  { label: 'Medicinal', value: 45 },
+  { label: 'Citrus', value: 30 },
+  { label: 'Earthy', value: 55 },
 ];
-
-
-
