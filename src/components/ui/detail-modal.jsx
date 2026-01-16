@@ -66,7 +66,7 @@ const DetailModal = ({ step, onClose }) => {
                 <p className="text-gray-400 text-sm leading-relaxed font-light">{data.lore}</p>
               </div>
             </div>
-            <div className="bg-amber-500/[0.03] p-8 rounded-[2rem] border border-amber-500/10 relative group">
+            <div className="bg-amber-500/[0.03] p-8 rounded-[2rem] border border-amber-500/10 relative group flex justify-items-center">
               <ShieldCheck
                 size={48}
                 className="absolute top-6 right-6 text-amber-500/10 group-hover:text-amber-500/30 transition-colors"
