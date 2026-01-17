@@ -11,13 +11,13 @@ const ArchiveSection = ({ onBack }) => {
     <section id="archive" className="min-h-screen bg-[#050505] pt-16 px-4 md:px-12 pb-24 text-white animate-in fade-in duration-700">
       <div className="max-w-7xl mx-auto space-y-12">
         
-         <SectionHeading
-                  pre="Frames of unfiltered Grace"
-                  title="The Harvest"
-                  italic="archive"
-                  sub="xs."
-                />
-
+        <SectionHeading 
+            center
+            pre="Frames of Unfiltered Grace"
+            title="The Harvest"
+            italic="Archive"
+            sub="A gallery of unfiltered frames capturing the raw integrity and daily devotion of our Free State harvest."
+          />
 
         <div className="columns-2 md:columns-4 gap-4 space-y-4">
           {HARVEST_IMAGES.map((img) => (
@@ -50,7 +50,7 @@ const ArchiveSection = ({ onBack }) => {
               src={selected.path} alt={selected.alt} className="max-w-full max-h-[75vh] rounded-lg shadow-2xl border border-white/10" />
               <div className="text-center">
                 <h3 className="text-amber-500 font-serif text-3xl">{selected.title}</h3>
-                <p className="text-gray-500 text-xs uppercase tracking-[0.4em] mt-2">{selected.category}</p>
+                <p className="text-gray-500 text-xs uppercase tracking-[0.4em] mt-2 bold">{selected.category}</p>
               </div>
            </div>
         </div>
