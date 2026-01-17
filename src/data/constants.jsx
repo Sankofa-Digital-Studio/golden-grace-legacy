@@ -15,6 +15,7 @@ import {
   Heart,
   Microscope,
   Flower2, 
+  FileCheck, Award
 } from 'lucide-react';
 
 export const HONEY_TESTS = [
@@ -410,7 +411,39 @@ export const LEXICON_DATA = [
     ],
   },
 ];
-
+export const certs = [
+    {
+      id: 'agri',
+      icon: <ShieldCheck className="text-amber-500 group-hover:text-black transition-colors" size={20} />,
+      label: "Dept. Agriculture",
+      sub: "Reg: DFS194",
+      title: "Department of Agriculture Registration",
+      accent: "bg-amber-500/10 border-amber-500/20 group-hover:bg-amber-500"
+    },
+    {
+      id: 'coa',
+      icon: <FileCheck className="text-amber-500 group-hover:text-black transition-colors" size={20} />,
+      label: "CoA Compliant",
+      sub: "Hygiene Standards",
+      title: "Certificate of Analysis (CoA) Compliant",
+      accent: "bg-amber-500/10 border-amber-500/20 group-hover:bg-amber-500"
+    },
+    {
+      id: 'bee',
+      icon: <Award className="text-amber-500 group-hover:text-black transition-colors" size={20} />,
+      label: "B-BBEE Compliant",
+      sub: "Women-Led",
+      title: "B-BBEE Level 1 Compliant Enterprise",
+      accent: "bg-amber-500/10 border-amber-500/20 group-hover:bg-amber-500"
+    }, {
+      id: 'source',
+      icon: <Heart className="text-amber-500 group-hover:text-black transition-colors" size={20} />,
+      label: "Ethically Sourced",
+      sub: "Guardian Beekeeping",
+      title: "Ethically Sourced Honey from Guardian Beekeeping",
+      accent: "bg-amber-500/10 border-amber-500/20 group-hover:bg-amber-500"
+    }
+  ];
 export const FORAGER_MESSAGES = [
   'Scouting the Free State flora...',
   'Foraging for indigenous nectar...',
