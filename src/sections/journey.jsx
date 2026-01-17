@@ -41,8 +41,8 @@ const Journey = () => {
       <div className="pt-4 pb-12">
         <SectionHeading
           pre="Evidence of Integrity"
-          title="Hive to"
-          italic="Jar"
+          title="The Movement of"
+          italic="Grace"
           sub="A rapid look at the unfiltered movement of our premium Golden Grace Honey. A journey from the sunny Free State fields to a jar on your table."
         />
       </div>
