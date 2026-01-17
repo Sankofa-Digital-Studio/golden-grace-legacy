@@ -140,7 +140,20 @@
 .animate-bee-fly-away {
   animation: bee-fly-away 0.8s ease-in forwards;
 }
-
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-33.33%);
+  }
+}
+.animate-marquee {
+  animation: marquee 30s linear infinite;
+}
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
 /* --- SELECTION COLOR --- */
 ::selection {
   background-color: #f59e0b;

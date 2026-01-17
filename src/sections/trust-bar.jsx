@@ -1,46 +1,44 @@
 import React from 'react';
-import { ShieldCheck, Award, Heart, ArrowRight } from 'lucide-react';
+import { certs } from '../data/constants.jsx';
+const TrustBar = () => {
+  const marqueeItems = [...certs, ...certs, ...certs, ...certs];
+  return (
+    <section
+      id="trust-bar"
+      className="relative z-20 bg-[#050505] border-y border-white/5 py-10 md:py-12 overflow-hidden select-none"
+    >
+      <div className="flex whitespace-nowrap overflow-hidden">
+        {/* The Animated Container */}
+        <div className="flex animate-marquee gap-12 md:gap-24 lg:gap-32 items-center">
+          {marqueeItems.map((item, index) => (
+            <div
+              key={`${item.id}-${index}`}
+              className="flex items-center gap-4 group cursor-help shrink-0"
+              title={item.title}
+            >
+              {/* Icon Container */}
+              <div className={`p-3 rounded-xl border transition-all duration-500 ${item.accent}`}>
+                {item.icon}
+              </div>
 
-const TrustBar = () => (
-  <div className="bg-[#0a0a0a] border-y border-white/5 py-6 md:py-8 2xl:py-12 relative overflow-hidden">
-    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-full bg-amber-500/5 blur-3xl"></div>
-    <div className="max-w-[1920px] mx-auto px-6 relative z-10">
-      <div className="flex md:justify-center overflow-x-auto md:overflow-visible snap-x snap-mandatory gap-8 md:gap-16 2xl:gap-32 pb-4 md:pb-0 no-scrollbar pr-6">
-        <div className="flex items-center gap-3 snap-center flex-shrink-0">
-          <ShieldCheck className="text-amber-500 w-6 h-6 md:w-8 md:h-8 2xl:w-10 2xl:h-10" />
-          <div className="text-left">
-            <p className="text-white text-xs 2xl:text-sm font-bold uppercase tracking-wider">
-              Dept. Agriculture
-            </p>
-            <p className="text-gray-500 text-[10px] 2xl:text-xs">Reg: DFS194</p>
-          </div>
-        </div>
-        <div className="w-px h-8 bg-white/10 hidden md:block"></div>
-        <div className="flex items-center gap-3 snap-center flex-shrink-0">
-          <Award className="text-amber-500 w-6 h-6 md:w-8 md:h-8 2xl:w-10 2xl:h-10" />
-          <div className="text-left">
-            <p className="text-white text-xs 2xl:text-sm font-bold uppercase tracking-wider">
-              B-BBEE Compliant
-            </p>
-            <p className="text-gray-500 text-[10px] 2xl:text-xs">Women-Led Enterprise</p>
-          </div>
-        </div>
-        <div className="w-px h-8 bg-white/10 hidden md:block"></div>
-        <div className="flex items-center gap-3 snap-center flex-shrink-0">
-          <Heart className="text-amber-500 w-6 h-6 md:w-8 md:h-8 2xl:w-10 2xl:h-10" />
-          <div className="text-left">
-            <p className="text-white text-xs 2xl:text-sm font-bold uppercase tracking-wider">
-              Ethically Sourced
-            </p>
-            <p className="text-gray-500 text-[10px] 2xl:text-xs">Guardian Beekeeping</p>
-          </div>
+              {/* Text Context */}
+              <div className="text-left">
+                <h4 className="text-white text-[11px] md:text-xs font-black uppercase tracking-widest leading-none mb-1">
+                  {item.label}
+                </h4>
+                <p className="text-gray-500 text-[9px] md:text-[10px] uppercase font-bold tracking-tighter">
+                  {item.sub}
+                </p>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
-      <div className="md:hidden text-center mt-2 flex justify-center items-center gap-2 text-[10px] text-white/30 animate-pulse">
-        <span>Swipe</span> <ArrowRight size={10} />
-      </div>
-    </div>
-  </div>
-);
 
+      {/* Decorative Ambient Fade: Prevents "Hard Cuts" on the edges */}
+      <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-[#050505] to-transparent z-30 pointer-events-none" />
+      <div className="absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-[#050505] to-transparent z-30 pointer-events-none" />
+    </section>
+  );
+};
 export default TrustBar;
