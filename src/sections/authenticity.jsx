@@ -88,34 +88,24 @@ const Authenticity = () => {
             </div>
 
             <div className="w-full pt-8 border-t border-white/5 flex flex-col md:flex-row gap-8 md:gap-12">
-              <div className="flex gap-4 md:w-1/2 group">
-                <div className="p-2.5 bg-amber-500/10 rounded-xl h-fit border border-amber-500/20 group-hover:bg-amber-500 group-hover:text-black transition-all">
-                  <Landmark size={20} />
-                </div>
-                <div className="space-y-2">
-                  <p className="text-white font-bold text-[10px] uppercase tracking-widest">
-                    What is DFS194?
-                  </p>
-                  <p className="text-gray-400 text-xs leading-relaxed">
-                    A mandatory Department of Agriculture (DALRRD) registration ensuring total
-                    traceability of hive origins and management standards.
-                  </p>
-                </div>
-              </div>
-              <div className="flex gap-4 md:w-1/2 group">
-                <div className="p-2.5 bg-green-500/10 rounded-xl h-fit border border-green-500/20 group-hover:bg-green-500 group-hover:text-black transition-all">
-                  <ShieldCheck size={20} />
-                </div>
-                <div className="space-y-2">
-                  <p className="text-white font-bold text-[10px] uppercase tracking-widest">
-                    Regulation R638
-                  </p>
-                  <p className="text-gray-400 text-xs leading-relaxed">
-                    The Certificate of Acceptability (CoA) confirms our facility's adherence to
-                    legal hygiene and food safety standards mandated in SA.
-                  </p>
-                </div>
-              </div>
+             <div className="flex gap-4 md:w-1/2 group" title="DALRRD Traceability">
+                    <div className="p-2.5 bg-amber-500/10 rounded-xl h-fit border border-amber-500/20 group-hover:bg-amber-500 group-hover:text-black transition-all">
+                       <Landmark size={20} />
+                    </div>
+                    <div className="space-y-2">
+                        <p className="text-white font-bold text-[10px] uppercase tracking-widest">What is DFS194?</p>
+                        <p className="text-gray-400 text-xs leading-relaxed">Mandatory registration ensuring total traceability and strict standards.</p>
+                    </div>
+                  </div>
+              <div className="flex gap-4 md:w-1/2 group" title="Regulation R638 Hygiene">
+                    <div className="p-2.5 bg-green-500/10 rounded-xl h-fit border border-green-500/20 group-hover:bg-green-500 group-hover:text-black transition-all">
+                       <ShieldCheck size={20} />
+                    </div>
+                    <div className="space-y-2">
+                        <p className="text-white font-bold text-[10px] uppercase tracking-widest">Regulation R638</p>
+                        <p className="text-gray-400 text-xs leading-relaxed">Adherence to legal food safety standards mandated for SA establishments.</p>
+                    </div>
+                  </div>
             </div>
           </GlassCard>
         </div>
@@ -123,16 +113,13 @@ const Authenticity = () => {
         {/* 3. SWIPEABLE AUTHENTICITY CHECK (Relocated Honey Tests) */}
         <div className="space-y-12">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 px-2">
-            <div className="space-y-4 px-6">
-              <span className="text-amber-500 font-bold uppercase tracking-[0.5em] text-[10px] block">
-                The Physical Truth
-              </span>
-              <h3 className="text-3xl md:text-6xl font-serif text-white italic tracking-tight">
-                Authenticity Check
-              </h3>
-              <p className="text-gray-500 text-sm italic max-w-[280px]">
-                Don't take our word for it. Test the honey yourself.
-              </p>
+            <div className="space-y-12">
+            <SectionHeading 
+                pre="The Physical Truth"
+                title="Authenticity"
+                italic="Check"
+                sub="Don't take our word for it. Perform these three simple tests to verify the integrity of any harvest."
+            />
             </div>
 
             <div className="flex items-center gap-6">
@@ -200,17 +187,14 @@ const Authenticity = () => {
         </div>
         <div className="space-y-12">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 px-2">
-            <div className="text-left space-y-2 px-6">
-              <span className="text-amber-500 font-bold uppercase tracking-[0.5em] text-[10px] block">
-                The Vocabulary of Grace
-              </span>
-              <h2 className="text-4xl md:text-7xl font-serif text-white italic tracking-tight">
-                The Hive Lexicon
-              </h2>
-              <p className="text-gray-500 text-sm italic max-w-[280px]">
-                Technical standards defined with soulful clarity.
-              </p>
-            </div>
+            <div className="space-y-12">
+            <SectionHeading 
+                pre="The Vocabulary of Grace"
+                title="The Hive"
+                italic="Lexicon"
+                sub="Technical standards defined with soulful clarity for the conscious keeper."
+            />
+        </div>
 
             {/* CATEGORY SWITCHER: Select for Mobile, Chips for Desktop */}
             <div className="w-full md:w-auto">
