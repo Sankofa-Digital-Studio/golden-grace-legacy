@@ -30,7 +30,7 @@ const HomePage = ({ navigate, onAddToCart, onImageClick, onBulkEnquire, onSchedu
       
       <Archive />
       <ContentBreak /> 
-      <Story />
+      
 
       <Collection
         onAddToCart={onAddToCart}
@@ -41,6 +41,7 @@ const HomePage = ({ navigate, onAddToCart, onImageClick, onBulkEnquire, onSchedu
       <FeaturedEducation navigate={navigate} onScheduleClick={onScheduleClick} />
       <FeaturedRecipes navigate={navigate} />
       <FeaturedReviews navigate={navigate} />
+      <Story />
       <Founder />
     </>
   );
