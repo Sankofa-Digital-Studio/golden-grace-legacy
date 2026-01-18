@@ -1,10 +1,10 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 
-import SectionHeading from '../components/ui/section-heading';
-import ViscosityPour from '../components/ui/viscosity-pour';
-import TerroirCompass from '../components/ui/terroir-compass';
-import BioAcousticHum from '../components/ui/bio-acoustic-hum';
+import SectionHeading from '../../../components/ui/section-heading';
+import ViscosityPour from '../../../components/ui/viscosity-pour';
+import TerroirCompass from '../../../components/ui/terroir-compass';
+import BioAcousticHum from '../../../components/ui/bio-acoustic-hum';
 
 const Sensory  = () => {
   const scrollRef = useRef(null);

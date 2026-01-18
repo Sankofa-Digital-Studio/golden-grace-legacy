@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { MoveRight } from 'lucide-react';
-import { JOURNEY_STEPS } from '../data/constants';
-import DetailModal from '../components/ui/detail-modal';
-import SectionHeading from '../components/ui/section-heading';
-import OptimizedImage from '../components/ui/optimized-image';
+import { JOURNEY_STEPS } from '../../../data/constants'
+import DetailModal from '../../../components/ui/detail-modal';
+import SectionHeading from '../../../components/ui/section-heading';
+import OptimizedImage from '../../../components/ui/optimized-image';
 
 /**
  * --- JOURNEY SECTION v2.6.5 ---

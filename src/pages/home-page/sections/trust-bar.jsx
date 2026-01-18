@@ -1,5 +1,5 @@
 import React from 'react';
-import { certs } from '../data/constants.jsx';
+import { certs } from '../../../data/constants';
 const TrustBar = () => {
   const marqueeItems = [...certs, ...certs, ...certs, ...certs];
   return (

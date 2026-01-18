@@ -1,7 +1,7 @@
 import React from 'react';
 import { Hexagon, Sparkles, ArrowDown } from 'lucide-react';
-import OptimizedImage from '../components/ui/optimized-image';
-import SectionHeading from '../components/ui/section-heading';
+import OptimizedImage from '../../../components/ui/optimized-image';
+import SectionHeading from '../../../components/ui/section-heading';
 /**
  * --- CONTENT BREAK v2.8.0 ---
  * The "Palette Cleanser"

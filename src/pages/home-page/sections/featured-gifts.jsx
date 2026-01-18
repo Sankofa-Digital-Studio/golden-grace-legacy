@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Gift, X, CheckCircle, ArrowRight, ChevronDown, ChevronUp  } from 'lucide-react';
-import OptimizedImage from '../components/ui/optimized-image';
+import OptimizedImage from '../../../components/ui/optimized-image';
 const FeaturedGifts = ({ navigate, isSankofa }) => {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState("idle");

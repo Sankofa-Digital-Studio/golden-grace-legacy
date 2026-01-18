@@ -12,9 +12,9 @@ import {
   Check,
   ChevronDown,
 } from 'lucide-react';
-import GlassCard from '../components/ui/glass-card';
-import { LEXICON_DATA, HONEY_TESTS } from '../data/constants';
-import SectionHeading from '../components/ui/section-heading';
+import GlassCard from '../../../components/ui/glass-card';
+import { LEXICON_DATA, HONEY_TESTS } from '../../../data/constants';
+import SectionHeading from '../../../components/ui/section-heading';
 
 const Authenticity = () => {
   const testScrollRef = useRef(null);

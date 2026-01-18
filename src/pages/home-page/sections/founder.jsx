@@ -1,5 +1,5 @@
 import React from 'react';
-import OptimizedImage from '../components/ui/optimized-image';
+import OptimizedImage from '../../../components/ui/optimized-image';
 const Founder = () => (
   <section
     id="the-visionary"
