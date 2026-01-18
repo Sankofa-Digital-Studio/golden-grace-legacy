@@ -1,6 +1,6 @@
 import React from 'react';
 import { Award, Gift } from 'lucide-react';
-import OptimizedImage from '../components/ui/optimized-image';
+import {OptimizedImage} from '../components/ui/optimized-image';
 
 const GiftsPage = ({ onBuildBox, onRequestCatalogue }) => (
   <div className="pt-24 md:pt-32 pb-20 bg-[#0a0a0a] min-h-screen">
