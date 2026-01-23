@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { ArrowLeft, CheckCircle2 } from 'lucide-react';
-import {SectionHeading} from '../components/ui/section-heading';
-import {OptimizedImage} from '../components/ui/optimized-image';
-import { APPLICATIONS } from '../data/constants';
-
+import {SectionHeading} from '../../../components/ui/section-heading';
+import {OptimizedImage} from '../../../components/ui/optimized-image';
+import { APPLICATIONS } from '../../../data/constants';
 
 export const EducationHub = ({ onBack, onNavigate }) => {
   const [showSubmissionForm, setShowSubmissionForm] = useState(false);

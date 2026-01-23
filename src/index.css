@@ -154,6 +154,26 @@
 .animate-marquee:hover {
   animation-play-state: paused;
 }
+
+@keyframes marquee_ribbon {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+.animate-marquee_ribbon {
+  animation: marquee_ribbon 40s linear infinite;
+}
 /* --- SELECTION COLOR --- */
 ::selection {
   background-color: #f59e0b;

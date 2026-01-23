@@ -15,7 +15,14 @@ import {
   Heart,
   Microscope,
   Flower2, 
-  FileCheck, Award
+  FileCheck, 
+  Award,
+  ShieldPlus,
+  Zap, 
+  Coffee,
+  Hexagon,
+  Droplets,
+  Gift    
 } from 'lucide-react';
 
 export const HONEY_TESTS = [
@@ -55,41 +62,56 @@ export default LESOTHO_SELLERS;
 
 export const PRODUCTS = [
   {
-    id: 1,
-    name: 'Golden Dawn (Raw Honey)',
-    size: '500g',
-    container: 'Glass Jar',
-    price: 150,
-    images: [
-      'https://images.unsplash.com/photo-1587049352846-4a222e784d38?q=80&w=2080&auto=format&fit=crop', // Standalone
-      'https://images.unsplash.com/photo-1558642452-9d2a7deb7f62?q=80&w=1740&auto=format&fit=crop', // Marketing
-      'https://images.unsplash.com/photo-1481391032119-d89fee407e44?q=80&w=1965&auto=format&fit=crop', // Detail
-    ],
+    id: 'premium-hex-aloe',
+    category: 'The Jars',
+    title: "Aloe Ferox Reserve",
+    flora: "Welkom Central Aloe",
+    price: 145,
+    sizes: ["375g", "500g"],
+    vessel: "Hexagonal Glass",
+    img: "/images/products/aloe-jar.webp",
+    tag: "Best Seller"
   },
   {
-    id: 2,
-    name: 'Royal Dipper Set',
-    size: 'Set of 2',
-    container: 'Olive Wood',
-    price: 85,
-    images: [
-      'https://images.unsplash.com/photo-1627915598284-75464f9f706f?q=80&w=2070&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1621264875323-2895f32a688b?q=80&w=1974&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1589408434680-337cc372861c?q=80&w=1964&auto=format&fit=crop',
-    ],
+    id: 'daily-squeeze-wild',
+    category: 'The Squeeze',
+    title: "Veld Wildflower",
+    flora: "Northern Belt Multi-Floral",
+    price: 95,
+    sizes: ["500g"],
+    vessel: "BPA-Free Squeeze",
+    img: "/images/products/wildflower-squeeze.webp",
+    tag: "Daily Essential"
   },
   {
-    id: 3,
-    name: 'Harvest Reserve',
-    size: '1kg',
-    container: 'Ceramic Pot',
-    price: 280,
-    images: [
-      'https://images.unsplash.com/photo-1565153907700-146601684c30?q=80&w=2070&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1534068590799-09895a701e3e?q=80&w=2000&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1471943311424-646960669fbc?q=80&w=1974&auto=format&fit=crop',
-    ],
+    id: 'premium-hex-cosmos',
+    category: 'The Jars',
+    title: "Highland Cosmos",
+    flora: "Free State Plains",
+    price: 155,
+    sizes: ["375g"],
+    vessel: "Hexagonal Glass",
+    img: "/images/products/cosmos-jar.webp",
+    tag: "Limited Harvest"
   },
+  {
+    id: 'gift-trio',
+    category: 'The Gift',
+    title: "The Trinity Set",
+    flora: "Aloe, Cosmos & Wildflower",
+    price: 420,
+    sizes: ["3 x 150g"],
+    vessel: "Miniature Glass Set",
+    img: "/images/products/trio-set.webp",
+    tag: "Gift Choice"
+  }
+];
+
+export const CATEGORIES = [
+  { id: 'all', label: 'All Harvests', icon: <Hexagon size={14} /> },
+  { id: 'The Jars', label: 'The Jars', icon: <Hexagon size={14} /> },
+  { id: 'The Squeeze', label: 'The Squeeze', icon: <Droplets size={14} /> },
+  { id: 'The Gift', label: 'The Gift', icon: <Gift size={14} /> }
 ];
 
 export const VIDEO_SOURCE =
@@ -487,3 +509,41 @@ export const FLORAL_PROFILES = [
     points: "60,30 70,50 50,55 75,80 85,60"
   }
 ];
+
+export const APPLICATIONS = [
+  {
+    category: "Culinary Mastery",
+    title: "The Natural Catalyst",
+    icon: <Coffee size={20} />,
+    items: [
+      { name: "Coffee & Tea", tip: "Add at 40°C to preserve enzymes while sweetening." },
+      { name: "Glaze & Roast", tip: "Use as a finishing glaze to create a bioactive crust." }
+    ]
+  },
+  {
+    category: "Bio-Wellness",
+    title: "Internal Fortification",
+    icon: <Zap size={20} />,
+    items: [
+      { name: "Pre-Workout", tip: "One tablespoon 15 mins before exercise for sustained energy." },
+      { name: "Immune Shield", tip: "Mix with Lemon and Ginger for a God-given defense." }
+    ]
+  },
+  {
+    category: "First Aid Integrity",
+    title: "Topical Sovereignty",
+    icon: <ShieldPlus size={20} />,
+    items: [
+      { name: "Wound Care", tip: "Apply raw honey to minor burns as a sterile, osmotic barrier." },
+      { name: "Skin Health", tip: "A 10-minute mask to balance pH using natural acidity." }
+    ]
+  }
+];
+
+ export const shortTestimonies = [
+    "The taste of the Free State veld in a jar.",
+    "Uncompromising purity. My family's daily blessing.",
+    "Finally, honey that feels alive and active.",
+    "You can taste the integrity in every drop.",
+    "A beautiful testimony of what He provides."
+  ];

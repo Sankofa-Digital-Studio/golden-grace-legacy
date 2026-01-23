@@ -1,10 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-/**
- * --- LOAPPXS INDUSTRIAL COMPONENT ---
- * OptimizedImage: Handles lazy loading with a smooth blur-in effect.
- */
-const OptimizedImage = ({ src, alt, className = "", priority = false }) => {
+export const OptimizedImage = ({ src, alt, className = "", priority = false }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [currentSrc, setCurrentSrc] = useState(priority ? src : "");
 
