@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ShoppingBag, Menu, X, Hexagon, ArrowRight } from 'lucide-react';
-
+import { VIEWS } from '../../views';
 const Navbar = ({ isScrolled, toggleCart, cartCount, activePage, navigate }) => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -19,7 +19,7 @@ const Navbar = ({ isScrolled, toggleCart, cartCount, activePage, navigate }) => 
     { id: 'home', label: 'Home' },
     { id: 'full-story', label: 'The Legacy' },
     { id: 'education', label: 'Grace Hub' },
-    { id: 'collection', label: 'The Reserve' }, 
+    { id: 'collection', label: 'The Reserve' },
   ];
 
   /**
@@ -28,25 +28,12 @@ const Navbar = ({ isScrolled, toggleCart, cartCount, activePage, navigate }) => 
    */
   const handleNav = (id) => {
     if (id === 'collection') {
-        // If we're not on home, we must navigate home FIRST
-        if (activePage !== 'home') {
-            navigate('home');
-            
-            // Wait for the App.jsx 'Relocating Hive' transition (800ms) 
-            // plus 200ms buffer for rendering before scrolling to the anchor.
-            setTimeout(() => {
-                const element = document.getElementById('collection');
-                if (element) {
-                    element.scrollIntoView({ behavior: 'smooth' });
-                }
-            }, 1000);
-        } else {
-            // Already on home, direct smooth scroll
-            document.getElementById('collection')?.scrollIntoView({ behavior: 'smooth' });
-        }
+      navigate(VIEWS.HOME, { scrollTo: 'collection' });
+      setIsOpen(false);
+      return;
     } else {
-        // Standard page navigation
-        navigate(id);
+      // Standard page navigation
+      navigate(id);
     }
     setIsOpen(false);
   };
@@ -55,12 +42,13 @@ const Navbar = ({ isScrolled, toggleCart, cartCount, activePage, navigate }) => 
     <>
       <nav
         className={`fixed top-0 w-full z-[150] transition-all duration-500 
-          ${isScrolled || isOpen || activePage !== 'home' 
-            ? 'bg-[#050505]/95 backdrop-blur-xl py-3 md:py-4 border-b border-white/5' 
-            : 'bg-transparent py-4 md:py-8'}`}
+          ${
+            isScrolled || isOpen || activePage !== 'home'
+              ? 'bg-[#050505]/95 backdrop-blur-xl py-3 md:py-4 border-b border-white/5'
+              : 'bg-transparent py-4 md:py-8'
+          }`}
       >
         <div className="max-w-[1920px] mx-auto px-6 md:px-12 flex justify-between items-center">
-          
           {/* LOGO AREA */}
           <div
             onClick={() => handleNav('home')}
@@ -113,9 +101,9 @@ const Navbar = ({ isScrolled, toggleCart, cartCount, activePage, navigate }) => 
                 </span>
               )}
             </button>
-            
+
             <button
-              title={isOpen ? "Close Menu" : "Open Menu"}
+              title={isOpen ? 'Close Menu' : 'Open Menu'}
               className="lg:hidden text-white active:scale-90 transition-transform p-2 bg-white/5 rounded-full border border-white/10"
               onClick={() => setIsOpen(!isOpen)}
             >
@@ -131,10 +119,12 @@ const Navbar = ({ isScrolled, toggleCart, cartCount, activePage, navigate }) => 
           ${isOpen ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-full pointer-events-none'}`}
       >
         <div className="absolute top-0 right-0 w-80 h-80 bg-amber-500/5 blur-[120px] rounded-full pointer-events-none animate-pulse"></div>
-        
+
         <div className="flex flex-col gap-8 z-10 w-full max-w-sm">
           <div className="space-y-2 mb-4">
-            <p className="text-amber-500 text-[10px] font-black uppercase tracking-[0.5em]">The Menu</p>
+            <p className="text-amber-500 text-[10px] font-black uppercase tracking-[0.5em]">
+              The Menu
+            </p>
             <div className="h-px w-12 bg-amber-500/40" />
           </div>
 
@@ -150,8 +140,8 @@ const Navbar = ({ isScrolled, toggleCart, cartCount, activePage, navigate }) => 
             >
               <div className="flex items-center gap-6">
                 <Hexagon
-                    size={16}
-                    className={`flex-shrink-0 transition-all duration-1000 ${activePage === item.id ? 'text-amber-400 fill-amber-400 rotate-90 scale-125' : 'text-white/10'}`}
+                  size={16}
+                  className={`flex-shrink-0 transition-all duration-1000 ${activePage === item.id ? 'text-amber-400 fill-amber-400 rotate-90 scale-125' : 'text-white/10'}`}
                 />
                 {item.label}
               </div>
@@ -162,12 +152,13 @@ const Navbar = ({ isScrolled, toggleCart, cartCount, activePage, navigate }) => 
 
         <div className="mt-20 pt-10 border-t border-white/5 text-gray-600 text-[10px] font-black uppercase tracking-[0.4em]">
           <p>&copy; 2026 Golden Grace Honey</p>
-          <p className="mt-2 text-amber-500/30 font-bold uppercase tracking-widest">Provided by His Grace.</p>
+          <p className="mt-2 text-amber-500/30 font-bold uppercase tracking-widest">
+            Provided by His Grace.
+          </p>
         </div>
       </div>
     </>
   );
 };
-
 
 export default Navbar;
