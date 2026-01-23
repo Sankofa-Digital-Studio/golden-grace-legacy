@@ -1,6 +1,8 @@
 import React, { useState, useEffect, Suspense, lazy } from 'react';
 import { SpeedInsights } from '@vercel/speed-insights/react';
 import { Analytics } from '@vercel/analytics/react';
+import { MAINTENANCE_MODE } from './config/maintenance';
+import MaintenanceGate from './pages/maintenance-page';
 
 // Layout & Global Components
 import Navbar from './components/layout/navbar';
@@ -18,6 +20,10 @@ import { VIEWS } from './views';
 import { CartProvider } from './context/cart-context';
 
 const App = () => {
+  if (MAINTENANCE_MODE) {
+    return <MaintenanceGate />;
+  }
+
   const [isLoading, setIsLoading] = useState(true);
   const [showCart, setShowCart] = useState(false);
   const [cart, setCart] = useState([]);
