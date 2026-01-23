@@ -1,6 +1,8 @@
 import React, { useState, useEffect, Suspense, lazy } from 'react';
 import { SpeedInsights } from '@vercel/speed-insights/react';
 import { Analytics } from '@vercel/analytics/react';
+import { MAINTENANCE_MODE } from './config/maintenance';
+import MaintenanceGate from './pages/maintenance-page';
 
 // Layout & Global Components
 import Navbar from './components/layout/navbar';
@@ -18,31 +20,28 @@ import { VIEWS } from './views';
 import { CartProvider } from './context/cart-context';
 
 const App = () => {
+  if (MAINTENANCE_MODE) {
+    return <MaintenanceGate />;
+  }
+
   const [isLoading, setIsLoading] = useState(true);
-  const [isPageTransitioning, setIsPageTransitioning] = useState(false);
   const [showCart, setShowCart] = useState(false);
   const [cart, setCart] = useState([]);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [view, setView] = useState(VIEWS.HOME);
   const StoryPage = lazy(() => import('./pages/story-page'));
   const EducationHub = lazy(() => import('./pages/education-page'));
   const GiftsPage = lazy(() => import('./pages/gifts-page'));
+  const { view, navigate, transitioning } = useNavigation(VIEWS.HOME, 800);
+
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 50);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const handleNavigate = (pageId) => {
-    if (pageId === view) return;
-    setIsPageTransitioning(true);
-
-    setTimeout(() => {
-      window.scrollTo(0, 0);
-      setView(pageId);
-      setIsPageTransitioning(false);
-    }, 800);
-  };
+  const handleNavigate = (pageId, opts) => {
+  navigate(pageId, opts);
+};
 
   const addToCart = (product) => {
     setCart((prev) => {
@@ -90,7 +89,7 @@ const App = () => {
         {/* 1. LOADERS & TRANSITIONS */}
         {isLoading && <ForagerLoader onComplete={() => setIsLoading(false)} />}
 
-        {isPageTransitioning && (
+        {transitioning && (
           <div className="fixed inset-0 z-[1000] bg-[#050505] flex items-center justify-center transition-opacity duration-500">
             <div className="flex flex-col items-center gap-4 animate-pulse">
               <div className="w-12 h-12 border-2 border-amber-500/20 border-t-amber-500 rounded-full animate-spin" />
