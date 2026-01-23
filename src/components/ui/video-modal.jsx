@@ -3,10 +3,17 @@ import {
   Play, Pause, Volume2, VolumeX, Square, 
   Activity, Info 
 } from 'lucide-react';
-import BeeCloseButton from './BeeCloseButton';
 
+// SANKOFA ARCHITECTURE: Lowercase paths and named imports per convention
+import {BeeCloseButton} from './bee-close-button';
+import {VIDEO_CHAPTERS} from '../../data/constants';
 
-const VideoModal = ({ videoSrc, poster, onClose }) => {
+/**
+ * --- VIDEO MODAL v4.3.1 ---
+ * Purpose: Immersive documentary viewing experience.
+ * Fix: Resolved syntax error and aligned with named export conventions.
+ */
+export const VideoModal = ({ videoSrc, poster, onClose }) => {
   const videoRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
@@ -16,10 +23,15 @@ const VideoModal = ({ videoSrc, poster, onClose }) => {
   // INDUSTRIAL RULE: Prevent background scroll when immersive is active
   useEffect(() => {
     document.body.style.overflow = 'hidden';
-    return () => { document.body.style.overflow = 'unset'; };
+    document.documentElement.style.overflow = 'hidden';
+    return () => { 
+        document.body.style.overflow = 'unset'; 
+        document.documentElement.style.overflow = 'unset';
+    };
   }, []);
 
   const togglePlay = () => {
+    if (!videoRef.current) return;
     if (videoRef.current.paused) {
       videoRef.current.play();
       setIsPlaying(true);
@@ -30,11 +42,12 @@ const VideoModal = ({ videoSrc, poster, onClose }) => {
   };
 
   const handleTimeUpdate = () => {
+    if (!videoRef.current) return;
     const current = videoRef.current.currentTime;
-    const duration = videoRef.current.duration;
+    const duration = videoRef.current.duration || 108; // fallback to 108s
     setProgress((current / duration) * 100);
 
-    // Dynamic Chapter Tracking
+    // Dynamic Chapter Tracking: Finds the most recent chapter based on current time
     const currentChapter = [...VIDEO_CHAPTERS].reverse().find(c => current >= c.time);
     if (currentChapter && currentChapter.id !== activeChapter.id) {
         setActiveChapter(currentChapter);
@@ -60,9 +73,9 @@ const VideoModal = ({ videoSrc, poster, onClose }) => {
           onTimeUpdate={handleTimeUpdate}
           playsInline
           muted={isMuted}
-          className="w-full h-full object-cover md:object-contain"
+          className="w-full h-full object-cover md:object-contain cursor-pointer"
           onClick={togglePlay}
-          title="Golden Grace Harvest Documentary"
+          title="Golden Grace Harvest Documentary: The Evidence of Integrity"
         />
 
         {/* 2. TOP INTERFACE: Brand Exit & Chapter Info */}
@@ -98,7 +111,7 @@ const VideoModal = ({ videoSrc, poster, onClose }) => {
           {/* Chapter Scrubber Bar */}
           <div className="flex gap-1.5 mb-6 h-1">
             {VIDEO_CHAPTERS.map((chapter, idx) => {
-                const nextTime = VIDEO_CHAPTERS[idx+1]?.time || 108; // duration 108s
+                const nextTime = VIDEO_CHAPTERS[idx+1]?.time || 108; 
                 const chapterWidth = ((nextTime - chapter.time) / 108) * 100;
                 const isPassed = videoRef.current?.currentTime >= chapter.time;
                 
@@ -108,6 +121,7 @@ const VideoModal = ({ videoSrc, poster, onClose }) => {
                         onClick={() => seekToChapter(chapter.time)}
                         className="h-full relative cursor-pointer group/chap flex-1"
                         style={{ width: `${chapterWidth}%` }}
+                        title={`Jump to ${chapter.title}`}
                     >
                         <div className={`h-full rounded-full transition-all duration-500 
                             ${activeChapter.id === chapter.id ? 'bg-amber-500 shadow-[0_0_10px_rgba(245,158,11,0.5)]' : isPassed ? 'bg-amber-800' : 'bg-white/10 group-hover/chap:bg-white/30'}`} 
@@ -123,10 +137,10 @@ const VideoModal = ({ videoSrc, poster, onClose }) => {
           {/* Quick Controls Row */}
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-6">
-               <button onClick={togglePlay} title={isPlaying ? "Pause" : "Play"} className="text-white hover:text-amber-500 transition-colors">
+               <button onClick={togglePlay} title={isPlaying ? "Pause Video" : "Play Video"} className="text-white hover:text-amber-500 transition-colors">
                  {isPlaying ? <Pause size={22} /> : <Play size={22} />}
                </button>
-               <button onClick={() => setIsMuted(!isMuted)} title={isMuted ? "Unmute" : "Mute"} className="text-white hover:text-amber-500 transition-colors">
+               <button onClick={() => setIsMuted(!isMuted)} title={isMuted ? "Unmute Audio" : "Mute Audio"} className="text-white hover:text-amber-500 transition-colors">
                  {isMuted ? <VolumeX size={22} /> : <Volume2 size={22} />}
                </button>
             </div>
@@ -147,7 +161,7 @@ const VideoModal = ({ videoSrc, poster, onClose }) => {
           
           <button
             onClick={onClose}
-            title="Exit video and return to site"
+            title="Exit documentary and return to site"
             className="group flex items-center gap-3 bg-white/10 backdrop-blur-xl border border-white/20 px-8 py-4 rounded-full text-white hover:bg-red-600/10 hover:border-red-500/40 transition-all duration-300 hover:scale-105 active:scale-95 shadow-2xl"
           >
             <Square size={16} className="fill-current text-white/80 group-hover:text-red-400 transition-colors" />
@@ -157,5 +171,3 @@ const VideoModal = ({ videoSrc, poster, onClose }) => {
     </div>
   );
 };
-
-export default VideoModal;

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { X } from 'lucide-react'; 
 
-const BeeCloseButton = ({ onClose }) => {
+export const BeeCloseButton = ({ onClose }) => {
   const [isFlying, setIsFlying] = useState(false);
   const handleClick = () => {
     setIsFlying(true);

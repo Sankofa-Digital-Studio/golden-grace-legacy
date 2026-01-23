@@ -163,6 +163,14 @@
     transform: translateX(-50%);
   }
 }
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
 .animate-marquee_ribbon {
   animation: marquee_ribbon 40s linear infinite;
 }

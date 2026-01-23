@@ -12,41 +12,31 @@ import ScrollToTop from './components/common/scroll-to-top';
 import WhatsAppWidget from './components/common/whatsapp-widget';
 import ErrorBoundary from './components/common/error-boundary';
 
-// Core Pages (Eager load Home for instant start)
 import HomePage from './pages/home-page/home-page';
+import { useNavigation } from './hooks/useNavigation';
+import { VIEWS } from './views';
+import { CartProvider } from './context/cart-context';
 
-// Page-Level Modules (Lazy loaded for performance)
-const StoryPage = lazy(() => import('./pages/story-page'));
-const EducationHub = lazy(() => import('./pages/education-page'));
-const GiftsPage = lazy(() => import('./pages/gifts-page'));
-
-/**
- * --- APP ARCHITECTURE v4.2.0 ---
- * Purpose: Single-Page Application (SPA) with state-based routing.
- * Standard: LoAppxs Industrial | Sankofa Digital.
- */
 const App = () => {
-  // --- STATE MANAGEMENT ---
-  const [view, setView] = useState('home'); // Routing source of truth
   const [isLoading, setIsLoading] = useState(true);
   const [isPageTransitioning, setIsPageTransitioning] = useState(false);
   const [showCart, setShowCart] = useState(false);
   const [cart, setCart] = useState([]);
   const [isScrolled, setIsScrolled] = useState(false);
-
-  // --- GLOBAL EFFECTS ---
+  const [view, setView] = useState(VIEWS.HOME);
+  const StoryPage = lazy(() => import('./pages/story-page'));
+  const EducationHub = lazy(() => import('./pages/education-page'));
+  const GiftsPage = lazy(() => import('./pages/gifts-page'));
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 50);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // --- NAVIGATION ENGINE ---
   const handleNavigate = (pageId) => {
     if (pageId === view) return;
     setIsPageTransitioning(true);
-    
-    // Mimic "Hive Relocation" delay for smooth transitions
+
     setTimeout(() => {
       window.scrollTo(0, 0);
       setView(pageId);
@@ -54,38 +44,37 @@ const App = () => {
     }, 800);
   };
 
-  // --- COMMERCE LOGIC ---
   const addToCart = (product) => {
-    setCart(prev => {
-      const exists = prev.find(i => i.id === product.id);
-      if (exists) return prev.map(i => i.id === product.id ? {...i, quantity: i.quantity + 1} : i);
-      return [...prev, {...product, quantity: 1}];
+    setCart((prev) => {
+      const exists = prev.find((i) => i.id === product.id);
+      if (exists)
+        return prev.map((i) => (i.id === product.id ? { ...i, quantity: i.quantity + 1 } : i));
+      return [...prev, { ...product, quantity: 1 }];
     });
     setShowCart(true); // Open drawer immediately on add
   };
 
   const handleUpdateQuantity = (id, delta) => {
-    setCart(prev => prev.map(item => 
-      item.id === id ? { ...item, quantity: Math.max(0, item.quantity + delta) } : item
-    ).filter(item => item.quantity > 0));
+    setCart((prev) =>
+      prev
+        .map((item) =>
+          item.id === id ? { ...item, quantity: Math.max(0, item.quantity + delta) } : item
+        )
+        .filter((item) => item.quantity > 0)
+    );
   };
 
   // --- RENDER ENGINE ---
   const renderView = () => {
     switch (view) {
       case 'home':
-        return (
-          <HomePage 
-            onNavigate={handleNavigate} 
-            onAddToCart={addToCart}
-          />
-        );
-      case 'full-story':
-        return <StoryPage onBack={() => handleNavigate('home')} onNavigate={handleNavigate} />;
-      case 'education':
-        return <EducationHub onBack={() => handleNavigate('home')} onNavigate={handleNavigate} />;
-      case 'gifts':
-        return <GiftsPage onBack={() => handleNavigate('home')} />;
+        return <HomePage onNavigate={handleNavigate} onAddToCart={addToCart} />;
+      case VIEWS.STORY:
+        return <StoryPage onBack={() => navigate(VIEWS.HOME)} onNavigate={handleNavigate} />;
+      case VIEWS.EDUCATION:
+        return <EducationHub onBack={() => navigate(VIEWS.HOME)} onNavigate={handleNavigate} />;
+      case VIEWS.GIFTS:
+        return <GiftsPage onBack={() => navigate(VIEWS.HOME)} />;
       default:
         return <HomePage onNavigate={handleNavigate} onAddToCart={addToCart} />;
     }
@@ -100,50 +89,56 @@ const App = () => {
 
         {/* 1. LOADERS & TRANSITIONS */}
         {isLoading && <ForagerLoader onComplete={() => setIsLoading(false)} />}
-        
+
         {isPageTransitioning && (
           <div className="fixed inset-0 z-[1000] bg-[#050505] flex items-center justify-center transition-opacity duration-500">
             <div className="flex flex-col items-center gap-4 animate-pulse">
               <div className="w-12 h-12 border-2 border-amber-500/20 border-t-amber-500 rounded-full animate-spin" />
-              <p className="text-[10px] uppercase tracking-[0.4em] text-amber-500/60 font-black">Relocating Hive...</p>
+              <p className="text-[10px] uppercase tracking-[0.4em] text-amber-500/60 font-black">
+                Relocating Hive...
+              </p>
             </div>
           </div>
         )}
 
         {/* 2. LAYOUT ELEMENTS */}
-        <div className={`transition-opacity duration-1000 ${isLoading ? 'opacity-0' : 'opacity-100'}`}>
-          <Navbar 
-            isScrolled={isScrolled} 
-            activePage={view} 
-            navigate={handleNavigate} 
-            toggleCart={() => setShowCart(true)} 
-            cartCount={cart.reduce((acc, i) => acc + i.quantity, 0)} 
+        <div
+          className={`transition-opacity duration-1000 ${isLoading ? 'opacity-0' : 'opacity-100'}`}
+        >
+          <Navbar
+            isScrolled={isScrolled}
+            activePage={view}
+            navigate={handleNavigate}
+            toggleCart={() => setShowCart(true)}
+            cartCount={cart.reduce((acc, i) => acc + i.quantity, 0)}
           />
 
           <ScrollToTop />
           <WhatsAppWidget />
 
           <main>
-            <Suspense fallback={
-              <div className="h-screen bg-[#050505] flex items-center justify-center">
-                <div className="w-12 h-12 border-2 border-amber-500/20 border-t-amber-500 rounded-full animate-spin" />
-              </div>
-            }>
+            <Suspense
+              fallback={
+                <div className="h-screen bg-[#050505] flex items-center justify-center">
+                  <div className="w-12 h-12 border-2 border-amber-500/20 border-t-amber-500 rounded-full animate-spin" />
+                </div>
+              }
+            >
               {renderView()}
             </Suspense>
           </main>
 
-          <Footer 
-            onNav={handleNavigate} 
-            onSubscribe={() => console.log("Subscribed")} 
-            onOpenModal={(id) => console.log("Open Modal", id)} 
+          <Footer
+            onNav={handleNavigate}
+            onSubscribe={() => console.log('Subscribed')}
+            onOpenModal={(id) => console.log('Open Modal', id)}
           />
 
-          <Cart 
-            isOpen={showCart} 
-            onClose={() => setShowCart(false)} 
-            cartItems={cart} 
-            onUpdateQuantity={handleUpdateQuantity} 
+          <Cart
+            isOpen={showCart}
+            onClose={() => setShowCart(false)}
+            cartItems={cart}
+            onUpdateQuantity={handleUpdateQuantity}
           />
         </div>
       </div>

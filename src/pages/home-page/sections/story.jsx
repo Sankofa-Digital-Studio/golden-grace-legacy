@@ -2,7 +2,7 @@ import React from 'react';
 import { MoveRight, Heart  } from 'lucide-react';
 import SectionHeading from '../../../components/ui/section-heading';
 import OptimizedImage from '../../../components/ui/optimized-image';
-
+import { VIEWS } from '../../../views';
 export const Story = ({ onNavigate }) => {
   return (
     <section id="our-story" className="py-24 bg-[#050505] relative overflow-hidden border-t border-white/5">
@@ -61,7 +61,7 @@ export const Story = ({ onNavigate }) => {
 
             <div className="pt-8">
               <button 
-                onClick={() => onNavigate('full-story')}
+               onClick={() => onNavigate(VIEWS.STORY)}
                 title="Navigate to the full heritage and founder story"
                 className="group flex items-center gap-4 bg-white/5 border border-white/10 px-8 py-4 rounded-full text-[10px] font-black uppercase tracking-[0.4em] text-amber-500 hover:bg-amber-500 hover:text-black transition-all active:scale-95 shadow-xl"
               >
