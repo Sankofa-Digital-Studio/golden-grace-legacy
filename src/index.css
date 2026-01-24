@@ -164,13 +164,6 @@
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  * {
-    animation: none !important;
-    transition: none !important;
-  }
-}
-
 .animate-marquee_ribbon {
   animation: marquee_ribbon 40s linear infinite;
 }
@@ -245,4 +238,11 @@
 }
 .animate-jitter {
   animation: honey-jitter 0.1s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
 }
