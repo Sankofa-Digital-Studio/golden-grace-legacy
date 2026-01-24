@@ -6,7 +6,7 @@ import { ShoppingBag, Star, Hexagon } from 'lucide-react';
 import { PRODUCTS } from '../../../data/constants';
 import { CATEGORIES } from '../../../data/constants';
 
-const Collection = () => {
+const Collection = ({ onAddToCart }) => {
   const [activeCategory, setActiveCategory] = useState('all');
   const [selectedSizes, setSelectedSizes] = useState({});
 
@@ -17,6 +17,16 @@ const Collection = () => {
   const handleSizeSelect = (productId, size) => {
     setSelectedSizes(prev => ({ ...prev, [productId]: size }));
   };
+
+const handleAdd = (product) => {
+  const chosenSize = selectedSizes[product.id] || product.sizes?.[0];
+
+  // payload goes to CartContext addToCart(product)
+  onAddToCart?.({
+    ...product,
+    selectedSize: chosenSize,
+  });
+};
 
   return (
     <section id="collection" className="py-24 bg-[#050505] relative overflow-hidden">
@@ -109,6 +119,7 @@ const Collection = () => {
               {/* CTA: Guest Checkout Focused */}
               <button 
                 title={`Add ${product.title} to your harvest bag`}
+                 onClick={() => handleAdd(product)}
                 className="mt-auto w-full py-5 bg-amber-500 hover:bg-white text-black rounded-[1.5rem] flex items-center justify-center gap-3 transition-all duration-500 active:scale-95 group/btn shadow-xl shadow-amber-500/5"
               >
                  <span className="text-[10px] font-black uppercase tracking-[0.4em]">Experience the Drip</span>
