@@ -3,10 +3,17 @@ import { X } from 'lucide-react';
 
 export const BeeCloseButton = ({ onClose }) => {
   const [isFlying, setIsFlying] = useState(false);
+   const prefersReducedMotion = window.matchMedia(
+  '(prefers-reduced-motion: reduce)'
+).matches;
   const handleClick = () => {
-    setIsFlying(true);
-    setTimeout(onClose, 800); 
-  };
+  if (prefersReducedMotion) {
+    onClose();
+    return;
+  }
+  setIsFlying(true);
+  setTimeout(onClose, 800);
+};
   return (
     <button 
       onClick={handleClick}
