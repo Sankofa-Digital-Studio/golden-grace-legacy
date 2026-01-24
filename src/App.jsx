@@ -14,19 +14,20 @@ import ScrollToTop from './components/common/scroll-to-top';
 import WhatsAppWidget from './components/common/whatsapp-widget';
 import ErrorBoundary from './components/common/error-boundary';
 
+//Refactor Starts Here
 import HomePage from './pages/home-page/home-page';
 import { useNavigation } from './hooks/useNavigation';
 import { VIEWS } from './views';
 import { CartProvider } from './context/cart-context';
+import { useCart } from './context/cart-context.jsx';
 
 const App = () => {
   if (MAINTENANCE_MODE) {
     return <MaintenanceGate />;
   }
+  const { cart, cartCount, isCartOpen, openCart, closeCart, addToCart, updateQuantity, removeItem } = useCart();
 
   const [isLoading, setIsLoading] = useState(true);
-  const [showCart, setShowCart] = useState(false);
-  const [cart, setCart] = useState([]);
   const [isScrolled, setIsScrolled] = useState(false);
   const StoryPage = lazy(() => import('./pages/story-page'));
   const EducationHub = lazy(() => import('./pages/education-page'));
@@ -40,27 +41,7 @@ const App = () => {
   }, []);
 
   const handleNavigate = (pageId, opts) => {
-  navigate(pageId, opts);
-};
-
-  const addToCart = (product) => {
-    setCart((prev) => {
-      const exists = prev.find((i) => i.id === product.id);
-      if (exists)
-        return prev.map((i) => (i.id === product.id ? { ...i, quantity: i.quantity + 1 } : i));
-      return [...prev, { ...product, quantity: 1 }];
-    });
-    setShowCart(true); // Open drawer immediately on add
-  };
-
-  const handleUpdateQuantity = (id, delta) => {
-    setCart((prev) =>
-      prev
-        .map((item) =>
-          item.id === id ? { ...item, quantity: Math.max(0, item.quantity + delta) } : item
-        )
-        .filter((item) => item.quantity > 0)
-    );
+    navigate(pageId, opts);
   };
 
   // --- RENDER ENGINE ---
@@ -108,8 +89,8 @@ const App = () => {
             isScrolled={isScrolled}
             activePage={view}
             navigate={handleNavigate}
-            toggleCart={() => setShowCart(true)}
-            cartCount={cart.reduce((acc, i) => acc + i.quantity, 0)}
+            toggleCart={openCart}
+            cartCount={cartCount}
           />
 
           <ScrollToTop />
@@ -134,10 +115,11 @@ const App = () => {
           />
 
           <Cart
-            isOpen={showCart}
-            onClose={() => setShowCart(false)}
+            isOpen={isCartOpen}
+            onClose={closeCart}
             cartItems={cart}
-            onUpdateQuantity={handleUpdateQuantity}
+            onUpdateQuantity={updateQuantity}
+            onRemove={removeItem}
           />
         </div>
       </div>
