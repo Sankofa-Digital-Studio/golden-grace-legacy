@@ -121,16 +121,6 @@
   }
 }
 
-@keyframes bee-fly-away {
-  0% {
-    transform: translate(0, 0) rotate(0deg);
-    opacity: 1;
-  }
-  100% {
-    transform: translate(100px, -100px) rotate(45deg);
-    opacity: 0;
-  }
-}
 .animate-fade-in-up {
   animation: fade-in-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
@@ -212,18 +202,7 @@
 .animate-compass-float {
   animation: compass-float 3s ease-in-out infinite;
 }
-@keyframes compass-float {
-  0%,
-  100% {
-    transform: translateY(-4px);
-  }
-  50% {
-    transform: translateY(4px);
-  }
-}
-.animate-compass-float {
-  animation: compass-float 3s ease-in-out infinite;
-}
+
 @keyframes honey-jitter {
   0%,
   100% {
