@@ -16,4 +16,10 @@ export default {
     },
   },
   plugins: [],
+  safelist: [
+  // Authenticity helper components (Badge / InfoBlock / TruthBlock)
+  {
+    pattern: /(bg|text|border)-(amber|green|red)-500(\/10|\/20|\/30|\/40|\[0\.03\]|\[0\.02\])?/,
+  },
+],
 };
