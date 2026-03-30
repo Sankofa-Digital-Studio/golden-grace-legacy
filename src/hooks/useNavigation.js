@@ -1,45 +1,58 @@
 // src/hooks/useNavigation.js
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 export const useNavigation = (initialView, transitionMs = 800) => {
   const [view, setView] = useState(initialView);
   const [transitioning, setTransitioning] = useState(false);
+
   const [scrollTarget, setScrollTarget] = useState(null);
+  const scrollTargetRef = useRef(null);
+
   const timeoutRef = useRef(null);
 
-  const navigate = (nextView, opts = {}) => {
-    const nextScrollTarget = opts.scrollTo ?? null;
-
-    // Same view: just scroll if requested
-    if (nextView === view) {
-      if (nextScrollTarget) setScrollTarget(nextScrollTarget);
-      return;
-    }
-
-    setTransitioning(true);
-
-    if (timeoutRef.current) window.clearTimeout(timeoutRef.current);
-
-    timeoutRef.current = window.setTimeout(() => {
-      window.scrollTo(0, 0);
-      setView(nextView);
-      setScrollTarget(nextScrollTarget);
-      setTransitioning(false);
-    }, transitionMs);
-  };
-
-  // After view changes, perform any pending scroll intent
   useEffect(() => {
-    if (!scrollTarget) return;
+    scrollTargetRef.current = scrollTarget;
+  }, [scrollTarget]);
 
-    const el = document.getElementById(scrollTarget);
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-    setScrollTarget(null);
-  }, [view, scrollTarget]);
+  const navigate = useCallback(
+    (nextView, opts = {}) => {
+      const nextScrollTarget = opts.scrollTo ?? null;
 
-  // Cleanup
+      // Same view: only set scroll intent if it changed
+      if (nextView === view) {
+        if (nextScrollTarget && scrollTargetRef.current !== nextScrollTarget) {
+          setScrollTarget(nextScrollTarget);
+        }
+        return;
+      }
+
+      setTransitioning(true);
+
+      if (timeoutRef.current) window.clearTimeout(timeoutRef.current);
+
+      timeoutRef.current = window.setTimeout(() => {
+        window.scrollTo(0, 0);
+
+        setView((prev) => (prev === nextView ? prev : nextView));
+        setScrollTarget(nextScrollTarget);
+
+        setTransitioning(false);
+      }, transitionMs);
+    },
+    [transitionMs, view]
+  );
+
+  useEffect(() => {
+    const target = scrollTargetRef.current;
+    if (!target) return;
+
+    requestAnimationFrame(() => {
+      const el = document.getElementById(target);
+      el?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      setScrollTarget(null);
+    });
+  }, [view]);
+
   useEffect(() => {
     return () => {
       if (timeoutRef.current) window.clearTimeout(timeoutRef.current);

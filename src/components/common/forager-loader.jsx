@@ -50,9 +50,13 @@ const ForagerLoader = ({ onComplete }) => {
 
       {/* 2. TEXT LAYER: The Cycling Story */}
       <div className="space-y-6 text-center px-8">
-        <p className="text-amber-500 font-bold uppercase tracking-[0.6em] text-[10px] animate-pulse">
+        <p className="text-amber-500 font-bold uppercase tracking-[0.6em] text-[14px] animate-pulse">
           Golden Grace Honey
-          <br/>Raw. Authentic. Pure
+          
+        </p>
+       
+        <p className="text-amber-500 font-bold uppercase tracking-[0.6em] text-[10px] animate-pulse">
+          Raw. Authentic. Pure.
         </p>
 
         <div className="h-12 flex items-center justify-center">

@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { ShoppingBag, Minus, Plus, Trash2, X, MoveRight, Sparkles, Hexagon } from 'lucide-react';
 import OptimizedImage from '../../../components/ui/optimized-image';
 import BeeCloseButton from '../../../components/ui/bee-close-button';
+import { useScrollLock } from '../../../hooks/useScrollLock';
 
 export const Cart = ({
   isOpen,
@@ -11,16 +12,7 @@ export const Cart = ({
   onRemove,
   onNavigate,
 }) => {
-  // Lock background scroll when cart is open
-  useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = 'hidden';
-      document.documentElement.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-      document.documentElement.style.overflow = 'unset';
-    }
-  }, [isOpen]);
+  useScrollLock(isOpen);
 
   const subtotal = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
   const shipping = subtotal > 500 ? 0 : 75; // Free shipping over R500

@@ -17,9 +17,12 @@ export const ImageCarousel = ({ images }) => {
 
   if (!images || images.length === 0) return null;
 
+  const nextIndex = images.length > 1 ? (currentIndex + 1) % images.length : currentIndex;
+  const renderIndexes = Array.from(new Set([currentIndex, nextIndex]));
+
   return (
     <div className="absolute inset-0 h-full w-full overflow-hidden bg-black">
-      {images.map((img, index) => (
+      {renderIndexes.map((index) => (
         <div
           key={index}
           className={`absolute inset-0 h-full w-full transition-opacity duration-1000 ease-in-out
@@ -27,8 +30,10 @@ export const ImageCarousel = ({ images }) => {
           `}
         >
          <OptimizedImage 
-            src={img}
+            src={images[index]}
             alt={`Hero Slide ${index + 1}`}
+            priority={index === currentIndex}
+            sizes="100vw"
             className="h-full w-full object-cover opacity-60"
           />
         </div>

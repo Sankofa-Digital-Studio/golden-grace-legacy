@@ -1,6 +1,5 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import {
-  ArrowRight,
   Verified,
   Hexagon,
   Shield,
@@ -17,26 +16,55 @@ import GlassCard from '../../../components/ui/glass-card';
 import SectionHeading from '../../../components/ui/section-heading';
 import { LEXICON_DATA, HONEY_TESTS } from '../../../data/constants';
 
+/* ---------- color token maps (NO dynamic Tailwind strings) ---------- */
+
+const COLOR = {
+  amber: {
+    bgSoft: 'bg-amber-500/10',
+    bgFaint: 'bg-amber-500/[0.03]',
+    border: 'border-amber-500/20',
+    borderSoft: 'border-amber-500/10',
+    text: 'text-amber-500',
+  },
+  green: {
+    bgSoft: 'bg-green-500/10',
+    bgFaint: 'bg-green-500/[0.03]',
+    border: 'border-green-500/20',
+    borderSoft: 'border-green-500/10',
+    text: 'text-green-500',
+  },
+  red: {
+    bgSoft: 'bg-red-500/10',
+    bgFaint: 'bg-red-500/[0.03]',
+    border: 'border-red-500/20',
+    borderSoft: 'border-red-500/10',
+    text: 'text-red-500',
+  },
+};
+
 const Authenticity = () => {
   const testScrollRef = useRef(null);
   const [activeTestIndex, setActiveTestIndex] = useState(0);
   const [activeLexiconGroup, setActiveLexiconGroup] = useState(0);
   const [openAccordion, setOpenAccordion] = useState(null);
 
-  /* ---------- Swipe tracker (mobile friendly) ---------- */
+  /* ---------- swipe tracker (robust, mobile-safe) ---------- */
   const handleTestScroll = () => {
-    if (!testScrollRef.current) return;
-    const { scrollLeft, clientWidth } = testScrollRef.current;
-    setActiveTestIndex(Math.round(scrollLeft / clientWidth));
+    const el = testScrollRef.current;
+    if (!el) return;
+
+    const totalScrollable = el.scrollWidth - el.clientWidth;
+    if (totalScrollable <= 0) return;
+
+    const progress = el.scrollLeft / totalScrollable;
+    const idx = Math.round(progress * (HONEY_TESTS.length - 1));
+
+    setActiveTestIndex(idx);
   };
 
   return (
-    <Section
-      id="authenticity"
-      className="relative overflow-hidden"
-      bg="bg-transparent"
-    >
-      {/* Honeycomb ambient layer */}
+    <Section id="authenticity" className="relative overflow-hidden">
+      {/* Ambient layer */}
       <div className="absolute inset-0 bg-honeycomb opacity-50 pointer-events-none -z-10" />
 
       {/* 1. SECTION HEADING */}
@@ -54,10 +82,7 @@ const Authenticity = () => {
             <div className="relative shrink-0">
               <div className="absolute inset-0 bg-amber-500/20 blur-2xl rounded-full" />
               <Hexagon size={80} className="text-amber-500 fill-amber-500/10 relative z-10" />
-              <Verified
-                size={32}
-                className="absolute inset-1/2 -translate-x-1/2 -translate-y-1/2 text-amber-400 z-20"
-              />
+              <Verified size={32} className="absolute inset-1/2 -translate-x-1/2 -translate-y-1/2 text-amber-400 z-20" />
             </div>
 
             <div className="text-center md:text-left space-y-4">
@@ -162,10 +187,11 @@ const Authenticity = () => {
             <button
               key={idx}
               onClick={() => setActiveLexiconGroup(idx)}
-              className={`px-6 py-3 rounded-full uppercase tracking-widest text-[10px] font-black transition-all
-                ${activeLexiconGroup === idx
+              className={`px-6 py-3 rounded-full uppercase tracking-widest text-[10px] font-black transition-all ${
+                activeLexiconGroup === idx
                   ? 'bg-amber-500 text-black'
-                  : 'bg-white/5 text-gray-500 hover:text-white'}`}
+                  : 'bg-white/5 text-gray-500 hover:text-white'
+              }`}
             >
               {group.icon} {group.category}
             </button>
@@ -179,8 +205,9 @@ const Authenticity = () => {
             return (
               <div
                 key={i}
-                className={`rounded-2xl border transition-all overflow-hidden
-                  ${isOpen ? 'bg-white/5 border-amber-500/30' : 'bg-[#0a0a0a] border-white/5'}`}
+                className={`rounded-2xl border transition-all overflow-hidden ${
+                  isOpen ? 'bg-white/5 border-amber-500/30' : 'bg-[#0a0a0a] border-white/5'
+                }`}
               >
                 <button
                   onClick={() => setOpenAccordion(isOpen ? null : i)}
@@ -194,17 +221,25 @@ const Authenticity = () => {
                       {item.phonetic}
                     </p>
                   </div>
-                  <ChevronDown
-                    className={`transition-transform ${isOpen ? 'rotate-180 text-amber-500' : 'text-gray-500'}`}
-                  />
+                  <ChevronDown className={`transition-transform ${isOpen ? 'rotate-180 text-amber-500' : 'text-gray-500'}`} />
                 </button>
 
                 {isOpen && (
                   <div className="px-8 pb-8 space-y-6">
                     <p className="italic text-gray-300">"{item.definition}"</p>
                     <div className="grid md:grid-cols-2 gap-6">
-                      <TruthBlock icon={<AlertTriangle size={14} />} title="Industry Truth" text={item.truth} color="red" />
-                      <TruthBlock icon={<Check size={14} />} title="Golden Grace Standard" text={item.ourStandard} color="green" />
+                      <TruthBlock
+                        icon={<AlertTriangle size={14} />}
+                        title="Industry Truth"
+                        text={item.truth}
+                        color="red"
+                      />
+                      <TruthBlock
+                        icon={<Check size={14} />}
+                        title="Golden Grace Standard"
+                        text={item.ourStandard}
+                        color="green"
+                      />
                     </div>
                   </div>
                 )}
@@ -217,36 +252,45 @@ const Authenticity = () => {
   );
 };
 
-/* ---------- Small helpers (local, not shared yet) ---------- */
+/* ---------- Local helpers ---------- */
 
-const Badge = ({ icon, text, color }) => (
-  <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full bg-${color}-500/10 border border-${color}-500/20`}>
-    {icon}
-    <span className={`text-[9px] font-black uppercase tracking-widest text-${color}-500`}>
-      {text}
-    </span>
-  </div>
-);
-
-const InfoBlock = ({ icon, title, text, color }) => (
-  <div className="flex gap-4">
-    <div className={`p-2.5 rounded-xl h-fit bg-${color}-500/10 border border-${color}-500/20`}>
+const Badge = ({ icon, text, color }) => {
+  const c = COLOR[color];
+  return (
+    <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full ${c.bgSoft} ${c.border}`}>
       {icon}
+      <span className={`text-[9px] font-black uppercase tracking-widest ${c.text}`}>
+        {text}
+      </span>
     </div>
-    <div>
-      <p className="text-white text-[10px] font-black uppercase tracking-widest">{title}</p>
-      <p className="text-gray-400 text-xs">{text}</p>
-    </div>
-  </div>
-);
+  );
+};
 
-const TruthBlock = ({ icon, title, text, color }) => (
-  <div className={`p-6 rounded-xl bg-${color}-500/[0.03] border border-${color}-500/10 space-y-3`}>
-    <p className={`text-${color}-500 text-[10px] font-black uppercase tracking-widest flex items-center gap-2`}>
-      {icon} {title}
-    </p>
-    <p className="text-sm leading-relaxed">{text}</p>
-  </div>
-);
+const InfoBlock = ({ icon, title, text, color }) => {
+  const c = COLOR[color];
+  return (
+    <div className="flex gap-4">
+      <div className={`p-2.5 rounded-xl h-fit ${c.bgSoft} ${c.border}`}>
+        {icon}
+      </div>
+      <div>
+        <p className="text-white text-[10px] font-black uppercase tracking-widest">{title}</p>
+        <p className="text-gray-400 text-xs">{text}</p>
+      </div>
+    </div>
+  );
+};
+
+const TruthBlock = ({ icon, title, text, color }) => {
+  const c = COLOR[color];
+  return (
+    <div className={`p-6 rounded-xl ${c.bgFaint} ${c.borderSoft} space-y-3`}>
+      <p className={`text-[10px] font-black uppercase tracking-widest flex items-center gap-2 ${c.text}`}>
+        {icon} {title}
+      </p>
+      <p className="text-sm leading-relaxed">{text}</p>
+    </div>
+  );
+};
 
 export default Authenticity;

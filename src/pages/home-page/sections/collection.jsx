@@ -86,6 +86,7 @@ const Collection = ({ onAddToCart }) => {
                 <OptimizedImage
                   src={product.img}
                   alt={product.title}
+                  sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                   className="w-full h-full object-contain p-8 group-hover:scale-110 transition-transform duration-1000"
                   loading="lazy"
                 />

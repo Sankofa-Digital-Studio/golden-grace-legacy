@@ -2,23 +2,18 @@ import React, { useEffect, useState } from 'react';
 import { X, Thermometer, Map, ShieldCheck } from 'lucide-react';
 import { JOURNEY_TECHNICAL_DATA } from '../../data/constants';
 import BeeCloseButton from './bee-close-button';
+import { useScrollLock } from '../../hooks/useScrollLock';
 
 const DetailModal = ({ step, onClose }) => {
   const [isClosing, setIsClosing] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
   const data = JOURNEY_TECHNICAL_DATA[step.id];
 
-  // --- ROBUST INDUSTRIAL SCROLL LOCK ---
-  useEffect(() => {
-    const originalBodyStyle = window.getComputedStyle(document.body).overflow;
-    const originalHtmlStyle = window.getComputedStyle(document.documentElement).overflow;
+  useScrollLock(true);
 
-    document.body.style.overflow = 'hidden';
-    document.documentElement.style.overflow = 'hidden';
-    
-    return () => {
-      document.body.style.overflow = originalBodyStyle;
-      document.documentElement.style.overflow = originalHtmlStyle;
-    };
+  useEffect(() => {
+    const raf = requestAnimationFrame(() => setIsVisible(true));
+    return () => cancelAnimationFrame(raf);
   }, []);
 
   const handleIntentionalExit = () => {
@@ -28,10 +23,10 @@ const DetailModal = ({ step, onClose }) => {
 
   return (
     <div
-      className={`fixed inset-0 z-[500] flex items-center justify-center p-4 bg-black/95 backdrop-blur-3xl transition-all duration-500 ${isClosing ? 'opacity-0' : 'opacity-100'}`}
+      className={`fixed inset-0 z-[500] flex items-center justify-center p-4 bg-black/95 backdrop-blur-3xl transition-all duration-500 ${isClosing || !isVisible ? 'opacity-0' : 'opacity-100'}`}
     >
       <div
-        className={`max-w-xl w-full bg-[#111] border border-white/10 rounded-[3rem] p-8 md:p-12 shadow-2xl relative overflow-hidden transition-all duration-700 ease-out ${isClosing ? 'scale-75 blur-2xl opacity-0' : 'scale-100 blur-0 opacity-100'} animate-in zoom-in-75 slide-in-from-bottom-16`}
+        className={`max-w-xl w-full bg-[#111] border border-white/10 rounded-[3rem] p-8 md:p-12 shadow-2xl relative overflow-hidden transition-all duration-700 ease-out ${isClosing || !isVisible ? 'scale-95 blur-xl opacity-0' : 'scale-100 blur-0 opacity-100'}`}
       >
         {/* THE CLOSE BUTTON */}
         <div className="absolute top-6 right-6 md:top-8 md:right-8 scale-110 z-[60]">

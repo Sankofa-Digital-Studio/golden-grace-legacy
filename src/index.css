@@ -35,6 +35,11 @@
     height: auto;
     display: block;
   }
+
+  :focus-visible {
+    outline: 2px solid #f59e0b;
+    outline-offset: 3px;
+  }
 }
 
 @layer components {

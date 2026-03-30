@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { ArrowLeft, CheckCircle2 } from 'lucide-react';
 import {SectionHeading} from '../components/ui/section-heading';
 import {OptimizedImage} from '../components/ui/optimized-image';
-import { APPLICATIONS } from '../data/constants';
+import { APPLICATIONS, ACADEMY_SESSIONS, COMMUNITY_WALL } from '../data/constants';
 
 
 export const EducationHub = ({ onBack, onNavigate }) => {
@@ -62,7 +62,38 @@ export const EducationHub = ({ onBack, onNavigate }) => {
           italic="Sessions"
           sub="Evidence-based insights into the biological wonder He created within the hive."
         />
-        {/* ... Academy Cards Logic (previously defined) ... */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-16">
+          {ACADEMY_SESSIONS.map((session) => (
+            <article
+              key={session.id}
+              className="bg-white/[0.02] border border-white/10 rounded-[2rem] p-8 md:p-10 space-y-6 hover:border-amber-500/30 transition-all group"
+            >
+              <div className="flex items-center justify-between text-[9px] uppercase font-black tracking-[0.3em] text-gray-500">
+                <span>{session.level}</span>
+                <span>{session.duration}</span>
+              </div>
+              <div className="space-y-3">
+                <h3 className="text-2xl md:text-3xl font-serif text-white group-hover:text-amber-400 transition-colors">
+                  {session.title}
+                </h3>
+                <p className="text-gray-400 text-sm leading-relaxed font-light">
+                  {session.summary}
+                </p>
+              </div>
+              <ul className="space-y-3 pt-4 border-t border-white/5">
+                {session.takeaways.map((item) => (
+                  <li
+                    key={item}
+                    className="text-gray-300 text-xs uppercase tracking-widest font-bold flex items-center gap-2"
+                  >
+                    <CheckCircle2 size={12} className="text-amber-500/50" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </article>
+          ))}
+        </div>
       </section>
 
       {/* 3. NEW: PRACTICAL ALCHEMY (Applications) */}
@@ -135,14 +166,93 @@ export const EducationHub = ({ onBack, onNavigate }) => {
         </div>
 
         <div className="columns-1 md:columns-3 gap-8 space-y-8">
-          {/* ... Community Feed Items (as previously defined) ... */}
+          {COMMUNITY_WALL.map((entry) => (
+            <div
+              key={entry.id}
+              className="break-inside-avoid bg-white/[0.02] border border-white/10 rounded-[2rem] p-6 md:p-8 space-y-4 hover:border-amber-500/30 transition-all"
+            >
+              <div className="space-y-1">
+                <p className="text-white font-bold text-sm">{entry.name}</p>
+                <p className="text-gray-500 text-[10px] uppercase tracking-widest">
+                  {entry.role} • {entry.location}
+                </p>
+              </div>
+              <p className="text-gray-300 text-sm leading-relaxed italic">"{entry.quote}"</p>
+              <p className="text-amber-500 text-[10px] uppercase tracking-[0.4em] font-black">
+                {entry.product}
+              </p>
+            </div>
+          ))}
         </div>
       </section>
 
       {/* SUBMISSION MODAL */}
       {showSubmissionForm && (
         <div className="fixed inset-0 z-[1000] flex items-center justify-center p-6 bg-black/95 backdrop-blur-3xl animate-in fade-in duration-300">
-          {/* ... Modal Logic (as previously defined) ... */}
+          <div className="w-full max-w-2xl bg-[#0a0a0a] border border-white/10 rounded-[2.5rem] p-10 relative">
+            <button
+              type="button"
+              onClick={() => setShowSubmissionForm(false)}
+              className="absolute top-6 right-6 text-gray-500 hover:text-white transition-colors text-xs uppercase tracking-widest"
+            >
+              Close
+            </button>
+            <SectionHeading
+              pre="Testimony Submission"
+              title="Share Your"
+              italic="Grace"
+              sub="We publish real stories only. Keep it honest, keep it kind."
+            />
+
+            {submitted ? (
+              <div className="mt-10 text-center text-amber-500 text-sm uppercase tracking-[0.4em] font-black">
+                Thank you. Your testimony is received.
+              </div>
+            ) : (
+              <form onSubmit={handleTestimonySubmit} className="mt-10 space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <input
+                    required
+                    type="text"
+                    name="name"
+                    placeholder="Your Name"
+                    className="bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:border-amber-500/50 transition-colors"
+                  />
+                  <input
+                    required
+                    type="text"
+                    name="location"
+                    placeholder="City / Province"
+                    className="bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:border-amber-500/50 transition-colors"
+                  />
+                </div>
+                <input
+                  required
+                  type="text"
+                  name="product"
+                  placeholder="Product tasted (e.g. Aloe Ferox Reserve)"
+                  className="bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:border-amber-500/50 transition-colors"
+                />
+                <textarea
+                  required
+                  name="testimony"
+                  rows={5}
+                  placeholder="Your testimony"
+                  className="bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:border-amber-500/50 transition-colors w-full"
+                />
+                <label className="flex items-center gap-3 text-xs text-gray-400">
+                  <input type="checkbox" required className="accent-amber-500" />
+                  I confirm this story is true and may be featured by Golden Grace.
+                </label>
+                <button
+                  type="submit"
+                  className="w-full py-4 bg-amber-500 text-black text-xs font-black uppercase tracking-[0.4em] rounded-full hover:bg-white transition-all active:scale-95"
+                >
+                  Submit Testimony
+                </button>
+              </form>
+            )}
+          </div>
         </div>
       )}
     </main>

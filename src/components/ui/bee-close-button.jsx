@@ -16,8 +16,10 @@ export const BeeCloseButton = ({ onClose }) => {
 };
   return (
     <button 
+      type="button"
       onClick={handleClick}
       title="Close Detail View"
+      aria-label="Close detail view"
       className={`p-2 rounded-full bg-black/20 text-white hover:bg-amber-500/20 transition-all group relative
         ${isFlying ? 'animate-bee-fly-away pointer-events-none' : ''}`}
     >
