@@ -2,8 +2,9 @@ import { useEffect } from 'react';
 import { Users, Sparkles, Heart, MapPin, ArrowLeft } from 'lucide-react';
 import SectionHeading from '../components/ui/section-heading';
 import OptimizedImage from '../components/ui/optimized-image';
+import { VIEWS } from '../views';
 
-export const StoryPage = ({ onBack }) => {
+export const StoryPage = ({ onNavigate }) => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -128,7 +129,7 @@ export const StoryPage = ({ onBack }) => {
           Experience the blessing
         </p>
         <button
-          onClick={() => onNavigate('collection')}
+          onClick={() => onNavigate(VIEWS.HOME, { scrollTo: 'collection' })}
           className="text-4xl md:text-7xl font-serif italic text-white hover:text-amber-400 transition-colors"
         >
           Shop the Collection
@@ -138,4 +139,4 @@ export const StoryPage = ({ onBack }) => {
   );
 };
 
-export default StoryPage
+export default StoryPage;
