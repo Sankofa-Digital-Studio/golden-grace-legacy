@@ -7,7 +7,9 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "check:assets": "node scripts/check-static-assets.mjs",
     "lint": "eslint .",
+    "test": "node --test",
     "format": "prettier --write .",
     "preview": "vite preview"
   },

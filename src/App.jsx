@@ -8,7 +8,6 @@ import MaintenanceGate from './pages/maintenance-page';
 import Navbar from './components/layout/navbar';
 import Footer from './components/layout/footer';
 import Cart from './pages/home-page/sections/cart';
-import ForagerLoader from './components/common/forager-loader';
 import FilmGrain from './components/ui/film-grain';
 import ScrollToTop from './components/common/scroll-to-top';
 import WhatsAppWidget from './components/common/whatsapp-widget';
@@ -17,21 +16,17 @@ import ErrorBoundary from './components/common/error-boundary';
 import HomePage from './pages/home-page/home-page';
 import { useNavigation } from './hooks/useNavigation';
 import { VIEWS } from './views';
-import { CartProvider } from './context/cart-context';
+import { useCart } from './context/cart-context';
 
-const App = () => {
-  if (MAINTENANCE_MODE) {
-    return <MaintenanceGate />;
-  }
+const StoryPage = lazy(() => import('./pages/story-page'));
+const EducationHub = lazy(() => import('./pages/education-page'));
+const GiftsPage = lazy(() => import('./pages/gifts-page'));
 
-  const [isLoading, setIsLoading] = useState(true);
+const Storefront = () => {
   const [showCart, setShowCart] = useState(false);
-  const [cart, setCart] = useState([]);
   const [isScrolled, setIsScrolled] = useState(false);
-  const StoryPage = lazy(() => import('./pages/story-page'));
-  const EducationHub = lazy(() => import('./pages/education-page'));
-  const GiftsPage = lazy(() => import('./pages/gifts-page'));
-  const { view, navigate, transitioning } = useNavigation(VIEWS.HOME, 800);
+  const { cart, addToCart, updateQuantity, removeFromCart } = useCart();
+  const { view, navigate, transitioning } = useNavigation(VIEWS.HOME, 0);
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 50);
@@ -40,34 +35,19 @@ const App = () => {
   }, []);
 
   const handleNavigate = (pageId, opts) => {
-  navigate(pageId, opts);
-};
-
-  const addToCart = (product) => {
-    setCart((prev) => {
-      const exists = prev.find((i) => i.id === product.id);
-      if (exists)
-        return prev.map((i) => (i.id === product.id ? { ...i, quantity: i.quantity + 1 } : i));
-      return [...prev, { ...product, quantity: 1 }];
-    });
-    setShowCart(true); // Open drawer immediately on add
+    navigate(pageId, opts);
   };
 
-  const handleUpdateQuantity = (id, delta) => {
-    setCart((prev) =>
-      prev
-        .map((item) =>
-          item.id === id ? { ...item, quantity: Math.max(0, item.quantity + delta) } : item
-        )
-        .filter((item) => item.quantity > 0)
-    );
+  const handleAddToCart = (product, selectedSize) => {
+    addToCart(product, selectedSize);
+    setShowCart(true);
   };
 
   // --- RENDER ENGINE ---
   const renderView = () => {
     switch (view) {
       case 'home':
-        return <HomePage onNavigate={handleNavigate} onAddToCart={addToCart} />;
+        return <HomePage onNavigate={handleNavigate} onAddToCart={handleAddToCart} />;
       case VIEWS.STORY:
         return <StoryPage onBack={() => navigate(VIEWS.HOME)} onNavigate={handleNavigate} />;
       case VIEWS.EDUCATION:
@@ -75,7 +55,7 @@ const App = () => {
       case VIEWS.GIFTS:
         return <GiftsPage onBack={() => navigate(VIEWS.HOME)} />;
       default:
-        return <HomePage onNavigate={handleNavigate} onAddToCart={addToCart} />;
+        return <HomePage onNavigate={handleNavigate} onAddToCart={handleAddToCart} />;
     }
   };
 
@@ -86,9 +66,7 @@ const App = () => {
         <Analytics />
         <FilmGrain />
 
-        {/* 1. LOADERS & TRANSITIONS */}
-        {isLoading && <ForagerLoader onComplete={() => setIsLoading(false)} />}
-
+        {/* 1. VIEW TRANSITIONS */}
         {transitioning && (
           <div className="fixed inset-0 z-[1000] bg-[#050505] flex items-center justify-center transition-opacity duration-500">
             <div className="flex flex-col items-center gap-4 animate-pulse">
@@ -101,9 +79,7 @@ const App = () => {
         )}
 
         {/* 2. LAYOUT ELEMENTS */}
-        <div
-          className={`transition-opacity duration-1000 ${isLoading ? 'opacity-0' : 'opacity-100'}`}
-        >
+        <div>
           <Navbar
             isScrolled={isScrolled}
             activePage={view}
@@ -137,12 +113,15 @@ const App = () => {
             isOpen={showCart}
             onClose={() => setShowCart(false)}
             cartItems={cart}
-            onUpdateQuantity={handleUpdateQuantity}
+            onUpdateQuantity={updateQuantity}
+            onRemove={removeFromCart}
           />
         </div>
       </div>
     </ErrorBoundary>
   );
 };
+
+const App = () => (MAINTENANCE_MODE ? <MaintenanceGate /> : <Storefront />);
 
 export default App;

@@ -1,0 +1,30 @@
+name: Storefront bug
+description: Report a reproducible customer or operational defect
+title: '[Bug] '
+labels: [bug]
+body:
+  - type: textarea
+    id: impact
+    attributes:
+      label: Customer impact
+      description: What is blocked, misleading or difficult?
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Reproduction steps
+      placeholder: "1. Open…\n2. Tap…\n3. Observe…"
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Device and browser
+      placeholder: iPhone 13, Safari 18
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+    validations:
+      required: true
