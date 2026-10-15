@@ -1,25 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import { ArrowLeft, CheckCircle2 } from 'lucide-react';
-import {SectionHeading} from '../../../components/ui/section-heading';
-import {OptimizedImage} from '../../../components/ui/optimized-image';
+import { SectionHeading } from '../../../components/ui/section-heading';
+import { OptimizedImage } from '../../../components/ui/optimized-image';
 import { APPLICATIONS } from '../../../data/constants';
 
-export const EducationHub = ({ onBack, onNavigate }) => {
+export const EducationHub = ({ onBack }) => {
   const [showSubmissionForm, setShowSubmissionForm] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
+ 
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
-  const handleTestimonySubmit = (e) => {
-    e.preventDefault();
-    setSubmitted(true);
-    setTimeout(() => {
-      setSubmitted(false);
-      setShowSubmissionForm(false);
-    }, 3000);
-  };
+  // const handleTestimonySubmit = (e) => {
+  //   e.preventDefault();
+  //   setSubmitted(true);
+  //   setTimeout(() => {
+  //     setSubmitted(false);
+  //     setShowSubmissionForm(false);
+  //   }, 3000);
+  // };
 
   return (
     <main className="min-h-screen bg-[#050505] text-white animate-in fade-in duration-1000 pb-24">
@@ -27,7 +27,7 @@ export const EducationHub = ({ onBack, onNavigate }) => {
       <header className="relative h-[60vh] flex items-center justify-center border-b border-white/5 overflow-hidden">
         <div className="absolute inset-0 z-0">
           <OptimizedImage
-            src="/images/sensory/botanicals.webp"
+            src="/images/sensory/infused-botanicals.webp"
             alt="Macro photography of Aloe Ferox in the Free State"
             className="w-full h-full object-cover opacity-20 scale-110 blur-md"
           />

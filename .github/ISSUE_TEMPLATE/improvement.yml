@@ -1,0 +1,30 @@
+name: Storefront improvement
+description: Propose a measurable usability, presentation or conversion improvement
+title: '[Improvement] '
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem or opportunity
+    validations:
+      required: true
+  - type: textarea
+    id: outcome
+    attributes:
+      label: Desired customer outcome
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+    validations:
+      required: true
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Suggested priority
+      options: [P0 — launch blocker, P1 — conversion, P2 — optimisation]
+    validations:
+      required: true

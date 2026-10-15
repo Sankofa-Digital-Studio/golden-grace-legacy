@@ -1,13 +1,15 @@
 {
-  "name": "golden-grace-honey",
+  "name": "golden-grace-legacy",
   "private": true,
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Premium South African Raw Honey Platform",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "check:assets": "node scripts/check-static-assets.mjs",
     "lint": "eslint .",
+    "test": "node --test",
     "format": "prettier --write .",
     "preview": "vite preview"
   },

@@ -12,7 +12,17 @@ export const useNavigation = (initialView, transitionMs = 800) => {
 
     // Same view: just scroll if requested
     if (nextView === view) {
-      if (nextScrollTarget) setScrollTarget(nextScrollTarget);
+      if (nextScrollTarget) {
+        const element = document.getElementById(nextScrollTarget);
+        element?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+      return;
+    }
+
+    if (transitionMs <= 0) {
+      window.scrollTo(0, 0);
+      setView(nextView);
+      setScrollTarget(nextScrollTarget);
       return;
     }
 

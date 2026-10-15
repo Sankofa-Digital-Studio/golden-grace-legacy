@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { X, Maximize2, ArrowLeft } from 'lucide-react';
+import { X, Maximize2 } from 'lucide-react';
 import { HARVEST_IMAGES } from '../../../data/constants';
 import SectionHeading from '../../../components/ui/section-heading';
 import OptimizedImage from '../../../components/ui/optimized-image';
 
-const ArchiveSection = ({ onBack }) => {
+const ArchiveSection = () => {
   const [selected, setSelected] = useState(null);
 
   return (
