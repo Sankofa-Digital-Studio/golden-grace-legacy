@@ -4,7 +4,7 @@ import { JOURNEY_TECHNICAL_DATA } from '../../data/constants';
 import BeeCloseButton from './bee-close-button';
 
 const DetailModal = ({ step, onClose }) => {
-  const [isClosing, setIsClosing] = useState(false);
+  const [isClosing] = useState(false);
   const data = JOURNEY_TECHNICAL_DATA[step.id];
 
   // --- ROBUST INDUSTRIAL SCROLL LOCK ---
@@ -21,10 +21,10 @@ const DetailModal = ({ step, onClose }) => {
     };
   }, []);
 
-  const handleIntentionalExit = () => {
-    setIsClosing(true);
-    setTimeout(onClose, 800); 
-  };
+  // const handleIntentionalExit = () => {
+  //   setIsClosing(true);
+  //   setTimeout(onClose, 800); 
+  // };
 
   return (
     <div

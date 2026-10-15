@@ -4,23 +4,15 @@ import { SectionHeading } from '../components/ui/section-heading';
 import { OptimizedImage } from '../components/ui/optimized-image';
 import { APPLICATIONS } from '../data/constants';
 
-export const EducationHub = ({ onBack, onNavigate }) => {
+export const EducationHub = ({ onBack }) => {
   const [showSubmissionForm, setShowSubmissionForm] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
+
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
-  const handleTestimonySubmit = (e) => {
-    e.preventDefault();
-    setSubmitted(true);
-    setTimeout(() => {
-      setSubmitted(false);
-      setShowSubmissionForm(false);
-    }, 3000);
-  };
-
+  
   return (
     <main className="min-h-screen bg-[#050505] text-white animate-in fade-in duration-1000 pb-24">
       {/* 1. HUB HERO */}

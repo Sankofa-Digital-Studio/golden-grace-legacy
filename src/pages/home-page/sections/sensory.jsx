@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 
 import SectionHeading from '../../../components/ui/section-heading';
 import ViscosityPour from '../../../components/ui/viscosity-pour';
