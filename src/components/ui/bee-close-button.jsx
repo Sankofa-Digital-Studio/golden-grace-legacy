@@ -3,14 +3,23 @@ import { X } from 'lucide-react';
 
 export const BeeCloseButton = ({ onClose }) => {
   const [isFlying, setIsFlying] = useState(false);
+   const prefersReducedMotion = window.matchMedia(
+  '(prefers-reduced-motion: reduce)'
+).matches;
   const handleClick = () => {
-    setIsFlying(true);
-    setTimeout(onClose, 800); 
-  };
+  if (prefersReducedMotion) {
+    onClose();
+    return;
+  }
+  setIsFlying(true);
+  setTimeout(onClose, 800);
+};
   return (
     <button 
+      type="button"
       onClick={handleClick}
       title="Close Detail View"
+      aria-label="Close detail view"
       className={`p-2 rounded-full bg-black/20 text-white hover:bg-amber-500/20 transition-all group relative
         ${isFlying ? 'animate-bee-fly-away pointer-events-none' : ''}`}
     >

@@ -1,19 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { ShoppingBag, Menu, X, Hexagon, ArrowRight } from 'lucide-react';
 import { VIEWS } from '../../views';
+import { useScrollLock } from '../../hooks/useScrollLock';
 const Navbar = ({ isScrolled, toggleCart, cartCount, activePage, navigate }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   // Lock body scroll when mobile menu is active to prevent scroll-leaking
-  useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = 'hidden';
-      document.documentElement.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-      document.documentElement.style.overflow = 'unset';
-    }
-  }, [isOpen]);
+  useScrollLock(isOpen);
 
   const navLinks = [
     { id: 'home', label: 'Home' },

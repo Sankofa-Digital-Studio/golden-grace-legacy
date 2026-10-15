@@ -21,11 +21,9 @@ const RecipesPage = ({ onReadRecipe }) => {
           <div className="bg-[#121212] rounded-xl overflow-hidden group hover:border-amber-500/50 border border-transparent transition-all">
             <div className="relative aspect-[4/5] overflow-hidden">
                <OptimizedImage 
-                src="/images/WhatsApp Image 2025-12-22 at 21.14.21 (1).jpeg"
+                src="/images/WhatsApp Image 2025-12-22 at 21.14.21.webp"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 golden-filter"
                 alt="Honey Toast"
-                loading="lazy"
-                decoding="async"
               />
             </div>
             <div className="p-6 lg:p-8">
@@ -50,11 +48,9 @@ const RecipesPage = ({ onReadRecipe }) => {
           <div className="bg-[#121212] rounded-xl overflow-hidden group hover:border-amber-500/50 border border-transparent transition-all">
             <div className="relative aspect-[4/5] overflow-hidden">
              <OptimizedImage 
-                src="/images/7.jpeg"
+                src="/images/IMG-20250702-WA0040.webp"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 golden-filter"
                 alt="Honey Mask"
-                loading="lazy"
-                decoding="async"
               />
             </div>
             <div className="p-6 lg:p-8">
@@ -78,11 +74,9 @@ const RecipesPage = ({ onReadRecipe }) => {
           <div className="bg-[#121212] rounded-xl overflow-hidden group hover:border-amber-500/50 border border-transparent transition-all">
             <div className="relative aspect-[4/5] overflow-hidden">
               <OptimizedImage  
-                src="/images/WhatsApp Image 2025-12-22 at 21.14.21 (2).jpeg"
+                src="/images/IMG-20250712-WA0063.webp"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 golden-filter"
                 alt="Honey Tea"
-                loading="lazy"
-                decoding="async"
               />
             </div>
             <div className="p-6 lg:p-8">

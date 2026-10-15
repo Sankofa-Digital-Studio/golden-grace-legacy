@@ -7,6 +7,7 @@ import {
 // SANKOFA ARCHITECTURE: Lowercase paths and named imports per convention
 import {BeeCloseButton} from './bee-close-button';
 import {VIDEO_CHAPTERS} from '../../data/constants';
+import { useScrollLock } from '../../hooks/useScrollLock';
 
 /**
  * --- VIDEO MODAL v4.3.1 ---
@@ -17,18 +18,10 @@ export const VideoModal = ({ videoSrc, poster, onClose }) => {
   const videoRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
-  const [progress, setProgress] = useState(0);
   const [activeChapter, setActiveChapter] = useState(VIDEO_CHAPTERS[0]);
+  const lastChapterIdRef = useRef(VIDEO_CHAPTERS[0]?.id);
 
-  // INDUSTRIAL RULE: Prevent background scroll when immersive is active
-  useEffect(() => {
-    document.body.style.overflow = 'hidden';
-    document.documentElement.style.overflow = 'hidden';
-    return () => { 
-        document.body.style.overflow = 'unset'; 
-        document.documentElement.style.overflow = 'unset';
-    };
-  }, []);
+  useScrollLock(true);
 
   const togglePlay = () => {
     if (!videoRef.current) return;
@@ -45,12 +38,12 @@ export const VideoModal = ({ videoSrc, poster, onClose }) => {
     if (!videoRef.current) return;
     const current = videoRef.current.currentTime;
     const duration = videoRef.current.duration || 108; // fallback to 108s
-    setProgress((current / duration) * 100);
 
     // Dynamic Chapter Tracking: Finds the most recent chapter based on current time
-    const currentChapter = [...VIDEO_CHAPTERS].reverse().find(c => current >= c.time);
-    if (currentChapter && currentChapter.id !== activeChapter.id) {
-        setActiveChapter(currentChapter);
+    const currentChapter = [...VIDEO_CHAPTERS].reverse().find((c) => current >= c.time);
+    if (currentChapter && currentChapter.id !== lastChapterIdRef.current) {
+      lastChapterIdRef.current = currentChapter.id;
+      setActiveChapter(currentChapter);
     }
   };
 
@@ -73,6 +66,7 @@ export const VideoModal = ({ videoSrc, poster, onClose }) => {
           onTimeUpdate={handleTimeUpdate}
           playsInline
           muted={isMuted}
+          preload="metadata"
           className="w-full h-full object-cover md:object-contain cursor-pointer"
           onClick={togglePlay}
           title="Golden Grace Harvest Documentary: The Evidence of Integrity"
@@ -96,9 +90,11 @@ export const VideoModal = ({ videoSrc, poster, onClose }) => {
 
         {/* 3. CENTER OVERLAY: Play/Pause State Visualizer */}
         {!isPlaying && (
-          <button 
+          <button
+            type="button"
             onClick={togglePlay}
             title="Start playback"
+            aria-label="Start playback"
             className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24 bg-amber-500 rounded-full flex items-center justify-center shadow-[0_0_50px_rgba(245,158,11,0.5)] z-20 transition-transform active:scale-90"
           >
             <Play className="text-black fill-black ml-1" size={36} />
@@ -116,7 +112,7 @@ export const VideoModal = ({ videoSrc, poster, onClose }) => {
                 const isPassed = videoRef.current?.currentTime >= chapter.time;
                 
                 return (
-                    <div 
+                    <div
                         key={chapter.id}
                         onClick={() => seekToChapter(chapter.time)}
                         className="h-full relative cursor-pointer group/chap flex-1"
@@ -137,10 +133,22 @@ export const VideoModal = ({ videoSrc, poster, onClose }) => {
           {/* Quick Controls Row */}
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-6">
-               <button onClick={togglePlay} title={isPlaying ? "Pause Video" : "Play Video"} className="text-white hover:text-amber-500 transition-colors">
+               <button
+                 type="button"
+                 onClick={togglePlay}
+                 title={isPlaying ? "Pause Video" : "Play Video"}
+                 aria-label={isPlaying ? "Pause Video" : "Play Video"}
+                 className="text-white hover:text-amber-500 transition-colors"
+               >
                  {isPlaying ? <Pause size={22} /> : <Play size={22} />}
                </button>
-               <button onClick={() => setIsMuted(!isMuted)} title={isMuted ? "Unmute Audio" : "Mute Audio"} className="text-white hover:text-amber-500 transition-colors">
+               <button
+                 type="button"
+                 onClick={() => setIsMuted(!isMuted)}
+                 title={isMuted ? "Unmute Audio" : "Mute Audio"}
+                 aria-label={isMuted ? "Unmute Audio" : "Mute Audio"}
+                 className="text-white hover:text-amber-500 transition-colors"
+               >
                  {isMuted ? <VolumeX size={22} /> : <Volume2 size={22} />}
                </button>
             </div>
@@ -160,6 +168,7 @@ export const VideoModal = ({ videoSrc, poster, onClose }) => {
           </div>
           
           <button
+            type="button"
             onClick={onClose}
             title="Exit documentary and return to site"
             className="group flex items-center gap-3 bg-white/10 backdrop-blur-xl border border-white/20 px-8 py-4 rounded-full text-white hover:bg-red-600/10 hover:border-red-500/40 transition-all duration-300 hover:scale-105 active:scale-95 shadow-2xl"
