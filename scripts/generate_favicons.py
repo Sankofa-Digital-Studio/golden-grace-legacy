@@ -1,3 +1,4 @@
+import argparse
 import os
 import io
 import base64
@@ -14,8 +15,13 @@ IMAGES_DIR = os.path.join(PUBLIC_DIR, "images")
 os.makedirs(PUBLIC_DIR, exist_ok=True)
 os.makedirs(IMAGES_DIR, exist_ok=True)
 
-print(f"Loading source image: {INPUT_IMAGE_PATH}")
-source_img = Image.open(INPUT_IMAGE_PATH).convert("RGBA")
+parser = argparse.ArgumentParser(description="Generate favicon assets from a source logo.")
+parser.add_argument("--input", "-i", default=INPUT_IMAGE_PATH, help="Path to the source logo image")
+args = parser.parse_args()
+input_image_path = args.input
+
+print(f"Loading source image: {input_image_path}")
+source_img = Image.open(input_image_path).convert("RGBA")
 
 # 1. Clean Crops
 # Bee exact bounds: x in [146, 878], y in [51, 547]
