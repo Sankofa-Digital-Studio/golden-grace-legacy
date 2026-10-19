@@ -1,5 +1,5 @@
 // src/config/maintenance.js
-export const MAINTENANCE_MODE = true; // <-- flip to false when done
+export const MAINTENANCE_MODE = false; // <-- flip to false when done
 
 // Optional: set your WhatsApp number (international format, no +, no spaces)
 export const WHATSAPP_NUMBER = "27662022100"; // e.g. "27821234567"
