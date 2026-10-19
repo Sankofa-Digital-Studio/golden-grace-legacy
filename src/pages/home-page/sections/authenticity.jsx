@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import {
   ArrowRight,
-  Home as HomeIcon,
   Verified,
   Hexagon,
   Shield,
@@ -20,22 +19,12 @@ const Authenticity = () => {
   const testScrollRef = useRef(null);
   const [activeTestIndex, setActiveTestIndex] = useState(0);
   const [activeLexiconGroup, setActiveLexiconGroup] = useState(0);
-  const lexiconScrollRef = useRef(null);
-  const [ setActiveTermIndex] = useState(0);
   const [openAccordion, setOpenAccordion] = useState(null);
 
   useEffect(() => {
-    setActiveTermIndex(0);
-    if (lexiconScrollRef.current) {
-      lexiconScrollRef.current.scrollTo({ left: 0, behavior: 'smooth' });
-    }
-  }, [activeLexiconGroup, setActiveTermIndex]);
+    setOpenAccordion(null);
+  }, [activeLexiconGroup]);
 
-  // const handleScrollTracker = (ref, setIndex) => {
-  //   if (!ref.current) return;
-  //   const { scrollLeft, clientWidth } = ref.current;
-  //   setIndex(Math.round(scrollLeft / clientWidth));
-  // };
   const handleTestScroll = () => {
     if (!testScrollRef.current) return;
     const { scrollLeft, clientWidth } = testScrollRef.current;
