@@ -113,11 +113,7 @@ const Storefront = () => {
             </Suspense>
           </main>
 
-          <Footer
-            onNav={handleNavigate}
-            onSubscribe={() => console.log('Subscribed')}
-            onOpenModal={(id) => console.log('Open Modal', id)}
-          />
+          <Footer onNav={handleNavigate} />
 
           <Cart
             isOpen={showCart}

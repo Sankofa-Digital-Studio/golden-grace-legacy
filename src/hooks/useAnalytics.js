@@ -3,7 +3,9 @@ import { useEffect } from 'react';
 const useAnalytics = (pageName) => {
   useEffect(() => {
     // Simulate logging to an analytics service
-    console.log(`[Analytics] Page View: ${pageName} | Timestamp: ${new Date().toISOString()}`);
+    if (import.meta.env.DEV) {
+      console.log(`[Analytics] Page View: ${pageName} | Timestamp: ${new Date().toISOString()}`);
+    }
 
     // Example Integration (Commented out):
     // if (window.gtag) {
