@@ -1,32 +1,37 @@
 import React, { useEffect, useState } from 'react';
-import { X, Thermometer, Map, ShieldCheck } from 'lucide-react';
+import { X, Thermometer, Map, ShieldCheck, ArrowRight } from 'lucide-react';
 import { JOURNEY_TECHNICAL_DATA } from '../../data/constants';
 import BeeCloseButton from './bee-close-button';
-import { useScrollLock } from '../../hooks/useScrollLock';
 
 const DetailModal = ({ step, onClose }) => {
-  const [isClosing, setIsClosing] = useState(false);
-  const [isVisible, setIsVisible] = useState(false);
+  const [isClosing] = useState(false);
   const data = JOURNEY_TECHNICAL_DATA[step.id];
 
-  useScrollLock(true);
-
+  // --- ROBUST INDUSTRIAL SCROLL LOCK ---
   useEffect(() => {
-    const raf = requestAnimationFrame(() => setIsVisible(true));
-    return () => cancelAnimationFrame(raf);
+    const originalBodyStyle = window.getComputedStyle(document.body).overflow;
+    const originalHtmlStyle = window.getComputedStyle(document.documentElement).overflow;
+
+    document.body.style.overflow = 'hidden';
+    document.documentElement.style.overflow = 'hidden';
+    
+    return () => {
+      document.body.style.overflow = originalBodyStyle;
+      document.documentElement.style.overflow = originalHtmlStyle;
+    };
   }, []);
 
-  const handleIntentionalExit = () => {
-    setIsClosing(true);
-    setTimeout(onClose, 800); 
-  };
+  // const handleIntentionalExit = () => {
+  //   setIsClosing(true);
+  //   setTimeout(onClose, 800); 
+  // };
 
   return (
     <div
-      className={`fixed inset-0 z-[500] flex items-center justify-center p-4 bg-black/95 backdrop-blur-3xl transition-all duration-500 ${isClosing || !isVisible ? 'opacity-0' : 'opacity-100'}`}
+      className={`fixed inset-0 z-[500] flex items-center justify-center p-4 bg-black/95 backdrop-blur-3xl transition-all duration-500 ${isClosing ? 'opacity-0' : 'opacity-100'}`}
     >
       <div
-        className={`max-w-xl w-full bg-[#111] border border-white/10 rounded-[3rem] p-8 md:p-12 shadow-2xl relative overflow-hidden transition-all duration-700 ease-out ${isClosing || !isVisible ? 'scale-95 blur-xl opacity-0' : 'scale-100 blur-0 opacity-100'}`}
+        className={`max-w-xl w-full bg-[#111] border border-white/10 rounded-[3rem] p-8 md:p-12 shadow-2xl relative overflow-hidden transition-all duration-700 ease-out ${isClosing ? 'scale-75 blur-2xl opacity-0' : 'scale-100 blur-0 opacity-100'} animate-in zoom-in-75 slide-in-from-bottom-16`}
       >
         {/* THE CLOSE BUTTON */}
         <div className="absolute top-6 right-6 md:top-8 md:right-8 scale-110 z-[60]">
@@ -106,6 +111,22 @@ const DetailModal = ({ step, onClose }) => {
                     </div>
                 </div>
             </div>
+          </div>
+
+          {/* 4. CONVERSION BRIDGE: Back to The Storefront */}
+          <div className="pt-2">
+            <button
+              type="button"
+              onClick={() => {
+                onClose();
+                const el = document.getElementById('collection');
+                if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              }}
+              className="w-full py-4 bg-amber-500 hover:bg-white text-black font-black text-xs uppercase tracking-widest rounded-full transition-all active:scale-95 flex items-center justify-center gap-2 shadow-lg shadow-amber-500/20"
+            >
+              <span>Taste This Movement in The Shop</span>
+              <ArrowRight size={14} />
+            </button>
           </div>
         </div>
       </div>

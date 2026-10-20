@@ -1,93 +1,75 @@
-import React, { createContext, useContext, useMemo, useState } from "react";
+import { createContext, useContext, useEffect, useState } from 'react';
 
-const CartContext = createContext(null);
+const CartContext = createContext();
+const CART_STORAGE_KEY = 'golden-grace-cart';
+
+const readStoredCart = () => {
+  if (typeof window === 'undefined') return [];
+
+  try {
+    const storedCart = window.localStorage.getItem(CART_STORAGE_KEY);
+    const parsedCart = storedCart ? JSON.parse(storedCart) : [];
+    return Array.isArray(parsedCart) ? parsedCart : [];
+  } catch {
+    return [];
+  }
+};
+
+const isSameLineItem = (item, id, selectedSize) =>
+  item.id === id && item.selectedSize === selectedSize;
 
 export const CartProvider = ({ children }) => {
-  const [cart, setCart] = useState([]);
-  const [isCartOpen, setIsCartOpen] = useState(false);
+  const [cart, setCart] = useState(readStoredCart);
 
-  const cartCount = useMemo(
-    () => cart.reduce((acc, i) => acc + (i.quantity ?? 0), 0),
-    [cart]
-  );
-
-const addToCart = (product) => {
-  setCart((prev) => {
-    const size = product.selectedSize ?? null;
-
-    const exists = prev.find(
-      (i) => i.id === product.id && (i.selectedSize ?? null) === size
-    );
-
-    if (exists) {
-      return prev.map((i) =>
-        i.id === product.id && (i.selectedSize ?? null) === size
-          ? { ...i, quantity: (i.quantity ?? 0) + 1 }
-          : i
-      );
+  useEffect(() => {
+    try {
+      window.localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cart));
+    } catch {
+      // A blocked or full storage quota must not break ordering.
     }
+  }, [cart]);
 
-    return [...prev, { ...product, quantity: 1 }];
-  });
+  const addToCart = (product, selectedSize = product.sizes?.[0]) => {
+    const lineItem = { ...product, selectedSize };
 
-  // IMPORTANT: do NOT auto-open cart (your preference)
-  // setIsCartOpen(true);
-};
+    setCart((prev) => {
+      const exists = prev.find((item) => isSameLineItem(item, product.id, selectedSize));
 
+      if (exists) {
+        return prev.map((item) =>
+          isSameLineItem(item, product.id, selectedSize)
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
+        );
+      }
 
- const updateQuantity = (id, selectedSize, nextQuantity) => {
-  const qty = Number(nextQuantity);
+      return [...prev, { ...lineItem, quantity: 1 }];
+    });
+  };
 
-  // Guard: don't wipe cart on bad values
-  if (!Number.isFinite(qty)) return;
+  const updateQuantity = (id, selectedSize, quantity) => {
+    setCart((prev) =>
+      prev
+        .map((item) =>
+          isSameLineItem(item, id, selectedSize)
+            ? { ...item, quantity: Math.max(0, quantity) }
+            : item
+        )
+        .filter((item) => item.quantity > 0)
+    );
+  };
 
-  setCart((prev) =>
-    prev
-      .map((item) => {
-        const sameLine =
-          item.id === id && (item.selectedSize ?? null) === (selectedSize ?? null);
+  const removeFromCart = (id, selectedSize) => {
+    setCart((prev) => prev.filter((item) => !isSameLineItem(item, id, selectedSize)));
+  };
 
-        if (!sameLine) return item;
+  const clearCart = () => setCart([]);
 
-        return { ...item, quantity: Math.max(0, qty) };
-      })
-      .filter((item) => (item.quantity ?? 0) > 0)
+  return (
+    <CartContext.Provider value={{ cart, addToCart, updateQuantity, removeFromCart, clearCart }}>
+      {children}
+    </CartContext.Provider>
   );
 };
 
-const removeItem = (id, selectedSize) => {
-  setCart((prev) =>
-    prev.filter(
-      (item) =>
-        !(item.id === id && (item.selectedSize ?? null) === (selectedSize ?? null))
-    )
-  );
-};
-
-
-
-  const value = useMemo(
-    () => ({
-      cart,
-      cartCount,
-      isCartOpen,
-      openCart: () => setIsCartOpen(true),
-      closeCart: () => setIsCartOpen(false),
-      addToCart,
-      updateQuantity,
-    }),
-    [cart, cartCount, isCartOpen]
-  );
-
-  return <CartContext.Provider value={{ ...value, removeItem }}>{children}</CartContext.Provider>;
-};
-
-export const useCart = () => {
-  const ctx = useContext(CartContext);
-  if (!ctx) {
-    throw new Error("useCart must be used within <CartProvider>");
-  }
-  return ctx;
-};
-
-export default CartProvider;
+export const useCart = () => useContext(CartContext);

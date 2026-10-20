@@ -1,32 +1,145 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { ShoppingBag, Minus, Plus, Trash2, X, MoveRight, Sparkles, Hexagon } from 'lucide-react';
 import OptimizedImage from '../../../components/ui/optimized-image';
-import BeeCloseButton from '../../../components/ui/bee-close-button';
-import { useScrollLock } from '../../../hooks/useScrollLock';
+import { WHATSAPP_NUMBER } from '../../../config/maintenance';
+import { buildWhatsAppOrderUrl } from '../../../utils/whatsapp-order';
 
-export const Cart = ({
-  isOpen,
-  onClose,
-  cartItems = [],
-  onUpdateQuantity,
-  onRemove,
-  onNavigate,
-}) => {
-  useScrollLock(isOpen);
+// Optional: BeeCloseButton if you implemented it in Step 5 (otherwise use X)
+// import BeeCloseButton from '../components/ui/bee-close-button';
 
+// const Cart = ({ isOpen, onClose, cartItems, onUpdateQuantity, onRemoveItem, isSankofa }) => {
+//   if (!isOpen) return null;
+
+//   // Calculate Total
+//   const total = cartItems.reduce((sum, item) => sum + (item.price * item.qty), 0);
+
+//   return (
+//     <div className="fixed inset-0 z-[150] flex justify-end">
+
+//       {/* Backdrop */}
+//       <div
+//         className="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity"
+//         onClick={onClose}
+//       />
+
+//       {/* Drawer */}
+//       <div className={`relative w-full max-w-md h-full bg-[#111] border-l border-white/10 shadow-2xl flex flex-col transform transition-transform duration-300 ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}>
+
+//         {/* Header */}
+//         <div className="p-6 border-b border-white/10 flex items-center justify-between bg-[#111]">
+//           <div>
+//             <h2 className="text-2xl font-serif text-white">Your Reserve</h2>
+//             <p className="text-xs text-gray-500 mt-1">{cartItems.reduce((acc, item) => acc + item.qty, 0)} items selected</p>
+//           </div>
+
+//           <button
+//             onClick={onClose}
+//             className="p-2 rounded-full hover:bg-white/10 text-gray-400 hover:text-white transition-colors"
+//           >
+//             <X size={24} />
+//           </button>
+//         </div>
+
+//         {/* Items List */}
+//         <div className="flex-1 overflow-y-auto p-6 space-y-6 bg-[#0a0a0a]">
+//            {cartItems.length === 0 ? (
+//              <div className="h-full flex flex-col items-center justify-center text-gray-500 opacity-50">
+//                <ShoppingBag size={48} className="mb-4" />
+//                <p>Your reserve is currently empty.</p>
+//                <button onClick={onClose} className="mt-6 text-amber-400 text-sm tracking-widest border-b border-amber-400 pb-1">
+//                  Start Foraging
+//                </button>
+//              </div>
+//            ) : (
+//              cartItems.map(item => (
+//                <div key={item.id} className={`flex gap-4 p-4 rounded-xl border transition-all ${isSankofa ? 'bg-white/5 border-white/10' : 'bg-white/5 border-white/5'}`}>
+
+//                  {/* Product Image */}
+//                  <div className="w-20 h-20 bg-[#0a0a0a] rounded-lg border border-white/5 flex-shrink-0 overflow-hidden">
+//                     <OptimizedImage
+//                     src={item.image} alt={item.title} className="w-full h-full object-cover" />
+//                  </div>
+
+//                  {/* Details */}
+//                  <div className="flex-1 flex flex-col justify-between">
+//                    <div>
+//                        <div className="flex justify-between items-start">
+//                             <h4 className="text-white font-medium text-sm md:text-base leading-tight">{item.title}</h4>
+//                             <button onClick={() => onRemoveItem(item.id)} className="text-gray-500 hover:text-red-400 transition-colors p-1">
+//                                 <Trash2 size={14} />
+//                             </button>
+//                        </div>
+//                        {/* Size & Container Display */}
+//                        <p className="text-xs text-gray-400 mt-1">
+//                            {item.size || 'Standard'} • {item.container || 'Jar'}
+//                        </p>
+//                    </div>
+
+//                    <div className="flex items-center justify-between mt-3">
+//                      <span className="text-amber-500 font-bold text-sm">R {(item.price * item.qty).toFixed(2)}</span>
+
+//                      {/* Quantity Controls */}
+//                      <div className="flex items-center gap-3 bg-black/30 rounded-full px-2 py-1 border border-white/5">
+//                         <button onClick={() => onUpdateQuantity(item.id, -1)} className="p-1 text-gray-400 hover:text-amber-500 transition-colors"><Minus size={14} /></button>
+//                         <span className="text-sm font-bold w-4 text-center text-white">{item.qty}</span>
+//                         <button onClick={() => onUpdateQuantity(item.id, 1)} className="p-1 text-gray-400 hover:text-amber-500 transition-colors"><Plus size={14} /></button>
+//                      </div>
+//                    </div>
+//                  </div>
+//                </div>
+//              ))
+//            )}
+//         </div>
+
+//         {/* Footer Actions */}
+//         {cartItems.length > 0 && (
+//             <div className="p-6 border-t border-white/10 bg-[#111]">
+//                 <div className="flex justify-between text-white mb-6 text-xl font-serif">
+//                     <span>Total</span>
+//                     <span className="text-amber-500">R {total.toFixed(2)}</span>
+//                 </div>
+//                 <button className="w-full bg-amber-500 text-black py-4 rounded-lg font-bold uppercase tracking-widest hover:bg-white transition-colors text-sm shadow-[0_0_20px_rgba(245,158,11,0.2)]">
+//                     Secure Checkout
+//                 </button>
+//             </div>
+//         )}
+//       </div>
+//     </div>
+//   );
+// };
+
+export const Cart = ({ isOpen, onClose, cartItems = [], onUpdateQuantity, onRemove }) => {
+  // Lock background scroll when cart is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+      document.documentElement.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+      document.documentElement.style.overflow = 'unset';
+    }
+  }, [isOpen]);
+
+  const FREE_SHIPPING_THRESHOLD = 500;
   const subtotal = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
-  const shipping = subtotal > 500 ? 0 : 75; // Free shipping over R500
+  const shipping = subtotal >= FREE_SHIPPING_THRESHOLD || cartItems.length === 0 ? 0 : 75; // Free shipping over R500
+  const amountToFreeShipping = Math.max(0, FREE_SHIPPING_THRESHOLD - subtotal);
+  const freeShippingPercent = Math.min(100, Math.round((subtotal / FREE_SHIPPING_THRESHOLD) * 100));
   const total = subtotal + shipping;
+  const whatsappOrderUrl = buildWhatsAppOrderUrl({
+    number: WHATSAPP_NUMBER,
+    cartItems,
+    shipping,
+    total,
+  });
 
   return (
     <>
       {/* 1. OVERLAY */}
-
       <div
         className={`fixed inset-0 z-[800] bg-black/80 backdrop-blur-sm transition-opacity duration-500 ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
-      >
-        <BeeCloseButton onClose={onClose} />
-      </div>
+        onClick={onClose}
+      />
 
       {/* 2. DRAWER */}
       <aside
@@ -39,8 +152,42 @@ export const Cart = ({
               <ShoppingBag className="text-amber-500" size={20} />
               <h2 className="text-white font-serif text-2xl">Your Harvest Bag</h2>
             </div>
-           <BeeCloseButton onClose={onClose} />
+            <button
+              onClick={onClose}
+              title="Close harvest bag"
+              className="p-2 hover:bg-white/5 rounded-full text-gray-500 hover:text-white transition-all"
+            >
+              <X size={24} />
+            </button>
           </div>
+
+          {/* GOAL GRADIENT: COMPLIMENTARY COURIER PROGRESS METER */}
+          {cartItems.length > 0 && (
+            <div className="px-8 py-4 bg-amber-500/[0.04] border-b border-amber-500/15 space-y-2">
+              <div className="flex items-center justify-between text-[10px] font-black uppercase tracking-wider">
+                {subtotal >= FREE_SHIPPING_THRESHOLD ? (
+                  <span className="text-green-400 flex items-center gap-1.5">
+                    <Sparkles size={12} className="text-amber-400" /> Complimentary Courier Unlocked!
+                  </span>
+                ) : (
+                  <span className="text-gray-300">
+                    Add <span className="text-amber-400 font-bold">R{amountToFreeShipping}</span> for Complimentary Courier
+                  </span>
+                )}
+                <span className="text-gray-500 font-mono text-[9px]">{freeShippingPercent}%</span>
+              </div>
+              <div className="w-full h-1.5 bg-white/10 rounded-full overflow-hidden">
+                <div
+                  className={`h-full transition-all duration-700 ease-out rounded-full ${
+                    subtotal >= FREE_SHIPPING_THRESHOLD
+                      ? 'bg-gradient-to-r from-amber-400 to-green-400 shadow-[0_0_10px_rgba(74,222,128,0.5)]'
+                      : 'bg-gradient-to-r from-amber-600 via-amber-400 to-amber-500'
+                  }`}
+                  style={{ width: `${freeShippingPercent}%` }}
+                />
+              </div>
+            </div>
+          )}
 
           {/* ITEM LIST */}
           <div className="flex-1 overflow-y-auto p-8 space-y-8 no-scrollbar">
@@ -145,17 +292,35 @@ export const Cart = ({
                 </div>
               </div>
 
+              {/* Risk Reversal & Transit Reassurance */}
+              <div className="grid grid-cols-3 gap-2 py-3 border-y border-white/5 text-center">
+                <div className="space-y-1">
+                  <p className="text-[8px] font-black uppercase tracking-widest text-amber-400">Thermal Safe</p>
+                  <p className="text-[8px] text-gray-500 uppercase tracking-tighter">Padded Transit</p>
+                </div>
+                <div className="space-y-1 border-x border-white/5">
+                  <p className="text-[8px] font-black uppercase tracking-widest text-amber-400">100% Raw</p>
+                  <p className="text-[8px] text-gray-500 uppercase tracking-tighter">Non-Irradiated</p>
+                </div>
+                <div className="space-y-1">
+                  <p className="text-[8px] font-black uppercase tracking-widest text-amber-400">Tracked</p>
+                  <p className="text-[8px] text-gray-500 uppercase tracking-tighter">Direct Courier</p>
+                </div>
+              </div>
+
               <div className="space-y-4">
-                <button
-                  onClick={() => onNavigate('checkout')}
-                  title="Proceed to guest checkout"
+                <a
+                  href={whatsappOrderUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  title="Send this itemised order to Golden Grace Honey on WhatsApp"
                   className="w-full bg-amber-500 hover:bg-white text-black py-5 rounded-[1.5rem] flex items-center justify-center gap-3 transition-all duration-500 active:scale-95 group shadow-xl"
                 >
                   <span className="text-[10px] font-black uppercase tracking-[0.4em]">
-                    Experience the Drip
+                    Order on WhatsApp
                   </span>
                   <MoveRight size={16} className="group-hover:translate-x-2 transition-transform" />
-                </button>
+                </a>
                 <p className="text-[8px] text-gray-600 text-center uppercase font-black tracking-[0.3em] flex items-center justify-center gap-2">
                   <Sparkles size={8} className="text-amber-500/40" />A harvest provided by Him.
                   Bottled for you.

@@ -1,58 +1,60 @@
 // src/hooks/useNavigation.js
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 export const useNavigation = (initialView, transitionMs = 800) => {
   const [view, setView] = useState(initialView);
   const [transitioning, setTransitioning] = useState(false);
-
   const [scrollTarget, setScrollTarget] = useState(null);
-  const scrollTargetRef = useRef(null);
-
   const timeoutRef = useRef(null);
 
-  useEffect(() => {
-    scrollTargetRef.current = scrollTarget;
-  }, [scrollTarget]);
+  const navigate = (nextView, opts = {}) => {
+    const nextScrollTarget = opts.scrollTo ?? null;
 
-  const navigate = useCallback(
-    (nextView, opts = {}) => {
-      const nextScrollTarget = opts.scrollTo ?? null;
-
-      // Same view: only set scroll intent if it changed
-      if (nextView === view) {
-        if (nextScrollTarget && scrollTargetRef.current !== nextScrollTarget) {
-          setScrollTarget(nextScrollTarget);
-        }
-        return;
+    // Same view: just scroll if requested
+    if (nextView === view) {
+      if (nextScrollTarget) {
+        const element = document.getElementById(nextScrollTarget);
+        element?.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
+      return;
+    }
 
-      setTransitioning(true);
+    if (transitionMs <= 0) {
+      window.scrollTo(0, 0);
+      setView(nextView);
+      setScrollTarget(nextScrollTarget);
+      return;
+    }
 
-      if (timeoutRef.current) window.clearTimeout(timeoutRef.current);
+    setTransitioning(true);
 
-      timeoutRef.current = window.setTimeout(() => {
-        window.scrollTo(0, 0);
+    if (timeoutRef.current) window.clearTimeout(timeoutRef.current);
 
-        setView((prev) => (prev === nextView ? prev : nextView));
-        setScrollTarget(nextScrollTarget);
+    timeoutRef.current = window.setTimeout(() => {
+      window.scrollTo(0, 0);
+      setView(nextView);
+      setScrollTarget(nextScrollTarget);
+      setTransitioning(false);
+    }, transitionMs);
+  };
 
-        setTransitioning(false);
-      }, transitionMs);
-    },
-    [transitionMs, view]
-  );
-
+  // After view changes, perform any pending scroll intent
   useEffect(() => {
-    const target = scrollTargetRef.current;
-    if (!target) return;
+    if (!scrollTarget) return;
 
-    requestAnimationFrame(() => {
-      const el = document.getElementById(target);
-      el?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    // A short delay allows the destination view's DOM tree to mount before calculating scroll offset
+    const timer = setTimeout(() => {
+      const el = document.getElementById(scrollTarget);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
       setScrollTarget(null);
-    });
-  }, [view]);
+    }, 150);
 
+    return () => clearTimeout(timer);
+  }, [view, scrollTarget]);
+
+  // Cleanup
   useEffect(() => {
     return () => {
       if (timeoutRef.current) window.clearTimeout(timeoutRef.current);

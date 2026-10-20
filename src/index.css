@@ -9,6 +9,11 @@
 @tailwind utilities;
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5.5rem;
+  }
+
   html,
   body {
     overflow-x: hidden;
@@ -34,11 +39,6 @@
     max-width: 100%;
     height: auto;
     display: block;
-  }
-
-  :focus-visible {
-    outline: 2px solid #f59e0b;
-    outline-offset: 3px;
   }
 }
 
@@ -126,6 +126,16 @@
   }
 }
 
+@keyframes bee-fly-away {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(100px, -100px) rotate(45deg);
+    opacity: 0;
+  }
+}
 .animate-fade-in-up {
   animation: fade-in-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
@@ -156,6 +166,13 @@
   }
   100% {
     transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
   }
 }
 
@@ -207,7 +224,18 @@
 .animate-compass-float {
   animation: compass-float 3s ease-in-out infinite;
 }
-
+@keyframes compass-float {
+  0%,
+  100% {
+    transform: translateY(-4px);
+  }
+  50% {
+    transform: translateY(4px);
+  }
+}
+.animate-compass-float {
+  animation: compass-float 3s ease-in-out infinite;
+}
 @keyframes honey-jitter {
   0%,
   100% {
@@ -223,10 +251,37 @@
 .animate-jitter {
   animation: honey-jitter 0.1s linear infinite;
 }
-@media (prefers-reduced-motion: reduce) {
-  * {
-    animation: none !important;
-    transition: none !important;
-    scroll-behavior: auto !important;
+
+/* --- ANIMATED HONEYCOMB LOADING PATTERNS --- */
+@keyframes comb-draw {
+  0% {
+    stroke-dashoffset: 240;
+    stroke-opacity: 0.2;
   }
+  50% {
+    stroke-opacity: 0.9;
+    filter: drop-shadow(0 0 2px rgba(245, 158, 11, 0.6));
+  }
+  100% {
+    stroke-dashoffset: 0;
+    stroke-opacity: 0.2;
+  }
+}
+
+.animate-comb-draw {
+  stroke-dasharray: 60 180;
+  animation: comb-draw 2.8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 12s linear infinite;
 }

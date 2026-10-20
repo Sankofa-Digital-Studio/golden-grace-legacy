@@ -1,18 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ShoppingBag, Menu, X, Hexagon, ArrowRight } from 'lucide-react';
 import { VIEWS } from '../../views';
-import { useScrollLock } from '../../hooks/useScrollLock';
 const Navbar = ({ isScrolled, toggleCart, cartCount, activePage, navigate }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   // Lock body scroll when mobile menu is active to prevent scroll-leaking
-  useScrollLock(isOpen);
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+      document.documentElement.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+      document.documentElement.style.overflow = 'unset';
+    }
+  }, [isOpen]);
 
   const navLinks = [
     { id: 'home', label: 'Home' },
+    { id: 'collection', label: 'Shop Honey' },
     { id: 'full-story', label: 'The Legacy' },
     { id: 'education', label: 'Grace Hub' },
-    { id: 'collection', label: 'The Reserve' },
+    { id: 'gifts', label: 'Gifting' },
   ];
 
   /**
@@ -62,7 +70,7 @@ const Navbar = ({ isScrolled, toggleCart, cartCount, activePage, navigate }) => 
           </div>
 
           {/* DESKTOP LINKS */}
-          <div className="hidden lg:flex items-center gap-12 xl:gap-16">
+          <div className="hidden lg:flex items-center gap-10 xl:gap-14">
             {navLinks.map((item) => (
               <button
                 key={item.id}
@@ -81,7 +89,15 @@ const Navbar = ({ isScrolled, toggleCart, cartCount, activePage, navigate }) => 
           </div>
 
           {/* ACTION CLUSTER */}
-          <div className="flex items-center gap-4 md:gap-8 z-[160] relative">
+          <div className="flex items-center gap-4 md:gap-6 z-[160] relative">
+            <button
+              onClick={() => handleNav('collection')}
+              title="Shop Golden Grace Honey"
+              className="hidden sm:inline-flex items-center gap-2 bg-amber-500 hover:bg-white text-black px-4 py-2 rounded-full font-black text-[9px] uppercase tracking-widest transition-all active:scale-95 shadow-md shadow-amber-500/10"
+            >
+              Shop Honey
+            </button>
+
             <button
               title="View your harvest bag"
               onClick={toggleCart}
@@ -116,7 +132,7 @@ const Navbar = ({ isScrolled, toggleCart, cartCount, activePage, navigate }) => 
         <div className="flex flex-col gap-8 z-10 w-full max-w-sm">
           <div className="space-y-2 mb-4">
             <p className="text-amber-500 text-[10px] font-black uppercase tracking-[0.5em]">
-              The Menu
+              Honey & Legacy
             </p>
             <div className="h-px w-12 bg-amber-500/40" />
           </div>
@@ -144,7 +160,7 @@ const Navbar = ({ isScrolled, toggleCart, cartCount, activePage, navigate }) => 
         </div>
 
         <div className="mt-20 pt-10 border-t border-white/5 text-gray-600 text-[10px] font-black uppercase tracking-[0.4em]">
-          <p>&copy; 2026 Golden Grace Honey</p>
+          <p>&copy; 2026 Golden Grace Legacy & Honey</p>
           <p className="mt-2 text-amber-500/30 font-bold uppercase tracking-widest">
             Provided by His Grace.
           </p>

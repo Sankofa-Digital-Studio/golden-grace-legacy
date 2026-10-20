@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Star, ArrowRight } from 'lucide-react';
+import React from 'react';
+import {ArrowRight } from 'lucide-react';
 
 const FeaturedReviews = ({ navigate }) => (
   <section className="py-20 bg-[#0a0a0a]">

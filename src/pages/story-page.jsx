@@ -4,7 +4,7 @@ import SectionHeading from '../components/ui/section-heading';
 import OptimizedImage from '../components/ui/optimized-image';
 import { VIEWS } from '../views';
 
-export const StoryPage = ({ onBack, onNavigate }) => {
+export const StoryPage = ({ onNavigate }) => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -129,14 +129,14 @@ export const StoryPage = ({ onBack, onNavigate }) => {
           Experience the blessing
         </p>
         <button
-          onClick={() => onNavigate?.(VIEWS.HOME, { scrollTo: 'collection' })}
+          onClick={() => onNavigate(VIEWS.HOME, { scrollTo: 'collection' })}
           className="text-4xl md:text-7xl font-serif italic text-white hover:text-amber-400 transition-colors"
         >
-          Shop the Collection
+          Shop Golden Grace Honey
         </button>
       </footer>
     </main>
   );
 };
 
-export default StoryPage
+export default StoryPage;

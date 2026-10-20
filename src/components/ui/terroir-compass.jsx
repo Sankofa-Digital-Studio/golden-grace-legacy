@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Info, Compass } from 'lucide-react';
+import { Info, Compass, ArrowRight } from 'lucide-react';
 import OptimizedImage from '../ui/optimized-image';
 import {FLORAL_PROFILES} from '../../data/constants'
 const TerroirCompass = () => {
@@ -113,11 +113,22 @@ const TerroirCompass = () => {
         </div>
       </div>
 
-      {/* 4. FOOTER NARRATIVE */}
-      <div className="w-full p-6 z-10 bg-black/60 backdrop-blur-md border-t border-white/5">
+      {/* 4. FOOTER NARRATIVE & SENSORY CONVERSION BRIDGE */}
+      <div className="w-full p-5 z-10 bg-black/70 backdrop-blur-md border-t border-white/5 space-y-3">
         <p className="text-gray-400 text-[10px] text-center italic leading-relaxed px-4">
           "{profile.desc}"
         </p>
+        <button
+          type="button"
+          onClick={() => {
+            const el = document.getElementById('collection');
+            if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }}
+          className="w-full py-2.5 bg-amber-500/15 hover:bg-amber-500 text-amber-400 hover:text-black border border-amber-500/30 rounded-xl text-[9px] font-black uppercase tracking-widest transition-all duration-300 flex items-center justify-center gap-2 group active:scale-95 shadow-md shadow-amber-500/5"
+        >
+          <span>Taste {profile.name} in The Shop</span>
+          <ArrowRight size={12} className="group-hover:translate-x-1 transition-transform" />
+        </button>
       </div>
     </div>
   );

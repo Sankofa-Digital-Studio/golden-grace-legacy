@@ -1,10 +1,15 @@
-import React from "react";
-import { Hexagon, ArrowRight, Sparkles, MessageCircle } from "lucide-react";
-import { WHATSAPP_NUMBER, WHATSAPP_MESSAGE } from "../config/maintenance";
-import FilmGrain from "../components/ui/film-grain";
+import React from 'react';
+import { Hexagon, ArrowRight, Sparkles, MessageCircle } from 'lucide-react';
+import {
+  WHATSAPP_NUMBER,
+  WHATSAPP_MESSAGE,
+  INFO_EMAIL,
+  EMAIL_MESSAGE,
+} from '../config/maintenance';
+import FilmGrain from '../components/ui/film-grain';
 
 const waLink = () => {
-  if (!WHATSAPP_NUMBER || WHATSAPP_NUMBER.includes("X")) return null;
+  if (!WHATSAPP_NUMBER || WHATSAPP_NUMBER.includes('X')) return null;
   const text = encodeURIComponent(WHATSAPP_MESSAGE);
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${text}`;
 };
@@ -31,15 +36,14 @@ const MaintenanceGate = () => {
           <div className="flex flex-col items-center gap-4">
             <div className="relative">
               <div className="absolute inset-0 bg-amber-500/20 blur-2xl rounded-full" />
-              <Hexagon
-                className="w-14 h-14 text-amber-500 fill-amber-500/10 relative z-10"
-              />
+              <Hexagon className="w-14 h-14 text-amber-500 fill-amber-500/10 relative z-10" />
               <div className="absolute -bottom-2 -right-2 w-6 h-6 rounded-full bg-amber-500/20 border border-amber-500/20 animate-pulse" />
             </div>
 
-            <p className="text-amber-500 text-[10px] font-black uppercase tracking-[0.5em]">
-              Golden Grace Honey
-            </p>
+            <p className="text-amber-500 text-[16px] font-black uppercase tracking-[0.5em]">
+              <p className="pb-4 pt-8">A legacy unfolds</p>
+              <p className="pb-8 pt-4 font-bold">Golden Grace®</p>
+          </p>  
           </div>
 
           {/* Main card */}
@@ -55,16 +59,12 @@ const MaintenanceGate = () => {
               </div>
 
               <h1 className="text-3xl md:text-5xl font-serif leading-tight">
-                The Hive is{" "}
-                <span className="italic text-amber-400 font-light">
-                  Relocating
-                </span>
+                The Hive is <span className="italic text-amber-400 font-light">Relocating</span>
               </h1>
 
               <p className="text-gray-400 text-sm md:text-base leading-relaxed max-w-xl mx-auto">
-                We’re refining the experience behind the scenes. The site remains
-                live, but for now orders and questions are handled directly via
-                WhatsApp — fast, personal, and human.
+                We’re refining the experience behind the scenes. The site remains live, but for now
+                orders and questions are handled directly via WhatsApp — fast, personal, and human.
               </p>
 
               {/* CTA cluster */}
@@ -84,7 +84,7 @@ const MaintenanceGate = () => {
                   </a>
                 ) : (
                   <button
-                    className="inline-flex items-center justify-center gap-3 bg-amber-500/20 text-amber-200 px-8 py-4 rounded-full text-[10px] font-black uppercase tracking-[0.4em] cursor-not-allowed"
+                    className="group inline-flex items-center justify-center gap-3 bg-amber-500 text-black px-8 py-4 rounded-full text-[10px] font-black uppercase tracking-[0.4em] hover:bg-white transition-all active:scale-95 shadow-xl shadow-amber-500/10"
                     title="WhatsApp number not set yet"
                     disabled
                   >
@@ -93,12 +93,15 @@ const MaintenanceGate = () => {
                 )}
 
                 <a
-                  href="mailto:goldengracehoney@gmail.com"
+                  href={'mailto:' + INFO_EMAIL}
                   className="inline-flex items-center justify-center gap-3 bg-white/5 border border-white/10 px-8 py-4 rounded-full text-[10px] font-black uppercase tracking-[0.4em] text-white hover:border-amber-500/30 transition-all active:scale-95"
                   title="Email Golden Grace Honey"
                 >
                   Email Us
-                  <ArrowRight size={16} className="opacity-60" />
+                  <ArrowRight
+                    size={16}
+                    className="transition-transform group-hover:translate-x-1"
+                  />
                 </a>
               </div>
 

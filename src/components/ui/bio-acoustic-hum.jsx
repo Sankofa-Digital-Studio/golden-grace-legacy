@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Volume2, VolumeX, Info } from 'lucide-react';
 import OptimizedImage from '../ui/optimized-image';
 const BioAcousticHum = () => {

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React from 'react';
 import {
   Droplet,
   Beaker,
@@ -22,7 +22,7 @@ import {
   Coffee,
   Hexagon,
   Droplets,
-  Gift    
+  Gift, Tractor, LeafyGreen   
 } from 'lucide-react';
 
 export const HONEY_TESTS = [
@@ -66,6 +66,9 @@ export const PRODUCTS = [
     category: 'The Jars',
     title: "Aloe Ferox Reserve",
     flora: "Welkom Central Aloe",
+    batch: "Batch 2026/FS-01",
+    tasteNotes: "Deep amber, rich woody resonance, medicinal finish",
+    scarcity: "Limited Winter Bloom • 88% Reserved",
     price: 145,
     sizes: ["375g", "500g"],
     vessel: "Hexagonal Glass",
@@ -77,6 +80,9 @@ export const PRODUCTS = [
     category: 'The Squeeze',
     title: "Veld Wildflower",
     flora: "Northern Belt Multi-Floral",
+    batch: "Batch 2026/FS-02",
+    tasteNotes: "Earthy, complex wildflowers, smooth liquid gold",
+    scarcity: "Daily Raw Essential • Fresh Veld Pull",
     price: 95,
     sizes: ["500g"],
     vessel: "BPA-Free Squeeze",
@@ -88,6 +94,9 @@ export const PRODUCTS = [
     category: 'The Jars',
     title: "Highland Cosmos",
     flora: "Free State Plains",
+    batch: "Batch 2026/FS-03",
+    tasteNotes: "Delicate floral whispers, airy sweetness, bright finish",
+    scarcity: "Late Summer Harvest • Strictly Limited",
     price: 155,
     sizes: ["375g"],
     vessel: "Hexagonal Glass",
@@ -99,6 +108,9 @@ export const PRODUCTS = [
     category: 'The Gift',
     title: "The Trinity Set",
     flora: "Aloe, Cosmos & Wildflower",
+    batch: "Curated Set #2026",
+    tasteNotes: "The complete Free State tasting flight (3 single-origins)",
+    scarcity: "Artisanal Gift Curation • Hand-Packed",
     price: 420,
     sizes: ["3 x 150g"],
     vessel: "Miniature Glass Set",
@@ -440,6 +452,10 @@ export const certs = [
       label: "Dept. Agriculture",
       sub: "Reg: DFS194",
       title: "Department of Agriculture Registration",
+      headline: "DALRRD Apiary Registration (DFS194)",
+      tag: "Total Traceability",
+      consumerBenefit: "Guarantees 100% single-origin raw South African honey. Traceable to registered apiaries with zero imported syrup adulteration.",
+      legacyStory: "Golden Grace maintains legal registration with DALRRD, ensuring verified hive locations and protected foraging zones across Virginia, Free State.",
       accent: "bg-amber-500/10 border-amber-500/20 group-hover:bg-amber-500"
     },
     {
@@ -448,6 +464,10 @@ export const certs = [
       label: "CoA Compliant",
       sub: "Hygiene Standards",
       title: "Certificate of Analysis (CoA) Compliant",
+      headline: "Certificate of Analysis & R638 Hygiene",
+      tag: "Laboratory Verified",
+      consumerBenefit: "Every harvest batch is laboratory tested: moisture strictly under 18%, active diastase enzymes intact, and zero antibiotic or heavy metal residues.",
+      legacyStory: "Bottled under Regulation R638 food safety standards in our Virginia facility, preserving pure biological potency without industrial pasteurization.",
       accent: "bg-amber-500/10 border-amber-500/20 group-hover:bg-amber-500"
     },
     {
@@ -456,13 +476,32 @@ export const certs = [
       label: "B-BBEE Compliant",
       sub: "Women-Led",
       title: "B-BBEE Level 1 Compliant Enterprise",
+      headline: "Women-Led Apiculture Enterprise",
+      tag: "Community Upliftment",
+      consumerBenefit: "Your purchase directly funds fair wages, technical beekeeping equipment, and economic sovereignty in rural Free State communities.",
+      legacyStory: "Golden Grace Legacy champions the 'Queen Bee Initiative'—training and employing local women in traditional, sustainable apiculture.",
       accent: "bg-amber-500/10 border-amber-500/20 group-hover:bg-amber-500"
     }, {
       id: 'source',
-      icon: <Heart className="text-amber-500 group-hover:text-black transition-colors" size={20} />,
+      icon: <LeafyGreen className="text-amber-500 group-hover:text-black transition-colors" size={20} />,
       label: "Ethically Sourced",
       sub: "Guardian Beekeeping",
       title: "Ethically Sourced Honey from Guardian Beekeeping",
+      headline: "Guardian Beekeeping & Ethical Harvest",
+      tag: "Bee Welfare First",
+      consumerBenefit: "Zero sugar feeding. Our bees forage solely on indigenous veld nectar, producing superior medicinal depth and intense floral aromatics.",
+      legacyStory: "We practice guardian beekeeping: we only harvest genuine surplus honey, never taking winter reserves or disturbing the brood sanctuary.",
+      accent: "bg-amber-500/10 border-amber-500/20 group-hover:bg-amber-500"
+    }, {
+      id: 'haacap',
+      icon: <Tractor className="text-amber-500 group-hover:text-black transition-colors" size={20} />,
+      label: "Accredited Food & Safety",
+      sub: "HACCP SANS 10330:2021",
+      title: "HACCP Principles and Application",
+      headline: "HACCP & SANS 10330:2021 Certified",
+      tag: "Food Safety System",
+      consumerBenefit: "Rigorous preventative hazard control from hive centrifugal extraction to tamper-sealed bottle, guaranteeing zero microbial contamination.",
+      legacyStory: "Pharmaceutical-grade hygiene meets time-honored cold-straining craft, ensuring unpasteurized honey that is safe, active, and medicinal.",
       accent: "bg-amber-500/10 border-amber-500/20 group-hover:bg-amber-500"
     }
   ];
@@ -538,118 +577,6 @@ export const APPLICATIONS = [
       { name: "Skin Health", tip: "A 10-minute mask to balance pH using natural acidity." }
     ]
   }
-];
-
-export const ACADEMY_SESSIONS = [
-  {
-    id: 'origins',
-    title: 'Origins of Raw Integrity',
-    level: 'Foundations',
-    duration: '12 min',
-    summary:
-      'Learn how raw honey differs from commercial syrups, and how cold-straining preserves enzymes and pollen.',
-    takeaways: [
-      'Why heat destroys bio-active enzymes',
-      'How to read the label for real purity',
-      'The flavor map: aloe, cosmos, and wildflower',
-    ],
-  },
-  {
-    id: 'hive-math',
-    title: 'The Hive Geometry',
-    level: 'Intermediate',
-    duration: '9 min',
-    summary:
-      'The hexagon is more than a shape. It is a system of strength and efficiency the bees perfected.',
-    takeaways: [
-      'Why bees build hexagons (and why we do not interfere)',
-      'How comb structure keeps honey stable',
-      'What "cell precision" means for flavor',
-    ],
-  },
-  {
-    id: 'harvest-discipline',
-    title: 'Harvest Discipline',
-    level: 'Craft',
-    duration: '14 min',
-    summary:
-      'From smoke to seal, see the careful steps that keep the hive healthy and the harvest clean.',
-    takeaways: [
-      'The 35 C rule: never above hive temperature',
-      'Why we only take the surplus',
-      'How macromesh keeps pollen intact',
-    ],
-  },
-  {
-    id: 'storage-ritual',
-    title: 'The Storage Ritual',
-    level: 'Practical',
-    duration: '6 min',
-    summary:
-      'Keep your jar alive. Learn ideal storage, crystallization myths, and how to revive texture gently.',
-    takeaways: [
-      'Room temperature is the sweet spot',
-      'Crystallization is a purity sign, not a flaw',
-      'Warm water bath, never microwave',
-    ],
-  },
-];
-
-export const COMMUNITY_WALL = [
-  {
-    id: 'c1',
-    name: 'Nomsa M.',
-    location: 'Welkom, Free State',
-    role: 'Home Chef',
-    product: 'Aloe Ferox Reserve',
-    quote:
-      'The aroma hits first, then the floral finish. My family now refuses anything else.',
-  },
-  {
-    id: 'c2',
-    name: 'Kabelo R.',
-    location: 'Bloemfontein',
-    role: 'Personal Trainer',
-    product: 'Veld Wildflower',
-    quote:
-      'A spoon before training keeps me steady. I can feel the slow, clean energy.',
-  },
-  {
-    id: 'c3',
-    name: 'Thandi S.',
-    location: 'Johannesburg',
-    role: 'Wellness Coach',
-    product: 'Highland Cosmos',
-    quote:
-      'The texture is alive. It is the first honey I trust with clients.',
-  },
-  {
-    id: 'c4',
-    name: 'Ethan P.',
-    location: 'Cape Town',
-    role: 'Coffee Barista',
-    product: 'The Trinity Set',
-    quote:
-      'We use it in a signature cortado. Guests always ask what makes it different.',
-  },
-  {
-    id: 'c5',
-    name: 'Grace N.',
-    location: 'Welkom, Free State',
-    role: 'Community Member',
-    product: 'Aloe Ferox Reserve',
-    quote:
-      'It tastes like the veld after rain. You can feel the care behind it.',
-  },
-  {
-    id: 'c6',
-    name: 'Sipho D.',
-    location: 'Pretoria',
-    role: 'Photographer',
-    product: 'Veld Wildflower',
-    quote:
-      'This is not just sweet. It is layered and honest.',
-  },
 ];
 
  export const shortTestimonies = [
