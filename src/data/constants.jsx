@@ -586,3 +586,13 @@ export const APPLICATIONS = [
     "You can taste the integrity in every drop.",
     "A beautiful testimony of what He provides."
   ];
+
+export const CONTACT_INFO = {
+  domain: "goldenlegacy.co.za",
+  domains: ["goldenlegacy.co.za", "goldengracelegacy.co.za"],
+  infoEmail: "info@goldengracelegacy.co.za",
+  founderEmail: "grace@goldengracelegacy.co.za",
+  whatsappNumber: "27794301648",
+  whatsappDisplay: "+27 79 430 1648",
+  location: "Virginia, Free State, South Africa",
+};

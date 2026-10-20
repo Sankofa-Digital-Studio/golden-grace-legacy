@@ -373,14 +373,39 @@ const Footer = ({ onNav, onSubscribe }) => {
               <span>WhatsApp Concierge</span>
             </a>
 
-            <div className="space-y-1 text-xs">
-              <a
-                href="mailto:hello@goldengrace.co.za"
-                className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors"
-              >
-                <Mail size={13} className="text-amber-500" />
-                <span>hello@goldengrace.co.za</span>
-              </a>
+            <div className="space-y-2 text-xs">
+              <div>
+                <span className="text-[9px] font-mono text-gray-500 uppercase tracking-wider block">
+                  Orders & Consignments:
+                </span>
+                <a
+                  href="mailto:info@goldengracelegacy.co.za"
+                  className="flex items-center gap-2 text-gray-300 hover:text-amber-400 transition-colors"
+                  title="Email info@goldengracelegacy.co.za"
+                >
+                  <Mail size={12} className="text-amber-500 shrink-0" />
+                  <span className="break-all font-mono text-[11px]">info@goldengracelegacy.co.za</span>
+                </a>
+              </div>
+
+              <div>
+                <span className="text-[9px] font-mono text-gray-500 uppercase tracking-wider block">
+                  Founder & Stewardship:
+                </span>
+                <a
+                  href="mailto:grace@goldengracelegacy.co.za"
+                  className="flex items-center gap-2 text-gray-300 hover:text-amber-400 transition-colors"
+                  title="Email grace@goldengracelegacy.co.za"
+                >
+                  <Mail size={12} className="text-amber-500 shrink-0" />
+                  <span className="break-all font-mono text-[11px]">grace@goldengracelegacy.co.za</span>
+                </a>
+              </div>
+
+              <div className="pt-1 flex items-center gap-2 text-[10px] font-mono text-amber-500/80">
+                <Globe size={11} className="text-amber-500 shrink-0" />
+                <span>goldenlegacy.co.za</span>
+              </div>
               <p className="text-[10px] font-mono text-gray-600 uppercase">
                 Virginia, Free State, South Africa
               </p>
@@ -429,7 +454,7 @@ const Footer = ({ onNav, onSubscribe }) => {
         {/* ============================================================== */}
         <div className="pt-10 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6 text-[10px] font-mono text-gray-500">
           <div className="flex flex-col sm:flex-row items-center gap-3 text-center sm:text-left">
-            <span>&copy; {currentYear} Golden Grace Legacy & Honey.</span>
+            <span>&copy; {currentYear} Golden Grace Legacy & Honey • goldenlegacy.co.za</span>
             <span className="hidden sm:inline">•</span>
             <span className="text-amber-500/60 flex items-center gap-1.5">
               <Sparkles size={11} className="text-amber-500" />

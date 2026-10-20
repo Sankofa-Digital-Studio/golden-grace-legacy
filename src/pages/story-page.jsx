@@ -65,6 +65,22 @@ export const StoryPage = ({ onNavigate }) => {
               abundance of the Veld."
             </p>
           </div>
+
+          {/* Founder Direct Stewardship Channel */}
+          <div className="flex items-center gap-4 p-5 rounded-2xl bg-white/[0.02] border border-white/5">
+            <div className="w-10 h-10 rounded-full bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-500 shrink-0">
+              <Users size={18} />
+            </div>
+            <div className="text-xs">
+              <p className="text-gray-300 font-medium">Founder Stewardship Direct Channel</p>
+              <a
+                href="mailto:grace@goldengracelegacy.co.za"
+                className="text-amber-400 hover:text-amber-300 font-mono transition-colors"
+              >
+                grace@goldengracelegacy.co.za
+              </a>
+            </div>
+          </div>
         </div>
 
         <div className="relative pt-12 lg:pt-0">
