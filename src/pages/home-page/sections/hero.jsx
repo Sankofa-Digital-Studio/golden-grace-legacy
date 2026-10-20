@@ -97,19 +97,19 @@ export const Hero = ({ navigate }) => {
           State. Non-pasteurized, and harvested with unbothered integrity.
         </p>
 
-        {/* Primary CTAs: Provoking Label Update */}
+        {/* Primary CTAs: Clear distinction between Honey (Shop) and Legacy */}
         <div className="flex flex-col md:flex-row gap-8 justify-center items-center animate-fade-in-up delay-300 mb-16 lg:mb-24 w-full md:w-auto px-4">
           <button
             onClick={handleCtaClick}
-            title="Secure your portion from our boutique collection"
+            title="Shop Golden Grace Honey collection"
             className="w-full md:w-auto bg-amber-500 text-black px-16 py-6 rounded-full font-black text-xs uppercase tracking-[0.4em] hover:bg-white active:scale-90 transition-all shadow-2xl shadow-amber-500/10"
           >
-            Enter the Reserve
+            Shop Golden Grace Honey
           </button>
 
           <button
             onClick={scrollToStory}
-            title="Deepen your connection with our legacy"
+            title="Discover the Golden Grace Legacy"
             className="flex items-center gap-3 text-white hover:text-amber-400 tracking-[0.4em] text-xs font-black uppercase group active:scale-95 transition-colors"
           >
             The Legacy{' '}

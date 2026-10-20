@@ -132,7 +132,7 @@ export const StoryPage = ({ onNavigate }) => {
           onClick={() => onNavigate(VIEWS.HOME, { scrollTo: 'collection' })}
           className="text-4xl md:text-7xl font-serif italic text-white hover:text-amber-400 transition-colors"
         >
-          Shop the Collection
+          Shop Golden Grace Honey
         </button>
       </footer>
     </main>

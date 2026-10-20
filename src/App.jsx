@@ -12,6 +12,8 @@ import FilmGrain from './components/ui/film-grain';
 import ScrollToTop from './components/common/scroll-to-top';
 import WhatsAppWidget from './components/common/whatsapp-widget';
 import ErrorBoundary from './components/common/error-boundary';
+import ForagerLoader from './components/common/forager-loader';
+import { Hexagon } from 'lucide-react';
 
 import HomePage from './pages/home-page/home-page';
 import { useNavigation } from './hooks/useNavigation';
@@ -23,6 +25,7 @@ const EducationHub = lazy(() => import('./pages/education-page'));
 const GiftsPage = lazy(() => import('./pages/gifts-page'));
 
 const Storefront = () => {
+  const [initialLoading, setInitialLoading] = useState(true);
   const [showCart, setShowCart] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const { cart, addToCart, updateQuantity, removeFromCart } = useCart();
@@ -61,6 +64,7 @@ const Storefront = () => {
 
   return (
     <ErrorBoundary>
+      {initialLoading && <ForagerLoader onComplete={() => setInitialLoading(false)} />}
       <div className="bg-[#050505] min-h-screen text-white font-sans selection:bg-amber-500 selection:text-black relative">
         <SpeedInsights />
         <Analytics />
@@ -68,10 +72,13 @@ const Storefront = () => {
 
         {/* 1. VIEW TRANSITIONS */}
         {transitioning && (
-          <div className="fixed inset-0 z-[1000] bg-[#050505] flex items-center justify-center transition-opacity duration-500">
-            <div className="flex flex-col items-center gap-4 animate-pulse">
-              <div className="w-12 h-12 border-2 border-amber-500/20 border-t-amber-500 rounded-full animate-spin" />
-              <p className="text-[10px] uppercase tracking-[0.4em] text-amber-500/60 font-black">
+          <div className="fixed inset-0 z-[1000] bg-[#050505]/95 backdrop-blur-md flex items-center justify-center transition-opacity duration-500">
+            <div className="flex flex-col items-center gap-4">
+              <div className="relative w-16 h-16 flex items-center justify-center">
+                <div className="absolute inset-0 bg-amber-500/15 blur-xl rounded-full animate-pulse" />
+                <Hexagon size={48} className="text-amber-500 animate-spin-slow opacity-80" />
+              </div>
+              <p className="text-[10px] uppercase tracking-[0.4em] text-amber-500/80 font-black">
                 Relocating Hive...
               </p>
             </div>
@@ -95,7 +102,10 @@ const Storefront = () => {
             <Suspense
               fallback={
                 <div className="h-screen bg-[#050505] flex items-center justify-center">
-                  <div className="w-12 h-12 border-2 border-amber-500/20 border-t-amber-500 rounded-full animate-spin" />
+                  <div className="relative w-16 h-16 flex items-center justify-center">
+                    <div className="absolute inset-0 bg-amber-500/15 blur-xl rounded-full animate-pulse" />
+                    <Hexagon size={48} className="text-amber-500 animate-spin-slow opacity-80" />
+                  </div>
                 </div>
               }
             >

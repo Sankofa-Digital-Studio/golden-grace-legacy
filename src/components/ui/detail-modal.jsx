@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { X, Thermometer, Map, ShieldCheck } from 'lucide-react';
+import { X, Thermometer, Map, ShieldCheck, ArrowRight } from 'lucide-react';
 import { JOURNEY_TECHNICAL_DATA } from '../../data/constants';
 import BeeCloseButton from './bee-close-button';
 
@@ -111,6 +111,22 @@ const DetailModal = ({ step, onClose }) => {
                     </div>
                 </div>
             </div>
+          </div>
+
+          {/* 4. CONVERSION BRIDGE: Back to The Storefront */}
+          <div className="pt-2">
+            <button
+              type="button"
+              onClick={() => {
+                onClose();
+                const el = document.getElementById('collection');
+                if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              }}
+              className="w-full py-4 bg-amber-500 hover:bg-white text-black font-black text-xs uppercase tracking-widest rounded-full transition-all active:scale-95 flex items-center justify-center gap-2 shadow-lg shadow-amber-500/20"
+            >
+              <span>Taste This Movement in The Shop</span>
+              <ArrowRight size={14} />
+            </button>
           </div>
         </div>
       </div>

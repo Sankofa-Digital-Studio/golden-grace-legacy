@@ -9,6 +9,11 @@
 @tailwind utilities;
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5.5rem;
+  }
+
   html,
   body {
     overflow-x: hidden;
@@ -245,4 +250,38 @@
 }
 .animate-jitter {
   animation: honey-jitter 0.1s linear infinite;
+}
+
+/* --- ANIMATED HONEYCOMB LOADING PATTERNS --- */
+@keyframes comb-draw {
+  0% {
+    stroke-dashoffset: 240;
+    stroke-opacity: 0.2;
+  }
+  50% {
+    stroke-opacity: 0.9;
+    filter: drop-shadow(0 0 2px rgba(245, 158, 11, 0.6));
+  }
+  100% {
+    stroke-dashoffset: 0;
+    stroke-opacity: 0.2;
+  }
+}
+
+.animate-comb-draw {
+  stroke-dasharray: 60 180;
+  animation: comb-draw 2.8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 12s linear infinite;
 }

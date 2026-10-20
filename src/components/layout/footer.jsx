@@ -187,7 +187,7 @@ const [language, setLanguage] = useState('en');
         <div className="pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-8">
           <div className="flex flex-col items-center md:items-start gap-2">
             <p className="text-gray-600 text-[9px] uppercase font-black tracking-[0.4em]">
-              &copy; {currentYear} Golden Grace Honey. All Rights Reserved.
+              &copy; {currentYear} Golden Grace Legacy & Honey. All Rights Reserved.
             </p>
             <p className="text-amber-500/40 text-[9px] uppercase font-black tracking-[0.4em] flex items-center gap-2">
               <Sparkles size={10} /> Provided by He who created the Veld.

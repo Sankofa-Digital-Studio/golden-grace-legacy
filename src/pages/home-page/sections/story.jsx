@@ -65,7 +65,7 @@ export const Story = ({ onNavigate }) => {
                 title="Navigate to the full heritage and founder story"
                 className="group flex items-center gap-4 bg-white/5 border border-white/10 px-8 py-4 rounded-full text-[10px] font-black uppercase tracking-[0.4em] text-amber-500 hover:bg-amber-500 hover:text-black transition-all active:scale-95 shadow-xl"
               >
-                Deepen the Connection <MoveRight size={16} className="group-hover:translate-x-2 transition-transform" />
+                Discover The Golden Grace Legacy <MoveRight size={16} className="group-hover:translate-x-2 transition-transform" />
               </button>
             </div>
           </div>

@@ -42,11 +42,16 @@ export const useNavigation = (initialView, transitionMs = 800) => {
   useEffect(() => {
     if (!scrollTarget) return;
 
-    const el = document.getElementById(scrollTarget);
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-    setScrollTarget(null);
+    // A short delay allows the destination view's DOM tree to mount before calculating scroll offset
+    const timer = setTimeout(() => {
+      const el = document.getElementById(scrollTarget);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+      setScrollTarget(null);
+    }, 150);
+
+    return () => clearTimeout(timer);
   }, [view, scrollTarget]);
 
   // Cleanup

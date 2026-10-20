@@ -120,8 +120,11 @@ export const Cart = ({ isOpen, onClose, cartItems = [], onUpdateQuantity, onRemo
     }
   }, [isOpen]);
 
+  const FREE_SHIPPING_THRESHOLD = 500;
   const subtotal = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
-  const shipping = subtotal > 500 ? 0 : 75; // Free shipping over R500
+  const shipping = subtotal >= FREE_SHIPPING_THRESHOLD || cartItems.length === 0 ? 0 : 75; // Free shipping over R500
+  const amountToFreeShipping = Math.max(0, FREE_SHIPPING_THRESHOLD - subtotal);
+  const freeShippingPercent = Math.min(100, Math.round((subtotal / FREE_SHIPPING_THRESHOLD) * 100));
   const total = subtotal + shipping;
   const whatsappOrderUrl = buildWhatsAppOrderUrl({
     number: WHATSAPP_NUMBER,
@@ -157,6 +160,34 @@ export const Cart = ({ isOpen, onClose, cartItems = [], onUpdateQuantity, onRemo
               <X size={24} />
             </button>
           </div>
+
+          {/* GOAL GRADIENT: COMPLIMENTARY COURIER PROGRESS METER */}
+          {cartItems.length > 0 && (
+            <div className="px-8 py-4 bg-amber-500/[0.04] border-b border-amber-500/15 space-y-2">
+              <div className="flex items-center justify-between text-[10px] font-black uppercase tracking-wider">
+                {subtotal >= FREE_SHIPPING_THRESHOLD ? (
+                  <span className="text-green-400 flex items-center gap-1.5">
+                    <Sparkles size={12} className="text-amber-400" /> Complimentary Courier Unlocked!
+                  </span>
+                ) : (
+                  <span className="text-gray-300">
+                    Add <span className="text-amber-400 font-bold">R{amountToFreeShipping}</span> for Complimentary Courier
+                  </span>
+                )}
+                <span className="text-gray-500 font-mono text-[9px]">{freeShippingPercent}%</span>
+              </div>
+              <div className="w-full h-1.5 bg-white/10 rounded-full overflow-hidden">
+                <div
+                  className={`h-full transition-all duration-700 ease-out rounded-full ${
+                    subtotal >= FREE_SHIPPING_THRESHOLD
+                      ? 'bg-gradient-to-r from-amber-400 to-green-400 shadow-[0_0_10px_rgba(74,222,128,0.5)]'
+                      : 'bg-gradient-to-r from-amber-600 via-amber-400 to-amber-500'
+                  }`}
+                  style={{ width: `${freeShippingPercent}%` }}
+                />
+              </div>
+            </div>
+          )}
 
           {/* ITEM LIST */}
           <div className="flex-1 overflow-y-auto p-8 space-y-8 no-scrollbar">
@@ -258,6 +289,22 @@ export const Cart = ({ isOpen, onClose, cartItems = [], onUpdateQuantity, onRemo
                 <div className="flex justify-between text-lg text-white font-serif pt-4 border-t border-white/5">
                   <span>Total Harvest</span>
                   <span className="text-amber-500">R{total}</span>
+                </div>
+              </div>
+
+              {/* Risk Reversal & Transit Reassurance */}
+              <div className="grid grid-cols-3 gap-2 py-3 border-y border-white/5 text-center">
+                <div className="space-y-1">
+                  <p className="text-[8px] font-black uppercase tracking-widest text-amber-400">Thermal Safe</p>
+                  <p className="text-[8px] text-gray-500 uppercase tracking-tighter">Padded Transit</p>
+                </div>
+                <div className="space-y-1 border-x border-white/5">
+                  <p className="text-[8px] font-black uppercase tracking-widest text-amber-400">100% Raw</p>
+                  <p className="text-[8px] text-gray-500 uppercase tracking-tighter">Non-Irradiated</p>
+                </div>
+                <div className="space-y-1">
+                  <p className="text-[8px] font-black uppercase tracking-widest text-amber-400">Tracked</p>
+                  <p className="text-[8px] text-gray-500 uppercase tracking-tighter">Direct Courier</p>
                 </div>
               </div>
 

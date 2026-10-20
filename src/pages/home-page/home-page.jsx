@@ -23,39 +23,39 @@ const HomePage = ({
 
   return (
     <main className="bg-[#050505] overflow-x-hidden">
-      {/* 1. THE HOOK */}
+      {/* 1. THE HOOK: Dual Intent (Shop Golden Grace Honey & The Legacy) */}
       <Hero navigate={onNavigate} />
       
-      {/* 2. THE AUTHORITY */}
+      {/* 2. THE AUTHORITY: Purity Standards & Free State Provenance */}
       <TrustBar />
 
-      {/* 3. THE HEART: Story Teaser (Now precedes Journey to build emotional buy-in) */}
-      <Story onNavigate={onNavigate} />
-
-      {/* 4. THE PROCESS: Technical Movement */}
-      <Journey />
-
-      {/* 5. THE SOCIAL PROOF: Moving Ribbon */}
-      <TestimonyRibbon />
-
-      {/* 6. THE IMMERSION: Sensory Interaction */}
-      <Sensory />
-
-      {/* 7. THE TRUTH: Scientific Deep Dive */}
-      <Authenticity onNavigate={onNavigate} />
-
-      {/* 8. THE SIGHT: Visual Evidence */}
-      <Archive />
-
-      {/* 9. THE PIVOT: Atmospheric Palette Cleanser */}
-      <ContentBreak />
-
-      {/* 10. THE TREASURE: Boutique Reveal (The Sale) */}
+      {/* 3. THE HARVEST: The Honey Shop (Immediate turning point to purchase) */}
       <Collection
         onAddToCart={onAddToCart}
         onImageClick={onImageClick}
         onBulkEnquire={onBulkEnquire}
       />
+
+      {/* 4. THE HEART: The Legacy Teaser (Founder testimony, women-led collective) */}
+      <Story onNavigate={onNavigate} />
+
+      {/* 5. THE PROCESS: Technical Movement */}
+      <Journey />
+
+      {/* 6. THE SOCIAL PROOF: Moving Ribbon */}
+      <TestimonyRibbon />
+
+      {/* 7. THE IMMERSION: Sensory Interaction */}
+      <Sensory />
+
+      {/* 8. THE TRUTH: Scientific Deep Dive */}
+      <Authenticity onNavigate={onNavigate} />
+
+      {/* 9. THE SIGHT: Visual Evidence */}
+      <Archive />
+
+      {/* 10. THE PIVOT: Atmospheric Palette Cleanser */}
+      <ContentBreak />
     </main>
   );
 };
