@@ -11,7 +11,7 @@
     "check:orphans": "node scripts/check-static-assets.mjs --orphans",
     "check:security": "node scripts/check-security.mjs",
     "lint": "eslint . --cache --cache-location node_modules/.cache/eslint/",
-    "test": "node --test",
+    "test": "node --test --experimental-test-coverage",
     "validate": "npm run lint && npm test && npm run check:assets && npm run check:security && npm run build",
     "format": "prettier --write .",
     "preview": "vite preview"

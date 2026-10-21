@@ -65,6 +65,40 @@ test('shouldDisableAutoplay: disables autoplay on slow cellular connections (2g 
   }
 });
 
+test('shouldDisableAutoplay: handles mozConnection and webkitConnection fallbacks', () => {
+  const desktopWin = {
+    innerWidth: 1024,
+    matchMedia: () => ({ matches: false }),
+  };
+  // mozConnection
+  const mozNav = { mozConnection: { saveData: true } };
+  assert.equal(shouldDisableAutoplay(desktopWin, mozNav), true);
+
+  // webkitConnection
+  const webkitNav = { webkitConnection: { effectiveType: '2g', saveData: false } };
+  assert.equal(shouldDisableAutoplay(desktopWin, webkitNav), true);
+
+  // nav with empty connection object
+  const emptyNav = { connection: {} };
+  assert.equal(shouldDisableAutoplay(desktopWin, emptyNav), false);
+
+  // nav without any connection property
+  const noConnNav = {};
+  assert.equal(shouldDisableAutoplay(desktopWin, noConnNav), false);
+});
+
+test('shouldDisableAutoplay: handles missing matchMedia and edge-case innerWidth gracefully', () => {
+  const noMatchMediaWin = {
+    innerWidth: 1024,
+  };
+  assert.equal(shouldDisableAutoplay(noMatchMediaWin, null), false);
+
+  const noInnerWidthWin = {
+    matchMedia: () => ({ matches: false }),
+  };
+  assert.equal(shouldDisableAutoplay(noInnerWidthWin, null), false);
+});
+
 test('shouldDisableAutoplay: safely defaults to true during SSR (no window)', () => {
   assert.equal(shouldDisableAutoplay(null, null), true);
 });
