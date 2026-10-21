@@ -14,8 +14,9 @@ import {
 import GlassCard from '../../../components/ui/glass-card';
 import { LEXICON_DATA, HONEY_TESTS } from '../../../data/constants';
 import SectionHeading from '../../../components/ui/section-heading';
+import { VIEWS } from '../../../views';
 
-const Authenticity = () => {
+const Authenticity = ({ onNavigate }) => {
   const testScrollRef = useRef(null);
   const [activeTestIndex, setActiveTestIndex] = useState(0);
   const [activeLexiconGroup, setActiveLexiconGroup] = useState(0);
@@ -30,17 +31,18 @@ const Authenticity = () => {
     const { scrollLeft, clientWidth } = testScrollRef.current;
     setActiveTestIndex(Math.round(scrollLeft / clientWidth));
   };
+
   return (
     <section id="authenticity" className="py-16 px-6 bg-transparent relative z-10">
       <div className="absolute inset-0 bg-honeycomb opacity-[0.50] pointer-events-none -z-10" />
       <div className="max-w-7xl mx-auto space-y-12">
         {/* 1. SECTION HEADING */}
-         <SectionHeading
-            pre="The Scientific Standard"
-            title="The Science of"
-            italic="Purity"
-            sub="Unfiltered evidence that the honey you hold is raw, active, and whole. We don't hide behind labels; we invite the test."
-          />
+        <SectionHeading
+          pre="The Scientific Standard"
+          title="The Science of"
+          italic="Purity"
+          sub="Unfiltered evidence that the honey you hold is raw, active, and whole. We don't hide behind labels; we invite the test."
+        />
 
         {/* 2. NARRATIVE BRIDGE: The Seal of Integrity & CoA */}
         <div className="max-w-4xl mx-auto -mt-8">
@@ -77,24 +79,32 @@ const Authenticity = () => {
             </div>
 
             <div className="w-full pt-8 border-t border-white/5 flex flex-col md:flex-row gap-8 md:gap-12">
-             <div className="flex gap-4 md:w-1/2 group" title="DALRRD Traceability">
-                    <div className="p-2.5 bg-amber-500/10 rounded-xl h-fit border border-amber-500/20 group-hover:bg-amber-500 group-hover:text-black transition-all">
-                       <Landmark size={20} />
-                    </div>
-                    <div className="space-y-2">
-                        <p className="text-white font-bold text-[10px] uppercase tracking-widest">What is DFS194?</p>
-                        <p className="text-gray-400 text-xs leading-relaxed">Mandatory registration ensuring total traceability and strict standards.</p>
-                    </div>
-                  </div>
+              <div className="flex gap-4 md:w-1/2 group" title="DALRRD Traceability">
+                <div className="p-2.5 bg-amber-500/10 rounded-xl h-fit border border-amber-500/20 group-hover:bg-amber-500 group-hover:text-black transition-all">
+                  <Landmark size={20} />
+                </div>
+                <div className="space-y-2">
+                  <p className="text-white font-bold text-[10px] uppercase tracking-widest">
+                    What is DFS194?
+                  </p>
+                  <p className="text-gray-400 text-xs leading-relaxed">
+                    Mandatory registration ensuring total traceability and strict standards.
+                  </p>
+                </div>
+              </div>
               <div className="flex gap-4 md:w-1/2 group" title="Regulation R638 Hygiene">
-                    <div className="p-2.5 bg-green-500/10 rounded-xl h-fit border border-green-500/20 group-hover:bg-green-500 group-hover:text-black transition-all">
-                       <ShieldCheck size={20} />
-                    </div>
-                    <div className="space-y-2">
-                        <p className="text-white font-bold text-[10px] uppercase tracking-widest">Regulation R638</p>
-                        <p className="text-gray-400 text-xs leading-relaxed">Adherence to legal food safety standards mandated for SA establishments.</p>
-                    </div>
-                  </div>
+                <div className="p-2.5 bg-green-500/10 rounded-xl h-fit border border-green-500/20 group-hover:bg-green-500 group-hover:text-black transition-all">
+                  <ShieldCheck size={20} />
+                </div>
+                <div className="space-y-2">
+                  <p className="text-white font-bold text-[10px] uppercase tracking-widest">
+                    Regulation R638
+                  </p>
+                  <p className="text-gray-400 text-xs leading-relaxed">
+                    Adherence to legal food safety standards mandated for SA establishments.
+                  </p>
+                </div>
+              </div>
             </div>
           </GlassCard>
         </div>
@@ -103,12 +113,12 @@ const Authenticity = () => {
         <div className="space-y-12">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 px-2">
             <div className="space-y-12">
-            <SectionHeading 
+              <SectionHeading
                 pre="The Physical Truth"
                 title="Authenticity"
                 italic="Check"
                 sub="Don't take our word for it. Perform these three simple tests to verify the integrity of any harvest."
-            />
+              />
             </div>
 
             <div className="flex items-center gap-6">
@@ -124,6 +134,7 @@ const Authenticity = () => {
 
               <div className="hidden md:flex gap-2">
                 <button
+                  type="button"
                   title="Previous Test"
                   onClick={() =>
                     testScrollRef.current?.scrollBy({ left: -450, behavior: 'smooth' })
@@ -133,8 +144,11 @@ const Authenticity = () => {
                   <ArrowRight size={20} className="rotate-180" />
                 </button>
                 <button
+                  type="button"
                   title="Next Test"
-                  onClick={() => testScrollRef.current?.scrollBy({ left: 450, behavior: 'smooth' })}
+                  onClick={() =>
+                    testScrollRef.current?.scrollBy({ left: 450, behavior: 'smooth' })
+                  }
                   className="p-3 rounded-full border border-white/10 hover:bg-amber-500 hover:text-black transition-all active:scale-90"
                 >
                   <ArrowRight size={20} />
@@ -174,16 +188,18 @@ const Authenticity = () => {
             ))}
           </div>
         </div>
+
+        {/* 4. THE HIVE LEXICON */}
         <div className="space-y-12">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 px-2">
             <div className="space-y-12">
-            <SectionHeading 
+              <SectionHeading
                 pre="The Vocabulary of Grace"
                 title="The Hive"
                 italic="Lexicon"
                 sub="Technical standards defined with soulful clarity for the conscious keeper."
-            />
-        </div>
+              />
+            </div>
 
             {/* CATEGORY SWITCHER: Select for Mobile, Chips for Desktop */}
             <div className="w-full md:w-auto">
@@ -212,10 +228,11 @@ const Authenticity = () => {
                 {LEXICON_DATA.map((group, idx) => (
                   <button
                     key={idx}
+                    type="button"
                     onClick={() => setActiveLexiconGroup(idx)}
                     title={`View ${group.category} terms`}
                     className={`flex items-center gap-2 px-6 py-3 rounded-full text-[10px] font-black uppercase tracking-widest transition-all
-                                ${activeLexiconGroup === idx ? 'bg-amber-500 text-black shadow-lg shadow-amber-500/20' : 'bg-white/5 text-gray-500 hover:bg-white/10 hover:text-white'}`}
+                      ${activeLexiconGroup === idx ? 'bg-amber-500 text-black shadow-lg shadow-amber-500/20' : 'bg-white/5 text-gray-500 hover:bg-white/10 hover:text-white'}`}
                   >
                     {group.icon} {group.category}
                   </button>
@@ -232,9 +249,10 @@ const Authenticity = () => {
                 <div
                   key={i}
                   className={`group rounded-2xl border transition-all duration-500 overflow-hidden
-                            ${isOpen ? 'bg-white/5 border-amber-500/30 shadow-2xl' : 'bg-[#0a0a0a] border-white/5 hover:border-white/10'}`}
+                    ${isOpen ? 'bg-white/5 border-amber-500/30 shadow-2xl' : 'bg-[#0a0a0a] border-white/5 hover:border-white/10'}`}
                 >
                   <button
+                    type="button"
                     title={`Expand ${item.term}`}
                     onClick={() => setOpenAccordion(isOpen ? null : i)}
                     className="w-full px-8 py-6 flex items-center justify-between text-left"
@@ -287,19 +305,22 @@ const Authenticity = () => {
             })}
           </div>
         </div>
-      </div>
 
-      {/* CTA Button */}
-      {/* <div className="text-center">
-        <button
-          onClick={() => onNavigate('education')}
-          title="Explore Bee Smart full guide"
-          className="inline-flex items-center gap-2 bg-amber-500 text-black px-12 py-4 rounded-full font-black uppercase tracking-widest text-sm hover:bg-white active:scale-90 transition-all shadow-xl"
-        >
-          Explore Bee Smart <ArrowRight size={18} />
-        </button>
-      </div> */}
+        {/* 5. CONVERSION BRIDGE: Hive Intelligence CTA */}
+        <div className="text-center pt-8">
+          <button
+            type="button"
+            onClick={() => onNavigate && onNavigate(VIEWS.EDUCATION)}
+            title="Explore the Raw Honey Education Hub"
+            className="inline-flex items-center gap-3 bg-amber-500 hover:bg-white text-black px-10 py-4 rounded-full font-black uppercase tracking-[0.25em] text-xs transition-all active:scale-95 shadow-xl shadow-amber-500/10 group"
+          >
+            <span>Explore Honey Education Hub</span>
+            <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+          </button>
+        </div>
+      </div>
     </section>
   );
 };
+
 export default Authenticity;

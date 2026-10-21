@@ -10,6 +10,7 @@ import {
   ShieldCheck,
 } from 'lucide-react';
 import { LESOTHO_SELLERS } from '../../data/constants';
+import { VIEWS } from '../../views';
 
 // Modern SVG Icons with proper accessible semantics
 const XIcon = ({ size = 15 }) => (
@@ -273,7 +274,7 @@ const Footer = ({ onNav, onSubscribe }) => {
               <li>
                 <button
                   type="button"
-                  onClick={() => navigateTo('story')}
+                  onClick={() => navigateTo(VIEWS.STORY)}
                   className="hover:text-amber-400 transition-colors text-left"
                 >
                   Our Free State Heritage & Story
@@ -300,10 +301,19 @@ const Footer = ({ onNav, onSubscribe }) => {
               <li>
                 <button
                   type="button"
-                  onClick={() => navigateTo('education')}
+                  onClick={() => navigateTo(VIEWS.EDUCATION)}
                   className="hover:text-amber-400 transition-colors text-left"
                 >
                   Raw Honey Education Hub
+                </button>
+              </li>
+              <li>
+                <button
+                  type="button"
+                  onClick={() => navigateTo(VIEWS.GIFTS)}
+                  className="hover:text-amber-400 transition-colors text-left"
+                >
+                  Bespoke & Corporate Gifting Suites
                 </button>
               </li>
               <li>

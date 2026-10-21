@@ -1,27 +1,45 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Users, Sparkles, Heart, MapPin, ArrowLeft } from 'lucide-react';
 import SectionHeading from '../components/ui/section-heading';
 import OptimizedImage from '../components/ui/optimized-image';
 import { VIEWS } from '../views';
 
-export const StoryPage = ({ onNavigate }) => {
+export const StoryPage = ({ onBack, onNavigate }) => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  const handleReturn = () => {
+    if (onBack) {
+      onBack();
+    } else if (onNavigate) {
+      onNavigate(VIEWS.HOME);
+    }
+  };
+
   return (
     <main className="min-h-screen bg-[#050505] text-white animate-in fade-in slide-in-from-bottom-4 duration-1000">
       {/* 1. HERO HEADER */}
-      <header className="relative h-[60vh] md:h-[70vh] flex items-end pb-20 px-6">
+      <header className="relative h-[65vh] md:h-[75vh] flex items-end pb-20 px-6 pt-24">
         <div className="absolute inset-0 z-0">
           <OptimizedImage
             src="/images/harvest/harvest-23.webp"
             alt="Sunrise over the Virginia honey belts"
             className="w-full h-full object-cover opacity-40 grayscale hover:grayscale-0 transition-all duration-[3000ms]"
           />
-          {/* <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/40 to-transparent" /> */}
+          <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/40 to-transparent" />
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto w-full">
+          {/* Top Backward Navigation */}
+          <button
+            onClick={handleReturn}
+            title="Return to the Storefront"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 hover:border-amber-400 text-amber-400 hover:text-white transition-all text-xs font-mono uppercase tracking-widest mb-8 active:scale-95 shadow-xl backdrop-blur-md"
+          >
+            <ArrowLeft size={14} /> Back to Storefront
+          </button>
+
           <h1 className="text-5xl md:text-9xl font-serif leading-[0.9] tracking-tighter">
             Grace is <br />
             <span className="italic text-amber-400 font-light">The Foundation.</span>
@@ -140,16 +158,24 @@ export const StoryPage = ({ onNavigate }) => {
       </section>
 
       {/* 4. FOOTER PIVOT */}
-      <footer className="py-32 text-center">
-        <p className="text-amber-500 text-[10px] font-black uppercase tracking-[0.6em] mb-8 animate-pulse">
+      <footer className="py-28 text-center space-y-6">
+        <p className="text-amber-500 text-[10px] font-black uppercase tracking-[0.6em] animate-pulse">
           Experience the blessing
         </p>
         <button
           onClick={() => onNavigate(VIEWS.HOME, { scrollTo: 'collection' })}
-          className="text-4xl md:text-7xl font-serif italic text-white hover:text-amber-400 transition-colors"
+          className="text-4xl md:text-7xl font-serif italic text-white hover:text-amber-400 transition-colors block mx-auto"
         >
           Shop Golden Grace Honey
         </button>
+        <div className="pt-6">
+          <button
+            onClick={handleReturn}
+            className="inline-flex items-center gap-2 text-xs font-mono text-gray-500 hover:text-white uppercase tracking-widest transition-colors py-2 px-4 rounded-full border border-white/10 hover:border-white/30"
+          >
+            <ArrowLeft size={14} /> Return to Storefront
+          </button>
+        </div>
       </footer>
     </main>
   );

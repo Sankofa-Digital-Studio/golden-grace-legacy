@@ -13,6 +13,7 @@ import ScrollToTop from './components/common/scroll-to-top';
 import WhatsAppWidget from './components/common/whatsapp-widget';
 import ErrorBoundary from './components/common/error-boundary';
 import ForagerLoader from './components/common/forager-loader';
+import TopProgressBar from './components/common/top-progress-bar';
 import { Hexagon } from 'lucide-react';
 
 import HomePage from './pages/home-page/home-page';
@@ -29,7 +30,7 @@ const Storefront = () => {
   const [showCart, setShowCart] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const { cart, addToCart, updateQuantity, removeFromCart } = useCart();
-  const { view, navigate, transitioning } = useNavigation(VIEWS.HOME, 0);
+  const { view, navigate, transitioning } = useNavigation(VIEWS.HOME, 250);
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 50);
@@ -56,7 +57,7 @@ const Storefront = () => {
       case VIEWS.EDUCATION:
         return <EducationHub onBack={() => navigate(VIEWS.HOME)} onNavigate={handleNavigate} />;
       case VIEWS.GIFTS:
-        return <GiftsPage onBack={() => navigate(VIEWS.HOME)} />;
+        return <GiftsPage onBack={() => navigate(VIEWS.HOME)} onNavigate={handleNavigate} />;
       default:
         return <HomePage onNavigate={handleNavigate} onAddToCart={handleAddToCart} />;
     }
@@ -70,9 +71,12 @@ const Storefront = () => {
         <Analytics />
         <FilmGrain />
 
+        {/* TOP ROUTE PROGRESS BAR */}
+        <TopProgressBar isLoading={transitioning} />
+
         {/* 1. VIEW TRANSITIONS */}
         {transitioning && (
-          <div className="fixed inset-0 z-[1000] bg-[#050505]/95 backdrop-blur-md flex items-center justify-center transition-opacity duration-500">
+          <div className="fixed inset-0 z-[1000] bg-[#050505]/95 backdrop-blur-md flex items-center justify-center transition-opacity duration-300">
             <div className="flex flex-col items-center gap-4">
               <div className="relative w-16 h-16 flex items-center justify-center">
                 <div className="absolute inset-0 bg-amber-500/15 blur-xl rounded-full animate-pulse" />

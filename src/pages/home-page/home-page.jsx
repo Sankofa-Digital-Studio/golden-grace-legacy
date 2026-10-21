@@ -55,7 +55,7 @@ const HomePage = ({
       <Archive />
 
       {/* 10. THE PIVOT: Atmospheric Palette Cleanser */}
-      <ContentBreak />
+      <ContentBreak onNavigate={onNavigate} />
     </main>
   );
 };
