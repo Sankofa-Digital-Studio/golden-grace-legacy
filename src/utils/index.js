@@ -5,3 +5,8 @@ export {
   buildWhatsAppOrderUrl,
   WHATSAPP_NUMBER,
 } from './whatsapp-order';
+export {
+  openPaystackCheckout,
+  buildPostCheckoutWhatsAppUrl,
+  loadPaystackScript,
+} from './paystack';

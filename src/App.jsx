@@ -14,6 +14,8 @@ import WhatsAppWidget from './components/common/whatsapp-widget';
 import ErrorBoundary from './components/common/error-boundary';
 import ForagerLoader from './components/common/forager-loader';
 import TopProgressBar from './components/common/top-progress-bar';
+import StickyMobileCartBar from './components/ui/sticky-mobile-cart-bar';
+import PWAInstallBanner from './components/common/pwa-install-banner';
 import { Hexagon } from 'lucide-react';
 
 import HomePage from './pages/home-page/home-page';
@@ -29,7 +31,7 @@ const Storefront = () => {
   const [initialLoading, setInitialLoading] = useState(true);
   const [showCart, setShowCart] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const { cart, addToCart, updateQuantity, removeFromCart } = useCart();
+  const { cart, addToCart, updateQuantity, removeFromCart, clearCart } = useCart();
   const { view, navigate, transitioning } = useNavigation(VIEWS.HOME, 250);
 
   useEffect(() => {
@@ -73,6 +75,7 @@ const Storefront = () => {
 
         {/* TOP ROUTE PROGRESS BAR */}
         <TopProgressBar isLoading={transitioning} />
+        <PWAInstallBanner />
 
         {/* 1. VIEW TRANSITIONS */}
         {transitioning && (
@@ -125,6 +128,11 @@ const Storefront = () => {
             cartItems={cart}
             onUpdateQuantity={updateQuantity}
             onRemove={removeFromCart}
+            onClearCart={clearCart}
+          />
+          <StickyMobileCartBar
+            onAddToCart={handleAddToCart}
+            isCartOpen={showCart}
           />
         </div>
       </div>

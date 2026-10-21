@@ -1,7 +1,19 @@
 {
   "name": "Golden Grace Legacy & Honey",
   "short_name": "Golden Grace",
+  "description": "Sovereign Artisanal Pure Raw South African Honey from Virginia, Free State. DALRRD DFS194 Certified.",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "theme_color": "#f59e0b",
+  "background_color": "#050505",
   "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
     {
       "src": "/android-chrome-192x192.png",
       "sizes": "192x192",
@@ -12,8 +24,5 @@
       "sizes": "512x512",
       "type": "image/png"
     }
-  ],
-  "theme_color": "#f59e0b",
-  "background_color": "#050505",
-  "display": "standalone"
+  ]
 }

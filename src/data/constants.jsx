@@ -60,64 +60,7 @@ export const LESOTHO_SELLERS = [
 ];
 export default LESOTHO_SELLERS;
 
-export const PRODUCTS = [
-  {
-    id: 'premium-hex-aloe',
-    category: 'The Jars',
-    title: "Aloe Ferox Reserve",
-    flora: "Welkom Central Aloe",
-    batch: "Batch 2026/FS-01",
-    tasteNotes: "Deep amber, rich woody resonance, medicinal finish",
-    scarcity: "Limited Winter Bloom • 88% Reserved",
-    price: 145,
-    sizes: ["375g", "500g"],
-    vessel: "Hexagonal Glass",
-    img: "/images/products/aloe-jar.webp",
-    tag: "Best Seller"
-  },
-  {
-    id: 'daily-squeeze-wild',
-    category: 'The Squeeze',
-    title: "Veld Wildflower",
-    flora: "Northern Belt Multi-Floral",
-    batch: "Batch 2026/FS-02",
-    tasteNotes: "Earthy, complex wildflowers, smooth liquid gold",
-    scarcity: "Daily Raw Essential • Fresh Veld Pull",
-    price: 95,
-    sizes: ["500g"],
-    vessel: "BPA-Free Squeeze",
-    img: "/images/products/wildflower-squeeze.webp",
-    tag: "Daily Essential"
-  },
-  {
-    id: 'premium-hex-cosmos',
-    category: 'The Jars',
-    title: "Highland Cosmos",
-    flora: "Free State Plains",
-    batch: "Batch 2026/FS-03",
-    tasteNotes: "Delicate floral whispers, airy sweetness, bright finish",
-    scarcity: "Late Summer Harvest • Strictly Limited",
-    price: 155,
-    sizes: ["375g"],
-    vessel: "Hexagonal Glass",
-    img: "/images/products/cosmos-jar.webp",
-    tag: "Limited Harvest"
-  },
-  {
-    id: 'gift-trio',
-    category: 'The Gift',
-    title: "The Trinity Set",
-    flora: "Aloe, Cosmos & Wildflower",
-    batch: "Curated Set #2026",
-    tasteNotes: "The complete Free State tasting flight (3 single-origins)",
-    scarcity: "Artisanal Gift Curation • Hand-Packed",
-    price: 420,
-    sizes: ["3 x 150g"],
-    vessel: "Miniature Glass Set",
-    img: "/images/products/trio-set.webp",
-    tag: "Gift Choice"
-  }
-];
+export { PRODUCTS } from './catalog.js';
 
 export const CATEGORIES = [
   { id: 'all', label: 'All Harvests', icon: <Hexagon size={14} /> },

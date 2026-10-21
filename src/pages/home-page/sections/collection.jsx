@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import SectionHeading from '../../../components/ui/section-heading';
 import OptimizedImage from '../../../components/ui/optimized-image';
-import { ShoppingBag, Star, Hexagon, ArrowRight, Sparkles } from 'lucide-react';
+import { ShoppingBag, Star, Hexagon, ArrowRight, Sparkles, Bell } from 'lucide-react';
+import WaitlistModal from '../../../components/ui/waitlist-modal';
 import { PRODUCTS, CATEGORIES } from '../../../data/constants';
 
 const Collection = ({ onAddToCart }) => {
   const [activeCategory, setActiveCategory] = useState('all');
   const [selectedSizes, setSelectedSizes] = useState({});
+  const [waitlistProduct, setWaitlistProduct] = useState(null);
 
   const filteredProducts =
     activeCategory === 'all' ? PRODUCTS : PRODUCTS.filter((p) => p.category === activeCategory);
@@ -39,12 +41,28 @@ const Collection = ({ onAddToCart }) => {
 
         {/* Identity */}
         <div className="space-y-2 mb-4 flex-1">
-          {product.scarcity && (
+          {product.remainingJars && product.totalBatchJars ? (
+            <div className="space-y-1 bg-amber-500/[0.06] border border-amber-500/20 p-2 rounded-xl">
+              <div className="flex items-center justify-between text-[8px] font-mono uppercase tracking-wider text-amber-400">
+                <span className="flex items-center gap-1 font-bold">
+                  <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
+                  Only {product.remainingJars} Jars Left
+                </span>
+                <span className="text-gray-400">{product.batchNumber || product.batch}</span>
+              </div>
+              <div className="w-full h-1 bg-white/10 rounded-full overflow-hidden">
+                <div
+                  className="h-full bg-gradient-to-r from-amber-500 to-amber-300 rounded-full"
+                  style={{ width: `${Math.round((1 - product.remainingJars / product.totalBatchJars) * 100)}%` }}
+                />
+              </div>
+            </div>
+          ) : product.scarcity ? (
             <div className="flex items-center gap-1.5 text-[8px] font-mono uppercase tracking-wider text-amber-400/90 bg-amber-500/10 border border-amber-500/20 px-2 py-0.5 rounded-full w-fit">
               <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
               {product.scarcity}
             </div>
-          )}
+          ) : null}
 
           <div className="flex justify-between items-start gap-2">
             <div>
@@ -99,6 +117,15 @@ const Collection = ({ onAddToCart }) => {
             <span>Add to Bag</span>
             <ShoppingBag size={14} className="group-hover/btn:translate-y-[-1px] transition-transform" />
           </button>
+          {product.tag === 'Limited Harvest' && (
+            <button
+              onClick={() => setWaitlistProduct(product)}
+              className="w-full py-2 bg-white/5 hover:bg-white/10 text-amber-400 hover:text-amber-300 border border-amber-500/30 rounded-xl text-[9px] font-bold uppercase tracking-wider transition-colors flex items-center justify-center gap-1.5"
+            >
+              <Bell size={11} />
+              <span>Join Bloom Waitlist</span>
+            </button>
+          )}
           <p className="text-[7.5px] text-gray-500 text-center uppercase tracking-wider">
             ✓ 100% Raw • DFS194 Certified
           </p>
@@ -385,6 +412,11 @@ const Collection = ({ onAddToCart }) => {
           </p>
         </div>
       </div>
+          <WaitlistModal
+        isOpen={Boolean(waitlistProduct)}
+        product={waitlistProduct}
+        onClose={() => setWaitlistProduct(null)}
+      />
     </section>
   );
 };

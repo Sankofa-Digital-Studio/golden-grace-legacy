@@ -7,6 +7,7 @@ export { default as GlassCard } from './glass-card';
 export { default as ImageCarousel, ImageCarousel as ImageCarouselNamed } from './image-carousel';
 export { default as OptimizedImage, OptimizedImage as OptimizedImageNamed } from './optimized-image';
 export { default as SectionHeading, SectionHeading as SectionHeadingNamed } from './section-heading';
+export { default as StickyMobileCartBar } from './sticky-mobile-cart-bar';
 export { default as TerroirCompass, TerroirCompass as TerroirCompassNamed } from './terroir-compass';
 export { default as VideoModal, VideoModal as VideoModalNamed } from './video-modal';
 export { default as ViscosityPour, ViscosityPour as ViscosityPourNamed } from './viscosity-pour';
