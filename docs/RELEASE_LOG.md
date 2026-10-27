@@ -50,7 +50,7 @@ npm run validate
 The automated validation suite executes the following five gates in sequence:
 
 - [x] **Linting Gate**: `npm run lint` (ESLint 9 passing with 0 warnings, zero syntax violations).
-- [x] **Test & Coverage Gate**: `npm test` (Node native test runner executes all unit, smoke, and E2E journeys: 56 passing tests, 0 failures, 100% line coverage, **93.05% branch coverage**).
+- [x] **Test & Coverage Gate**: `npm test` (Node native test runner executes all unit, smoke, and E2E journeys: 80 passing tests, 0 failures, 99.47% line coverage, **92.01% branch coverage**).
 - [x] **Static Asset Integrity Gate**: `npm run check:assets` (Static asset baseline verification ensures all referenced images, icons, and videos exist in `public/`).
 - [x] **Security & Secret Leak Scan**: `npm run check:security` (Scans `src/` for private keys, exposed bearer tokens, unhandled secrets, and executes `npm audit --omit=dev`).
 - [x] **Production Bundle Build Gate**: `npm run build` (Vite production compiler generates optimized client chunks with code-splitting and asset compression).

@@ -57,6 +57,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Universal Store API Service & Contract Specifications**:
   - Enterprise service client (`src/services/store-api.js`) and contract validator (`src/services/contracts.js`) with client-side localStorage fallback for offline/disconnected resilience.
   - Standardized order reference generator (`GG-YYYYMMDD-XXXX`) and validation schemas.
+- **Enterprise Security Vault & POPIA Compliance Layer** (`src/services/security-vault.js`, `docs/SECURITY_AND_POPIA_COMPLIANCE.md`):
+  - Field-level envelope encryption using authenticated AES-256-GCM with randomized 96-bit initialization vectors (IVs) for sensitive customer PII (phone, physical shipping address, corporate notes).
+  - Deterministic blind indexing via HMAC-SHA256 enabling O(1) exact-match database queries without decrypting tables or storing readable PII.
+  - Cryptographic Proof of Provenance via deterministic "Digital Wax Seals" signed with HMAC-SHA256, permanently linking orders to batch scarcity and DALRRD DFS194 regulatory codes.
+  - Zero-Knowledge ephemeral tracking grant tokens delivering password-free, 1-tap WhatsApp order tracking while completely eliminating IDOR enumeration attacks.
+  - Dynamic egress data masking for safe redaction on public and semi-public tracking views.
 - **PostgreSQL 15+ & Supabase Production Schema** (`docs/SCHEMA_AND_RLS.sql`):
   - Production database schema with tables for `products`, `harvest_batches`, `customers`, `orders`, `order_items`, `waitlist_leads`, `corporate_inquiries`, and `webhook_logs`.
   - Row Level Security (RLS) policies enforcing anonymous order insertion and restricted administrative access.

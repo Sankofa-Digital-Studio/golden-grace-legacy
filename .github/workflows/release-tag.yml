@@ -1,0 +1,90 @@
+name: Release & Tagging Automation
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-main-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  tag-and-release:
+    name: Ensure Production Git Tag & Release Notes
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Codebase
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Determine Target Release Version
+        id: get_version
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          echo "version=${VERSION}" >> $GITHUB_OUTPUT
+          echo "tag=v${VERSION}" >> $GITHUB_OUTPUT
+          echo "Detected package.json version: ${VERSION}"
+
+      - name: Check Existing Git Tags
+        id: check_tag
+        run: |
+          TAG="${{ steps.get_version.outputs.tag }}"
+          if git rev-parse "$TAG" >/dev/null 2>&1; then
+            echo "Tag $TAG already exists in repository."
+            echo "exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "Tag $TAG does not exist yet. Needs tagging."
+            echo "exists=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Configure Git Committer
+        if: steps.check_tag.outputs.exists == 'false'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Create and Push Annotated Git Tag
+        if: steps.check_tag.outputs.exists == 'false'
+        run: |
+          TAG="${{ steps.get_version.outputs.tag }}"
+          VERSION="${{ steps.get_version.outputs.version }}"
+          echo "Creating annotated tag $TAG..."
+          git tag -a "$TAG" -m "Production Release $TAG (goldengracelegacy.co.za)"
+          git push origin "$TAG"
+
+      - name: Extract Release Notes from CHANGELOG.md
+        if: steps.check_tag.outputs.exists == 'false'
+        id: extract_notes
+        run: |
+          node -e '
+            const fs = require("fs");
+            const changelog = fs.readFileSync("CHANGELOG.md", "utf8");
+            const version = "${{ steps.get_version.outputs.version }}";
+            const regex = new RegExp(`## \\\\\\[${version}\\\\\\][^\\n]*\\n([\\s\\S]*?)(?=\\n## |$)`);
+            const match = changelog.match(regex);
+            const notes = match ? match[1].trim() : "Production deployment for version " + version;
+            fs.writeFileSync("release_notes.txt", notes);
+          '
+
+      - name: Publish GitHub Release
+        if: steps.check_tag.outputs.exists == 'false'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          TAG="${{ steps.get_version.outputs.tag }}"
+          gh release create "$TAG" \
+            --title "Release $TAG: Official Storefront & Provenance Engine" \
+            --notes-file release_notes.txt \
+            --verify-tag

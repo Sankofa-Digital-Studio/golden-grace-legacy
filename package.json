@@ -13,6 +13,7 @@
     "lint": "eslint . --cache --cache-location node_modules/.cache/eslint/",
     "test": "node --test --experimental-test-coverage",
     "validate": "npm run lint && npm test && npm run check:assets && npm run check:security && npm run build",
+    "release:main": "node scripts/release-to-main.mjs",
     "format": "prettier --write .",
     "preview": "vite preview"
   },
