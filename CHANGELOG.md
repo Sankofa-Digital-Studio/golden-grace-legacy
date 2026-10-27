@@ -20,6 +20,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+---
+
+## [1.2.1] - 2026-10-27
+
+### Infrastructure & Vercel Custom Domain Deployment (`goldengracelegacy.co.za`)
+
+### Added
+- **Vercel Edge Routing & Security Headers** (`vercel.json`):
+  - SPA history fallback rewrites (`/* -> /index.html`) to eliminate client routing 404s.
+  - Edge caching rules (`max-age=31536000, immutable` for `/assets/*` and stale-while-revalidate for `/images/*`).
+  - HSTS, X-Content-Type-Options, X-Frame-Options, Referrer-Policy, and Permissions-Policy headers.
+- **1Grid DNS Integration Mapping**:
+  - Live DNS validation for `thor.ns.1-grid.*` nameservers preserving 1Grid MX mail exchangers (`1-grid-mx01..04`).
+  - Standardized A record (`76.76.21.21`) and CNAME (`cname.vercel-dns.com`) mapping.
+
+### Changed
+- **SEO & Canonical Integrity** (`index.html`):
+  - Fixed domain string in JSON-LD schemas from legacy typo to official `https://goldengracelegacy.co.za`.
+  - Added canonical `<link rel="canonical" href="https://goldengracelegacy.co.za" />` and `<meta property="og:url" content="https://goldengracelegacy.co.za" />`.
+
 ## [1.2.0] - 2026-10-23
 
 ### Commercial Online Store Pivot (`goldengracelegacy.co.za` / `goldengracelegacy.vercel.app`)

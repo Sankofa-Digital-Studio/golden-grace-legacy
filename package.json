@@ -1,7 +1,7 @@
 {
   "name": "golden-grace-legacy",
   "private": true,
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Premium South African Artisanal Products",
   "type": "module",
   "scripts": {
