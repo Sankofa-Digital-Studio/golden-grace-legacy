@@ -75,6 +75,7 @@ export const StickyMobileCartBar = ({ onAddToCart, isCartOpen }) => {
         <div className="flex items-center gap-1.5 shrink-0">
           <button
             onClick={() => onAddToCart?.(featuredProduct, featuredProduct.sizes[0])}
+            aria-label={`Add ${featuredProduct.title} (${featuredProduct.sizes[0]}) to harvest bag for R${featuredProduct.price}`}
             className="flex items-center gap-1.5 px-4 py-2 rounded-full bg-gradient-to-r from-amber-500 to-amber-400 text-slate-950 text-xs font-bold uppercase tracking-wider shadow-md shadow-amber-500/20 active:scale-95 transition-all"
           >
             <ShoppingBag size={13} />

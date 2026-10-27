@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { X, Bell, CheckCircle2, Sparkles, Send } from 'lucide-react';
 
 /**
@@ -10,6 +10,18 @@ export const WaitlistModal = ({ isOpen, onClose, product }) => {
   const [contact, setContact] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState('');
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape' && isOpen) {
+        onClose?.();
+      }
+    };
+    if (isOpen) {
+      window.addEventListener('keydown', handleKeyDown);
+    }
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen, onClose]);
 
   if (!isOpen) return null;
 
@@ -119,10 +131,11 @@ export const WaitlistModal = ({ isOpen, onClose, product }) => {
 
             <div className="space-y-3 pt-2">
               <div>
-                <label className="text-[10px] uppercase font-bold tracking-wider text-gray-400 block mb-1">
+                <label htmlFor="waitlist-name" className="text-[10px] uppercase font-bold tracking-wider text-gray-400 block mb-1">
                   Full Name
                 </label>
                 <input
+                  id="waitlist-name"
                   type="text"
                   placeholder="e.g. Mpho Mokoena"
                   value={name}
@@ -132,10 +145,11 @@ export const WaitlistModal = ({ isOpen, onClose, product }) => {
               </div>
 
               <div>
-                <label className="text-[10px] uppercase font-bold tracking-wider text-gray-400 block mb-1">
+                <label htmlFor="waitlist-contact" className="text-[10px] uppercase font-bold tracking-wider text-gray-400 block mb-1">
                   WhatsApp Number or Email
                 </label>
                 <input
+                  id="waitlist-contact"
                   type="text"
                   placeholder="082 123 4567 or you@domain.co.za"
                   value={contact}

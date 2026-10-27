@@ -104,6 +104,7 @@ export const WhatsAppWidget = () => {
         onClick={() => setIsOpen(!isOpen)}
         aria-expanded={isOpen}
         aria-haspopup="dialog"
+        aria-label={isOpen ? 'Close WhatsApp Concierge shortcuts' : 'Open WhatsApp Concierge shortcuts'}
         title="Open WhatsApp Concierge Shortcuts"
         className="bg-[#25D366] text-white p-3.5 md:p-4 rounded-full shadow-2xl hover:scale-110 active:scale-95 transition-all duration-300 flex items-center justify-center group"
       >

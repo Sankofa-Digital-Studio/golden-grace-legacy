@@ -35,16 +35,27 @@ export const Cart = ({
   const [completedOrder, setCompletedOrder] = useState(null);
   const [emailError, setEmailError] = useState('');
 
-  // Lock background scroll when cart is open
+  // Lock background scroll and listen for Escape key when cart is open
   useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape' && isOpen) {
+        onClose?.();
+      }
+    };
+
     if (isOpen) {
       document.body.style.overflow = 'hidden';
       document.documentElement.style.overflow = 'hidden';
+      window.addEventListener('keydown', handleKeyDown);
     } else {
       document.body.style.overflow = 'unset';
       document.documentElement.style.overflow = 'unset';
     }
-  }, [isOpen]);
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isOpen, onClose]);
 
   const FREE_SHIPPING_THRESHOLD = 500;
   const subtotal = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
@@ -116,6 +127,9 @@ export const Cart = ({
 
       {/* 2. DRAWER */}
       <aside
+        role="dialog"
+        aria-modal="true"
+        aria-label="Harvest Bag Drawer"
         className={`fixed top-0 right-0 h-full w-full md:w-[460px] bg-[#0a0a0a] border-l border-white/5 z-[900] shadow-2xl transition-transform duration-700 ease-in-out transform ${
           isOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
@@ -132,6 +146,7 @@ export const Cart = ({
             <button
               onClick={onClose}
               title="Close harvest bag"
+              aria-label="Close harvest bag"
               className="p-2 hover:bg-white/5 rounded-full text-gray-500 hover:text-white transition-all"
             >
               <X size={24} />
@@ -278,6 +293,7 @@ export const Cart = ({
                           <button
                             onClick={() => onRemove(item.id, item.selectedSize)}
                             title={`Remove ${item.title} from bag`}
+                            aria-label={`Remove ${item.title} from harvest bag`}
                             className="text-gray-600 hover:text-red-500 transition-colors"
                           >
                             <Trash2 size={14} />
@@ -293,6 +309,7 @@ export const Cart = ({
                               onClick={() =>
                                 onUpdateQuantity(item.id, item.selectedSize, item.quantity - 1)
                               }
+                              aria-label={`Decrease quantity of ${item.title}`}
                               className="text-gray-400 hover:text-white"
                             >
                               <Minus size={11} />
@@ -304,6 +321,7 @@ export const Cart = ({
                               onClick={() =>
                                 onUpdateQuantity(item.id, item.selectedSize, item.quantity + 1)
                               }
+                              aria-label={`Increase quantity of ${item.title}`}
                               className="text-gray-400 hover:text-white"
                             >
                               <Plus size={11} />
@@ -340,10 +358,11 @@ export const Cart = ({
                   {/* Customer Information Inputs for Paystack Invoicing */}
                   <div className="space-y-3 pt-1">
                     <div className="space-y-1">
-                      <label className="text-[10px] uppercase font-bold tracking-widest text-gray-400">
+                      <label htmlFor="cart-email-input" className="text-[10px] uppercase font-bold tracking-widest text-gray-400 block">
                         Recipient Email (For Paystack Receipt & Courier Waybill)
                       </label>
                       <input
+                        id="cart-email-input"
                         type="email"
                         placeholder="yourname@gmail.com"
                         value={email}
@@ -359,10 +378,11 @@ export const Cart = ({
                     </div>
 
                     <div className="space-y-1">
-                      <label className="text-[10px] uppercase font-bold tracking-widest text-gray-400">
+                      <label htmlFor="cart-phone-input" className="text-[10px] uppercase font-bold tracking-widest text-gray-400 block">
                         WhatsApp Number (Optional for Waybill SMS/Chat)
                       </label>
                       <input
+                        id="cart-phone-input"
                         type="tel"
                         placeholder="079 430 1648"
                         value={phone}
