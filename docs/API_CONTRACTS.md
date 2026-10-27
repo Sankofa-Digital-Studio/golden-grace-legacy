@@ -121,6 +121,23 @@ type OrderStatus = 'pending' | 'paid' | 'processing' | 'dispatched' | 'delivered
   "total": 460.00,
   "currency": "ZAR",
   "status": "pending",
+  "digitalWaxSeal": {
+    "sealCode": "WAX-8F92-B31C",
+    "signature": "0560a1847c3abf84182b8277501549074579d4380bf9bf24153f1521f14f8ae5",
+    "timestamp": "2026-10-27T10:15:30.000Z",
+    "apiaryReg": "DALRRD-DFS194"
+  },
+  "trackingGrantToken": "eyJhbGciOiJIUzI1NiJ9...0560a184",
+  "trackingUrl": "https://goldengracelegacy.co.za/track?ref=GG-20261027-4821&grant=eyJhbGciOiJIUzI1NiJ9...0560a184",
+  "maskedOrder": {
+    "orderReference": "GG-20261027-4821",
+    "status": "pending",
+    "total": 460.00,
+    "customer": {
+      "emailMasked": "g***e@example.co.za",
+      "phoneMasked": "+27 82 *** *567"
+    }
+  },
   "paystackAccessCode": "0peioxfhpn",
   "createdAt": "2026-10-27T10:15:30.000Z"
 }
@@ -223,3 +240,58 @@ type OrderStatus = 'pending' | 'paid' | 'processing' | 'dispatched' | 'delivered
   "message": "Inquiry received. A bespoke gifting dossier and quotation will be delivered within 4 business hours."
 }
 ```
+
+---
+
+### Contract 6: Zero-Knowledge Order Tracking & Verification Lookup
+* **Method:** `GET /api/orders/track?ref={orderReference}&grant={grantToken}`
+* **Purpose:** Allows frictionless 1-tap order status and waybill tracking directly from WhatsApp/SMS without password accounts, while completely defeating IDOR scraping attacks.
+
+#### Query Parameters:
+- `ref`: Order reference string (e.g. `GG-20261027-4821`)
+- `grant`: Cryptographic time-bound grant token (`<payloadBase64Url>.<signatureHex>`)
+
+#### Response Contract (Safe Masked Egress):
+```json
+{
+  "status": "success",
+  "order": {
+    "orderReference": "GG-20261027-4821",
+    "status": "dispatched",
+    "createdAt": "2026-10-27T10:15:30.000Z",
+    "total": 460.00,
+    "currency": "ZAR",
+    "itemsCount": 2,
+    "items": [
+      {
+        "title": "Aloe Ferox Reserve",
+        "size": "375g",
+        "quantity": 2,
+        "batchNumber": "2026/FS-01"
+      },
+      {
+        "title": "Veld Wildflower",
+        "size": "500g",
+        "quantity": 1,
+        "batchNumber": "2026/FS-02"
+      }
+    ],
+    "customer": {
+      "emailMasked": "g***e@example.co.za",
+      "phoneMasked": "+27 82 *** *567"
+    },
+    "shippingAddressMasked": "14 J** C****** St, W****m",
+    "digitalWaxSeal": {
+      "sealCode": "WAX-8F92-B31C",
+      "signature": "0560a1847c3abf84182b8277501549074579d4380bf9bf24153f1521f14f8ae5",
+      "apiaryReg": "DALRRD-DFS194",
+      "verified": true
+    },
+    "courierTelemetry": {
+      "trackingNumber": "TC-8893910",
+      "trackingUrl": "https://thecourierguy.co.za/track?no=TC-8893910"
+    }
+  }
+}
+```
+

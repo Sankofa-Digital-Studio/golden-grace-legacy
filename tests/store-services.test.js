@@ -240,10 +240,73 @@ describe('StoreApiService Universal Client', () => {
 
     assert.equal(orderResult.success, true);
     assert.match(orderResult.orderReference, /^GG-\d{8}-\d{4}$/);
+    assert.match(orderResult.digitalWaxSeal.sealCode, /^WAX-[0-9A-F]{4}-[0-9A-F]{4}$/);
+    assert.equal(typeof orderResult.trackingGrantToken, 'string');
+    assert.equal(orderResult.trackingUrl.includes('https://goldengracelegacy.co.za/track'), true);
+    assert.equal(orderResult.maskedOrder.customer.emailMasked, 'c****t@domain.co.za');
 
     // Verify inventory decremented
     const productAfter = await service.getProductById('premium-hex-aloe');
     assert.equal(productAfter.remainingJars, initialRemaining - 2);
+  });
+
+  it('enables zero-knowledge order tracking with valid grant tokens', async () => {
+    const originalWindow = globalThis.window;
+    const store = new Map();
+    globalThis.window = {
+      localStorage: {
+        getItem: (k) => store.get(k) || null,
+        setItem: (k, v) => store.set(k, v),
+      },
+    };
+
+    try {
+      const service = new StoreApiService();
+      const orderResult = await service.createOrder({
+        email: 'client@domain.co.za',
+        customerPhone: '0821234567',
+        items: [
+          {
+            productId: 'bundle-discovery-duo',
+            title: 'The Terroir Discovery Duo',
+            price: 240,
+            quantity: 1,
+            size: '375g + 500g',
+          },
+        ],
+        total: 240,
+      });
+
+      // 1. Successful tracking from storage
+      const trackingSuccess = await service.trackOrder(
+        orderResult.orderReference,
+        orderResult.trackingGrantToken
+      );
+      assert.equal(trackingSuccess.success, true);
+      assert.equal(trackingSuccess.order.orderReference, orderResult.orderReference);
+      assert.equal(trackingSuccess.order.customer.emailMasked, 'c****t@domain.co.za');
+
+      // 2. Missing arguments
+      const failMissing = await service.trackOrder('', '');
+      assert.equal(failMissing.success, false);
+
+      // 3. Tampered grant token
+      const failTampered = await service.trackOrder(orderResult.orderReference, 'tampered.token');
+      assert.equal(failTampered.success, false);
+
+      // 4. Mismatched order reference
+      const failMismatch = await service.trackOrder('GG-DIFFERENT-REF', orderResult.trackingGrantToken);
+      assert.equal(failMismatch.success, false);
+
+      // 5. Fallback tracking when order is not found in storage
+      const fallbackToken = await (await import('../src/services/security-vault.js')).generateTrackingGrantToken('GG-FALLBACK-1234');
+      const fallbackResult = await service.trackOrder('GG-FALLBACK-1234', fallbackToken);
+      assert.equal(fallbackResult.success, true);
+      assert.equal(fallbackResult.order.orderReference, 'GG-FALLBACK-1234');
+      assert.equal(fallbackResult.order.customer.emailMasked, 'c******r@goldengracelegacy.co.za');
+    } finally {
+      globalThis.window = originalWindow;
+    }
   });
 
   it('submits waitlist leads for seasonal blooms', async () => {

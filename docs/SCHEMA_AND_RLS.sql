@@ -76,7 +76,7 @@ CREATE TABLE IF NOT EXISTS public.harvest_batches (
     updated_at TIMESTAMPTZ DEFAULT TIMEZONE('utc', NOW()) NOT NULL
 );
 
--- 5. ORDERS TABLE
+-- 5. ORDERS TABLE (With Field-Level POPIA Vault & Cryptographic Wax Seal)
 CREATE TABLE IF NOT EXISTS public.orders (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     order_reference VARCHAR(64) UNIQUE NOT NULL, -- e.g. 'GG-20261027-4821'
@@ -84,19 +84,29 @@ CREATE TABLE IF NOT EXISTS public.orders (
     payment_method payment_gateway DEFAULT 'paystack' NOT NULL,
     payment_reference VARCHAR(128),              -- Paystack reference or manual EFT tag
     
-    -- Customer Contact & Billing
+    -- POPIA Compliant Field-Level Cryptography & Blind Indexing
     customer_email VARCHAR(255) NOT NULL,
     customer_phone VARCHAR(32) NOT NULL,
+    encrypted_phone TEXT,                        -- Format: 'enc:v1:<iv>:<ciphertext>'
+    encrypted_shipping_address TEXT,             -- Format: 'enc:v1:<iv>:<ciphertext>'
+    email_blind_index VARCHAR(70),               -- Format: 'bidx:<64-char-hex>' for exact search
+    phone_blind_index VARCHAR(70),               -- Format: 'bidx:<64-char-hex>' for exact search
     customer_first_name VARCHAR(128),
     customer_last_name VARCHAR(128),
     
-    -- Courier Shipping Address
+    -- Courier Shipping Address (Maskable on egress)
     shipping_street TEXT,
     shipping_suburb VARCHAR(128),
     shipping_city VARCHAR(128) DEFAULT 'Welkom',
     shipping_province VARCHAR(64) DEFAULT 'Free State',
     shipping_postal_code VARCHAR(16),
     shipping_country VARCHAR(64) DEFAULT 'South Africa',
+    
+    -- Cryptographic Proof of Provenance: Digital Wax Seal
+    wax_seal_code VARCHAR(32),                   -- e.g. 'WAX-8F92-B31C'
+    wax_seal_signature VARCHAR(64),              -- 256-bit HMAC verification signature
+    wax_seal_timestamp TIMESTAMPTZ,
+    wax_seal_canonical_payload TEXT,
     
     -- Financial Totals (ZAR)
     subtotal NUMERIC(10, 2) NOT NULL CHECK (subtotal >= 0),
@@ -188,16 +198,31 @@ CREATE TABLE IF NOT EXISTS public.webhooks_log (
     received_at TIMESTAMPTZ DEFAULT TIMEZONE('utc', NOW()) NOT NULL
 );
 
+-- 11. IMMUTABLE CRYPTOGRAPHIC AUDIT LEDGER (Hash-Chained Tamper-Evident Trail)
+CREATE TABLE IF NOT EXISTS public.order_audit_ledger (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    order_reference VARCHAR(64) NOT NULL,
+    action_type VARCHAR(64) NOT NULL,            -- 'order_created', 'payment_verified', 'dispatched'
+    previous_entry_hash VARCHAR(64) NOT NULL,    -- SHA-256 of preceding ledger entry
+    entry_hash VARCHAR(64) NOT NULL,             -- SHA-256(previous_entry_hash || order_reference || payload)
+    payload JSONB NOT NULL,
+    recorded_at TIMESTAMPTZ DEFAULT TIMEZONE('utc', NOW()) NOT NULL
+);
+
 -- ==============================================================================
--- 11. INDEXES FOR PERFORMANCE
+-- 12. INDEXES FOR PERFORMANCE & PRIVACY SEARCH
 -- ==============================================================================
 CREATE INDEX IF NOT EXISTS idx_products_category ON public.products(category) WHERE is_active = true;
 CREATE INDEX IF NOT EXISTS idx_harvest_batches_product ON public.harvest_batches(product_id) WHERE is_current_active = true;
 CREATE INDEX IF NOT EXISTS idx_orders_reference ON public.orders(order_reference);
 CREATE INDEX IF NOT EXISTS idx_orders_customer_email ON public.orders(customer_email);
+CREATE INDEX IF NOT EXISTS idx_orders_email_blind_index ON public.orders(email_blind_index);
+CREATE INDEX IF NOT EXISTS idx_orders_phone_blind_index ON public.orders(phone_blind_index);
+CREATE INDEX IF NOT EXISTS idx_orders_wax_seal_code ON public.orders(wax_seal_code);
 CREATE INDEX IF NOT EXISTS idx_order_items_order_id ON public.order_items(order_id);
 CREATE INDEX IF NOT EXISTS idx_waitlist_product ON public.waitlist_leads(product_id);
 CREATE INDEX IF NOT EXISTS idx_webhooks_event_id ON public.webhooks_log(event_id);
+CREATE INDEX IF NOT EXISTS idx_audit_ledger_order ON public.order_audit_ledger(order_reference);
 
 -- ==============================================================================
 -- 12. AUTOMATED INVENTORY DECREMENT TRIGGER
@@ -332,5 +357,13 @@ WITH CHECK (
 DROP POLICY IF EXISTS "Only service role can manage webhooks log" ON public.webhooks_log;
 CREATE POLICY "Only service role can manage webhooks log"
 ON public.webhooks_log
+USING (current_setting('request.jwt.claim.role', true) = 'service_role')
+WITH CHECK (current_setting('request.jwt.claim.role', true) = 'service_role');
+
+-- AUDIT LEDGER: Restricted strictly to Service Role (Immutable Append-Only)
+ALTER TABLE public.order_audit_ledger ENABLE ROW LEVEL SECURITY;
+DROP POLICY IF EXISTS "Only service role can manage audit ledger" ON public.order_audit_ledger;
+CREATE POLICY "Only service role can manage audit ledger"
+ON public.order_audit_ledger
 USING (current_setting('request.jwt.claim.role', true) = 'service_role')
 WITH CHECK (current_setting('request.jwt.claim.role', true) = 'service_role');
