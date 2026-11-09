@@ -22,6 +22,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.3.0] - 2026-11-09
+
+### Product Catalog Expansion & Service Portfolio Launch
+
+### Added
+- **Full Artisanal Product Catalog (58 Items)** (`src/data/catalog.js`, `src/data/constants.jsx`):
+  - **Pure Honey**: Expanded sizing across 40g, 60g, 175g, 250g, 340g, 355g, 500g, 1kg, and 1.4kg with batch provenance.
+  - **Creamed Honey**: Silky whipped honey in 40g, 60g, 175g, 340g, 355g, 500g, and 1kg presentations.
+  - **Vitality Blend**: Enhanced wellness formulations in 40g, 60g, 175g, 340g, 355g, 500g, 1kg, and 1.4kg.
+  - **Infused Honey Collection**: Single-origin infusions (Lemon, Ginger & Turmeric, Cinnamon, Garlic) across multiple weights.
+  - **Miniature Gift Collections**: 40g and 60g discovery sets with curated accessories (Honey only, with dipper, with dipper & bag).
+  - **Tableware & Merchandise**: Custom ceramic and color-changing mugs, coaster sets, bamboo cutting/serving boards, and premium waffle-weave dish cloths.
+  - **Ethical Bee Removal & Relocation Services**: Comprehensive 5-tier safe bee relocation booking portfolio (Site Assessment, Tier 1 Simple Swarm, Tier 2 Basic Hive, Tier 3 Structural Extraction, Tier 4 Complex Extraction).
+- **Responsive Collection Grid & Dynamic Filtering** (`src/pages/home-page/sections/collection.jsx`):
+  - Dynamic category counters updating automatically to reflect full 58-product inventory.
+  - Multi-tier responsive grid layout (`sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4`).
+  - Terroir Intelligence Harvest Matrix pinned to flagship comparison items.
+
+---
+
 ## [1.2.1] - 2026-10-27
 
 ### Infrastructure & Vercel Custom Domain Deployment (`goldengracelegacy.co.za`)
