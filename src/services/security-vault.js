@@ -195,7 +195,9 @@ export async function decryptField(encryptedString, secretKey = DEFAULT_VAULT_KE
     );
     return new TextDecoder().decode(decryptedBuffer);
   } catch (err) {
-    throw new Error(`Decryption failed: data corrupted or invalid key (${err.message})`);
+    throw new Error(`Decryption failed: data corrupted or invalid key (${err.message})`, {
+      cause: err,
+    });
   }
 }
 
