@@ -7,7 +7,11 @@ import fs from 'node:fs';
 
 function run(command, options = {}) {
   console.log(`\n> ${command}`);
-  return execSync(command, { stdio: 'inherit', ...options });
+  const env = {
+    ...process.env,
+    NODE_OPTIONS: process.env.NODE_OPTIONS || '--max-old-space-size=4096',
+  };
+  return execSync(command, { stdio: 'inherit', env, ...options });
 }
 
 function runSilent(command) {
