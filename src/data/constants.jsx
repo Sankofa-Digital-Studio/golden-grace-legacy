@@ -64,9 +64,13 @@ export { PRODUCTS } from './catalog.js';
 
 export const CATEGORIES = [
   { id: 'all', label: 'All Harvests', icon: <Hexagon size={14} /> },
-  { id: 'The Jars', label: 'The Jars', icon: <Hexagon size={14} /> },
+  { id: 'The Jars', label: 'Pure Raw Honey', icon: <Hexagon size={14} /> },
   { id: 'The Squeeze', label: 'The Squeeze', icon: <Droplets size={14} /> },
-  { id: 'The Gift', label: 'The Gift', icon: <Gift size={14} /> }
+  { id: 'Creamed Honey', label: 'Creamed Velvet', icon: <Sparkles size={14} /> },
+  { id: 'Vitality Blend', label: 'Vitality Blend', icon: <Heart size={14} /> },
+  { id: 'Infused Honey', label: 'Infused Honey', icon: <Flame size={14} /> },
+  { id: 'The Gift', label: 'Gifts & Merch', icon: <Gift size={14} /> },
+  { id: 'Bee Services', label: 'Bee Services', icon: <ShieldPlus size={14} /> }
 ];
 
 export const VIDEO_SOURCE =

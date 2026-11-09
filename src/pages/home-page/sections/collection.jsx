@@ -319,7 +319,7 @@ const Collection = ({ onAddToCart }) => {
                         onClick={() => setActiveCategory('all')}
                         className="text-xs text-gray-400 hover:text-amber-400 uppercase tracking-widest font-black transition-colors"
                       >
-                        View All (4) →
+                        View All ({PRODUCTS.length}) →
                       </button>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -352,7 +352,7 @@ const Collection = ({ onAddToCart }) => {
                   onClick={() => setActiveCategory('all')}
                   className="text-xs text-gray-400 hover:text-amber-400 uppercase tracking-widest font-black transition-colors"
                 >
-                  View All (4) →
+                  View All ({PRODUCTS.length}) →
                 </button>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
@@ -364,7 +364,7 @@ const Collection = ({ onAddToCart }) => {
           </div>
         ) : (
           /* CASE C: All Harvests (4 items) -> Balanced 4-Column Row on Desktop */
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {filteredProducts.map((product) => renderStandardCard(product))}
           </div>
         )}
@@ -384,7 +384,7 @@ const Collection = ({ onAddToCart }) => {
           </div>
 
           <div className="grid grid-cols-4 gap-6 divide-x divide-white/5">
-            {PRODUCTS.map((p) => (
+            {PRODUCTS.slice(0, 4).map((p) => (
               <div key={p.id} className="pl-6 first:pl-0 space-y-2">
                 <p className="text-white font-serif text-base">{p.title}</p>
                 <p className="text-amber-500 text-[9px] font-mono uppercase tracking-wider">{p.flora}</p>
