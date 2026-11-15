@@ -17,7 +17,7 @@ export const Story = ({ onNavigate }) => {
             <div className="absolute -inset-4 bg-amber-500/5 blur-2xl rounded-[3rem] group-hover:bg-amber-500/10 transition-all duration-1000" />
             <div className="relative aspect-[4/5] rounded-[3rem] overflow-hidden border border-white/10 shadow-2xl">
               <OptimizedImage 
-                src="/images/selected-2026-11/pure-honey-jar.jpg" 
+                src="/images/selected-2026-11/pure-honey-jar.jpg"
                 alt="Golden Grace pure honey jar with a raffia bow on a wooden tray"
                 className="w-full h-full object-cover group-hover:scale-105 transition-all duration-[2000ms]"
               />

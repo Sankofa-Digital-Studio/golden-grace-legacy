@@ -35,7 +35,7 @@ const BioAcousticHum = () => {
       {/* VISUAL SOUL: Velvet Cream Texture */}
       <div className="absolute inset-0 z-0">
         <OptimizedImage 
-          src="/images/selected-2026-11/creamed-honey-spoon.jpg" 
+          src="/images/selected-2026-11/creamed-honey-spoon.jpg"
           alt="Creamed Honey Texture" 
           className="w-full h-full object-cover scale-110 group-hover:scale-100 transition-transform duration-[3000ms] opacity-30 golden-filter" 
         />
