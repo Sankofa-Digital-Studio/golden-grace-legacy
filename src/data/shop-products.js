@@ -24,6 +24,8 @@ function group(id, title, rows, image) {
     img: image ? photos + image : rows[0].img,
     imageNote: image ? 'Range photograph; packaging varies by size.' : undefined,
     accessoryImg: id === 'mini-honey-dipper' ? photos + 'dipper.jpg' : undefined,
+    tag: undefined,
+    tasteNotes: 'Select a size to see its price and packaging.',
     // Stock is recorded per original SKU, not a combined inventory total.
     remainingJars: undefined, totalBatchJars: undefined, scarcity: undefined,
   };
