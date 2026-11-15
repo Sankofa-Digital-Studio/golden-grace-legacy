@@ -1,0 +1,74 @@
+[
+  {
+    "source": "IMG-20260831-WA0020.jpg",
+    "path": "/images/selected-2026-11/pure-honey-jar.jpg",
+    "alt": "Branded honey jar",
+    "placement": "Home story and mobile hero",
+    "bytes": 322573,
+    "sha256": "1d70349ff5101b77bc65d9aa6712739b1896df7012b56cdc2ebdcee2187e0634"
+  },
+  {
+    "source": "IMG-20260930-WA0050.jpg",
+    "path": "/images/selected-2026-11/honey-tea-tray.jpg",
+    "alt": "Honey and tea outdoors",
+    "placement": "Hero and atmospheric background",
+    "bytes": 379478,
+    "sha256": "f042d0ac8ff135e7029a44f2c5a4cae899aa2882e6e70c3039004da95775ab42"
+  },
+  {
+    "source": "IMG-20260831-WA0021.jpg",
+    "path": "/images/selected-2026-11/honey-gift-pair.jpg",
+    "alt": "Gift ready honey jars",
+    "placement": "Mobile hero",
+    "bytes": 382066,
+    "sha256": "f01d07d29e4a744c60b9a9f99bca5248c01152ccd42ac1fa7648bbb1d766a542"
+  },
+  {
+    "source": "IMG-20250707-WA0044.jpg",
+    "path": "/images/selected-2026-11/honey-breakfast.jpg",
+    "alt": "Golden Grace breakfast setting",
+    "placement": "Mobile hero",
+    "bytes": 205287,
+    "sha256": "f457b227ea59be0f884e9e5c4110ec4c3bcb32d3b3a7be6be7d14cdd731e2f64"
+  },
+  {
+    "source": "IMG-20250917-WA0014.jpg",
+    "path": "/images/selected-2026-11/honey-gift-box.jpg",
+    "alt": "Honey and mug gift box",
+    "placement": "Corporate gifts and featured gifts",
+    "bytes": 115474,
+    "sha256": "3e05ac47a102226643f7c71ce0d23db2f6b954103bcef174cb7fa451f1782a04"
+  },
+  {
+    "source": "IMG-20250917-WA0015.jpg",
+    "path": "/images/selected-2026-11/celebration-hamper.jpg",
+    "alt": "Ribbon wrapped celebration hamper",
+    "placement": "Celebration gifts",
+    "bytes": 139768,
+    "sha256": "25a061df735323c9a34acff3fc7d841a5fc29d8e97950d343bb9e7dbba0a59d7"
+  },
+  {
+    "source": "IMG-20260720-WA0034.jpg",
+    "path": "/images/selected-2026-11/botanical-honey.jpg",
+    "alt": "Branded honey with botanicals",
+    "placement": "Sensory and education sections",
+    "bytes": 280460,
+    "sha256": "f94efe076d8c7377d158b44f07e549e0f4ddb6eb36cf16ab541e223efa35c1ba"
+  },
+  {
+    "source": "IMG-20260714-WA0025.jpg",
+    "path": "/images/selected-2026-11/creamed-honey-spoon.jpg",
+    "alt": "Creamed honey on a spoon",
+    "placement": "Creamed texture section",
+    "bytes": 145554,
+    "sha256": "f22bd47da6fc2420a68b746cd5966d8b01e7d5ea7252f747f4b18e683d10c40f"
+  },
+  {
+    "source": "IMG-20260826-WA0026.jpg",
+    "path": "/images/selected-2026-11/amber-honey-jar.jpg",
+    "alt": "Amber honey in a glass jar",
+    "placement": "Liquid honey section",
+    "bytes": 259762,
+    "sha256": "c4d6c58ae56fa39568a7c506926887f9b579a41a501105c90dd438f6ba19b8cb"
+  }
+]

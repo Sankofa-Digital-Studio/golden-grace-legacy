@@ -23,8 +23,8 @@ const ContentBreak = ({ onNavigate }) => {
       {/* 1. ATMOSPHERIC BACKGROUND */}
       <div className="absolute inset-0 z-0">
         <OptimizedImage
-          src="/images/harvest/harvest-10.webp"
-          alt="Sunlight catching the liquid gold flow"
+          src="/images/selected-2026-11/honey-tea-tray.jpg"
+          alt="Honey and tea served on a wooden tray outdoors"
           className="w-full h-full object-cover opacity-20 scale-110 blur-sm"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-[#050505] via-transparent to-[#050505]" />

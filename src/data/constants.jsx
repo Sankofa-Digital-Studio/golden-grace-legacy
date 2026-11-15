@@ -47,10 +47,10 @@ export const HONEY_TESTS = [
 ];
 
 export const HERO_IMAGES = [
-  '/images/hero/hero-bg-slide-1.webp',
-  '/images/hero/hero-bg-slide-2.webp',
-  '/images/hero/hero-bg-slide-3.webp',
-  '/images/hero/hero-bg-slide-4.webp',
+  '/images/selected-2026-11/pure-honey-jar.jpg',
+  '/images/selected-2026-11/honey-tea-tray.jpg',
+  '/images/selected-2026-11/honey-gift-pair.jpg',
+  '/images/selected-2026-11/honey-breakfast.jpg',
 ];
 
 export const LESOTHO_SELLERS = [

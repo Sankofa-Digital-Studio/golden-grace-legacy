@@ -67,14 +67,14 @@ export const Hero = ({ navigate }) => {
             muted
             playsInline
             className="hidden md:block w-full h-full object-cover opacity-60 grayscale hover:grayscale-0 transition-all duration-[3000ms]"
-            poster="/images/hero/hero-bg-slide-1.webp"
+            poster="/images/selected-2026-11/honey-tea-tray.jpg"
           >
             {VIDEO_SOURCE && <source src={VIDEO_SOURCE} type="video/mp4" />}
           </video>
         ) : (
           <div
             className="hidden md:block absolute inset-0 bg-cover bg-center opacity-60 grayscale hover:grayscale-0 transition-all duration-[3000ms]"
-            style={{ backgroundImage: "url('/images/hero/hero-bg-slide-1.webp')" }}
+            style={{ backgroundImage: "url('/images/selected-2026-11/honey-tea-tray.jpg')" }}
           />
         )}
 

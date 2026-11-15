@@ -17,7 +17,7 @@ export const ViscosityPour = () => {
         {/* Note: Ensure OptimizedImage exists or fallback to img */}
         <div className="absolute inset-0 z-0">
         <OptimizedImage 
-          src="/images/sensory/liquid-gold.webp" 
+          src="/images/selected-2026-11/amber-honey-jar.jpg" 
           alt="Macro texture of liquid raw honey" 
           className="w-full h-full object-cover scale-110 group-hover:scale-100 transition-transform duration-[3000ms] opacity-30 golden-filter" 
         />

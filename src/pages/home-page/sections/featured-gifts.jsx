@@ -28,7 +28,7 @@ const FeaturedGifts = ({ navigate, isSankofa }) => {
           {/* MOBILE: Image Comes First (Immersive Card) */}
           <div className="md:hidden relative aspect-[4/3] rounded-xl overflow-hidden border border-white/10 group mb-6" onClick={() => navigate('gifts')}>
             <OptimizedImage 
-               src="/images/gift-mini.webp" 
+               src="/images/selected-2026-11/honey-gift-box.jpg" 
                alt="Corporate Gifting Presentation"
                className="w-full h-full object-cover"
              />
@@ -125,7 +125,7 @@ const FeaturedGifts = ({ navigate, isSankofa }) => {
           {/* Right Column (Desktop Only - Visual) */}
           <div className="hidden md:block relative aspect-[4/5] rounded-2xl overflow-hidden border border-white/10 group cursor-pointer" onClick={() => navigate('gifts')}>
             <OptimizedImage 
-               src="/images/gift-mini.webp" 
+               src="/images/selected-2026-11/honey-gift-box.jpg" 
                alt="Corporate Gifting Presentation"
                className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700"
              />

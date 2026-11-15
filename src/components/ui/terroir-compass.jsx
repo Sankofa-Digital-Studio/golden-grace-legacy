@@ -11,7 +11,7 @@ const TerroirCompass = () => {
       {/* VISUAL SOUL: Botanical Infusions */}
       <div className="absolute inset-0 z-0">
         <OptimizedImage
-          src="/images/sensory/infused-botanicals.webp"
+          src="/images/selected-2026-11/botanical-honey.jpg"
           alt="Macro texture of botanical honey infusions"
           className="w-full h-full object-cover scale-110 group-hover:scale-100 transition-transform duration-[3000ms] opacity-30 golden-filter"
         />

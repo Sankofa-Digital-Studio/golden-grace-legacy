@@ -27,7 +27,7 @@ export const EducationHub = ({ onBack }) => {
       <header className="relative h-[60vh] flex items-center justify-center border-b border-white/5 overflow-hidden">
         <div className="absolute inset-0 z-0">
           <OptimizedImage
-            src="/images/sensory/infused-botanicals.webp"
+            src="/images/selected-2026-11/botanical-honey.jpg"
             alt="Macro photography of Aloe Ferox in the Free State"
             className="w-full h-full object-cover opacity-20 scale-110 blur-md"
           />
