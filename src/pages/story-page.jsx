@@ -23,8 +23,8 @@ export const StoryPage = ({ onBack, onNavigate }) => {
       <header className="relative h-[65vh] md:h-[75vh] flex items-end pb-20 px-6 pt-24">
         <div className="absolute inset-0 z-0">
           <OptimizedImage
-            src="/images/harvest/harvest-23.webp"
-            alt="Sunrise over the Virginia honey belts"
+            src="/images/catalog-2026-11/harvest.jpg"
+            alt="Beekeepers working with a Golden Grace hive"
             className="w-full h-full object-cover opacity-40 grayscale hover:grayscale-0 transition-all duration-[3000ms]"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/40 to-transparent" />
@@ -105,8 +105,8 @@ export const StoryPage = ({ onBack, onNavigate }) => {
           <div className="absolute -top-10 -right-10 w-64 h-64 bg-amber-500/5 blur-[100px] rounded-full pointer-events-none" />
           <div className="relative aspect-[3/4] rounded-[2rem] overflow-hidden border border-white/5 shadow-2xl">
             <OptimizedImage
-              src="/images/harvest/harvest-6.webp"
-              alt="Manual harvest detail"
+              src="/images/catalog-2026-11/market.jpg"
+              alt="Golden Grace honey stall at a community market"
               className="w-full h-full object-cover"
             />
           </div>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useId } from 'react';
 import { Hexagon } from 'lucide-react';
 
-export const OptimizedImage = ({ src, alt, className = "", priority = false }) => {
+export const OptimizedImage = ({ src, alt, className = "", priority = false, fit = 'cover' }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [hasError, setHasError] = useState(false);
   const [currentSrc, setCurrentSrc] = useState(priority ? src : "");
@@ -104,7 +104,7 @@ export const OptimizedImage = ({ src, alt, className = "", priority = false }) =
           alt={alt}
           onLoad={() => setIsLoaded(true)}
           onError={() => setHasError(true)}
-          className={`w-full h-full object-cover transition-all duration-700 ease-out relative z-10 ${
+          className={`w-full h-full ${fit === 'contain' ? 'object-contain' : 'object-cover'} transition-all duration-700 ease-out relative z-10 ${
             isLoaded
               ? 'opacity-100 scale-100 blur-0'
               : 'opacity-0 scale-[1.02] blur-sm'

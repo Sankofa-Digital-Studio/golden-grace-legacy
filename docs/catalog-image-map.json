@@ -1,0 +1,86 @@
+[
+  {
+    "folder": "Regular",
+    "source": "IMG-20260831-WA0020.jpg",
+    "image": "/images/catalog-2026-11/regular.jpg",
+    "placement": "Pure Honey"
+  },
+  {
+    "folder": "Creamed",
+    "source": "IMG-20260717-WA0016.jpg",
+    "image": "/images/catalog-2026-11/creamed.jpg",
+    "placement": "Creamed Honey"
+  },
+  {
+    "folder": "Infused",
+    "source": "IMG-20260714-WA0066.jpg",
+    "image": "/images/catalog-2026-11/infused.jpg",
+    "placement": "Lemon ginger turmeric range"
+  },
+  {
+    "folder": "Infused",
+    "source": "IMG-20260714-WA0059.jpg",
+    "image": "/images/catalog-2026-11/cinnamon.jpg",
+    "placement": "Cinnamon range"
+  },
+  {
+    "folder": "Infused",
+    "source": "IMG-20260714-WA0075.jpg",
+    "image": "/images/catalog-2026-11/infused-range.jpg",
+    "placement": "Infused range representative"
+  },
+  {
+    "folder": "Mini",
+    "source": "IMG-20250712-WA0063.jpg",
+    "image": "/images/catalog-2026-11/mini.jpg",
+    "placement": "Honey miniatures"
+  },
+  {
+    "folder": "Mini",
+    "source": "IMG-20250712-WA0064.jpg",
+    "image": "/images/catalog-2026-11/mini-bag.jpg",
+    "placement": "Gift bag miniatures"
+  },
+  {
+    "folder": "Mugs",
+    "source": "IMG-20250725-WA0034.jpg",
+    "image": "/images/catalog-2026-11/mug-box.jpg",
+    "placement": "White mug with gift box"
+  },
+  {
+    "folder": "Mugs",
+    "source": "IMG-20260714-WA0086.jpg",
+    "image": "/images/catalog-2026-11/mug-pair.jpg",
+    "placement": "White and red mug pair"
+  },
+  {
+    "folder": "Harvest",
+    "source": "IMG-20260104-WA0009.jpg",
+    "image": "/images/catalog-2026-11/harvest.jpg",
+    "placement": "Bee services and story"
+  },
+  {
+    "folder": "SalesPpl",
+    "source": "IMG-20260925-WA0046.jpg",
+    "image": "/images/catalog-2026-11/market.jpg",
+    "placement": "Community and market story"
+  },
+  {
+    "folder": "Gifts",
+    "source": "IMG-20250917-WA0014.jpg",
+    "image": "/images/catalog-2026-11/gift-box.jpg",
+    "placement": "Corporate gifting"
+  },
+  {
+    "folder": "Gifts",
+    "source": "IMG-20250917-WA0015.jpg",
+    "image": "/images/catalog-2026-11/gift-hamper.jpg",
+    "placement": "Celebration gifting"
+  },
+  {
+    "folder": "Dippers",
+    "source": "IMG-20250917-WA0047.jpg",
+    "image": "/images/catalog-2026-11/dipper.jpg",
+    "placement": "Dipper accessory image"
+  }
+]

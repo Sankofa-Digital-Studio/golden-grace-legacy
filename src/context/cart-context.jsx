@@ -1,5 +1,7 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 
+import { resolveProductOption } from '../data/shop-products';
+
 const CartContext = createContext();
 const CART_STORAGE_KEY = 'golden-grace-cart';
 
@@ -30,14 +32,14 @@ export const CartProvider = ({ children }) => {
   }, [cart]);
 
   const addToCart = (product, selectedSize = product.sizes?.[0]) => {
-    const lineItem = { ...product, selectedSize };
+    const lineItem = resolveProductOption(product, selectedSize);
 
     setCart((prev) => {
-      const exists = prev.find((item) => isSameLineItem(item, product.id, selectedSize));
+      const exists = prev.find((item) => isSameLineItem(item, lineItem.id, selectedSize));
 
       if (exists) {
         return prev.map((item) =>
-          isSameLineItem(item, product.id, selectedSize)
+          isSameLineItem(item, lineItem.id, selectedSize)
             ? { ...item, quantity: item.quantity + 1 }
             : item
         );

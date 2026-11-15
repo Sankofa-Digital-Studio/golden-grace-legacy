@@ -76,7 +76,7 @@ const GiftsPage = ({ onBack, onNavigate, onRequestCatalogue, onBuildBox }) => {
           {/* Corporate Card */}
           <div className="relative group overflow-hidden rounded-[2.5rem] border border-white/10 h-[480px] md:h-[550px] lg:h-[600px] shadow-2xl transition-all hover:border-amber-500/40">
             <OptimizedImage
-              src="/images/selected-2026-11/honey-gift-box.jpg"
+              src="/images/catalog-2026-11/gift-box.jpg"
               className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105 opacity-40 grayscale group-hover:grayscale-0"
               alt="Corporate Honey Suites"
             />
@@ -110,7 +110,7 @@ const GiftsPage = ({ onBack, onNavigate, onRequestCatalogue, onBuildBox }) => {
           {/* Personal Card */}
           <div className="relative group overflow-hidden rounded-[2.5rem] border border-white/10 h-[480px] md:h-[550px] lg:h-[600px] shadow-2xl transition-all hover:border-amber-500/40">
             <OptimizedImage
-              src="/images/selected-2026-11/celebration-hamper.jpg"
+              src="/images/catalog-2026-11/gift-hamper.jpg"
               className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105 opacity-40 grayscale group-hover:grayscale-0"
               alt="Celebration Hampers"
             />

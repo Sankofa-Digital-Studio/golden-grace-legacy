@@ -3,7 +3,8 @@ import SectionHeading from '../../../components/ui/section-heading';
 import OptimizedImage from '../../../components/ui/optimized-image';
 import { ShoppingBag, Star, Hexagon, ArrowRight, Sparkles, Bell } from 'lucide-react';
 import WaitlistModal from '../../../components/ui/waitlist-modal';
-import { PRODUCTS, CATEGORIES } from '../../../data/constants';
+import { CATEGORIES } from '../../../data/constants';
+import { SHOP_PRODUCTS as PRODUCTS, matchesCategory, resolveProductOption } from '../../../data/shop-products';
 
 const Collection = ({ onAddToCart }) => {
   const [activeCategory, setActiveCategory] = useState('all');
@@ -11,7 +12,7 @@ const Collection = ({ onAddToCart }) => {
   const [waitlistProduct, setWaitlistProduct] = useState(null);
 
   const filteredProducts =
-    activeCategory === 'all' ? PRODUCTS : PRODUCTS.filter((p) => p.category === activeCategory);
+    activeCategory === 'all' ? PRODUCTS : PRODUCTS.filter((p) => matchesCategory(p, activeCategory));
 
   const handleSizeSelect = (productId, size) => {
     setSelectedSizes((prev) => ({ ...prev, [productId]: size }));
@@ -19,10 +20,12 @@ const Collection = ({ onAddToCart }) => {
 
   const renderStandardCard = (product) => {
     const activeSize = selectedSizes[product.id] || product.sizes[0];
+    const selected = resolveProductOption(product, activeSize);
 
     return (
       <div
         key={product.id}
+        data-product-id={product.id}
         className="group relative bg-white/[0.02] border border-white/5 rounded-[2rem] p-5 md:p-6 hover:border-amber-500/30 transition-all duration-700 flex flex-col h-full hover:shadow-2xl hover:shadow-amber-500/5"
       >
         {/* Product Image Stage */}
@@ -34,6 +37,7 @@ const Collection = ({ onAddToCart }) => {
           )}
           <OptimizedImage
             src={product.img}
+            fit="contain"
             alt={product.title}
             className="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-700"
           />
@@ -74,7 +78,7 @@ const Collection = ({ onAddToCart }) => {
               </h4>
             </div>
             <p className="text-white font-serif text-lg font-medium whitespace-nowrap">
-              R{product.price}
+              <span aria-live="polite">R{selected.price}</span>
             </p>
           </div>
 
@@ -85,17 +89,25 @@ const Collection = ({ onAddToCart }) => {
           )}
 
           <p className="text-gray-500 text-[8px] uppercase font-mono tracking-wider flex items-center gap-1.5 pt-1 border-t border-white/5">
-            <Hexagon size={9} className="text-amber-500/40" /> {product.batch || 'Reserve'} • {product.vessel}
+            <Hexagon size={9} className="text-amber-500/40" /> {product.batch || 'Reserve'} • {selected.vessel}
           </p>
         </div>
 
+        {product.imageNote && <p className="text-xs text-gray-400 mb-3">{product.imageNote}</p>}
+        {product.accessoryImg && (
+          <figure className="flex items-center gap-2 mb-3 text-xs text-gray-400">
+            <img src={product.accessoryImg} alt="Wooden honey dipper detail" loading="lazy" className="w-12 h-12 rounded-lg object-contain" />
+            <figcaption>Dipper detail</figcaption>
+          </figure>
+        )}
         {/* Size Selector */}
-        <div className="flex gap-1.5 mb-4">
+        <div className="flex flex-wrap gap-1.5 mb-4">
           {product.sizes.map((size) => (
             <button
               key={size}
               onClick={() => handleSizeSelect(product.id, size)}
               title={`Select ${size} size`}
+              aria-pressed={activeSize === size}
               className={`flex-1 py-1.5 rounded-lg text-[8px] font-black uppercase tracking-wider transition-all ${
                 activeSize === size
                   ? 'bg-white text-black shadow-sm'
@@ -110,7 +122,7 @@ const Collection = ({ onAddToCart }) => {
         {/* CTA */}
         <div className="mt-auto space-y-1.5">
           <button
-            onClick={() => onAddToCart(product, activeSize)}
+            onClick={() => onAddToCart(selected, activeSize)}
             title={`Add ${product.title} to your harvest bag`}
             className="w-full py-3.5 bg-amber-500 hover:bg-white text-black rounded-xl flex items-center justify-center gap-2 transition-all active:scale-95 group/btn shadow-lg shadow-amber-500/10 font-black text-[9px] uppercase tracking-[0.25em]"
           >
@@ -168,7 +180,7 @@ const Collection = ({ onAddToCart }) => {
               const count =
                 cat.id === 'all'
                   ? PRODUCTS.length
-                  : PRODUCTS.filter((p) => p.category === cat.id).length;
+                  : PRODUCTS.filter((p) => matchesCategory(p, cat.id)).length;
               const isActive = activeCategory === cat.id;
 
               return (
@@ -205,6 +217,7 @@ const Collection = ({ onAddToCart }) => {
             {(() => {
               const single = filteredProducts[0];
               const singleActiveSize = selectedSizes[single.id] || single.sizes[0];
+              const singleSelected = resolveProductOption(single, singleActiveSize);
               const others = PRODUCTS.filter((p) => p.id !== single.id);
 
               return (
@@ -222,6 +235,7 @@ const Collection = ({ onAddToCart }) => {
                         )}
                         <OptimizedImage
                           src={single.img}
+                          fit="contain"
                           alt={single.title}
                           className="w-full h-full object-contain p-6 group-hover:scale-105 transition-transform duration-1000"
                         />
@@ -243,7 +257,7 @@ const Collection = ({ onAddToCart }) => {
                             {single.title}
                           </h3>
                           <p className="text-2xl sm:text-3xl text-amber-400 font-serif font-medium">
-                            R{single.price}
+                            <span aria-live="polite">R{singleSelected.price}</span>
                           </p>
                         </div>
 
@@ -257,7 +271,7 @@ const Collection = ({ onAddToCart }) => {
                         <div className="grid grid-cols-2 gap-3 py-3 border-y border-white/5 text-[10px]">
                           <div>
                             <span className="text-gray-500 uppercase tracking-widest block font-bold">Vessel</span>
-                            <span className="text-white font-medium">{single.vessel}</span>
+                            <span className="text-white font-medium">{singleSelected.vessel}</span>
                           </div>
                           <div>
                             <span className="text-gray-500 uppercase tracking-widest block font-bold">Standard</span>
@@ -270,11 +284,12 @@ const Collection = ({ onAddToCart }) => {
                           <span className="text-[9px] uppercase tracking-widest text-gray-400 font-bold">
                             Select Vessel Net Weight
                           </span>
-                          <div className="flex gap-2">
+                          <div className="flex flex-wrap gap-2">
                             {single.sizes.map((size) => (
                               <button
                                 key={size}
                                 onClick={() => handleSizeSelect(single.id, size)}
+                                aria-pressed={singleActiveSize === size}
                                 className={`px-6 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${
                                   singleActiveSize === size
                                     ? 'bg-white text-black shadow-lg'
@@ -290,7 +305,7 @@ const Collection = ({ onAddToCart }) => {
                         {/* Primary Action */}
                         <div className="pt-2 space-y-2">
                           <button
-                            onClick={() => onAddToCart(single, singleActiveSize)}
+                            onClick={() => onAddToCart(singleSelected, singleActiveSize)}
                             className="w-full py-5 bg-amber-500 hover:bg-white text-black rounded-[1.5rem] flex items-center justify-center gap-3 transition-all font-black text-xs uppercase tracking-[0.3em] shadow-xl shadow-amber-500/10 active:scale-95"
                           >
                             <span>Add to Harvest Bag</span>
