@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ShoppingBag, X } from 'lucide-react';
-import { PRODUCTS } from '../../data/catalog';
+import { SHOP_PRODUCTS as PRODUCTS } from '../../data/shop-products';
 
 /**
  * StickyMobileCartBar - P0 Conversion Multiplier
@@ -10,8 +10,8 @@ export const StickyMobileCartBar = ({ onAddToCart, isCartOpen }) => {
   const [isVisible, setIsVisible] = useState(false);
   const [isDismissed, setIsDismissed] = useState(false);
 
-  // Default featured product (Aloe Ferox Reserve or Discovery Duo)
-  const featuredProduct = PRODUCTS.find((p) => p.id === 'premium-hex-aloe') || PRODUCTS[0];
+  // Feature the photographed pure honey in its smallest available size.
+  const featuredProduct = PRODUCTS.find((p) => p.id === 'pure-honey') || PRODUCTS[0];
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
